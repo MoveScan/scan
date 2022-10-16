@@ -1,0 +1,38 @@
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1370px;
+  }
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
+}
+
+.search {
+  padding: 1.25rem 1rem .5rem !important;
+}
+
+a {
+  text-decoration: none;
+  color: #416d9a;
+}
+
+.page {
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+}
+
+.jv-container {
+  margin: 15px 0;
+}
