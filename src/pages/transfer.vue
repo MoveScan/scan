@@ -107,19 +107,37 @@
 
       <div>下面是区块列表，最新的10000条，每页20条</div>
       <el-table :data="tableData" v-loading="loading">
+        <el-table-column prop="type_tag" label="通证标识" width="400" :show-overflow-tooltip="true">
+          <template #default="scope">
+            <router-link :to="'/tokenDetail?tag=' + scope.row.type_tag">
+              {{ scope.row.type_tag }}
+            </router-link>
+          </template>
+        </el-table-column>
         <el-table-column prop="amount" label="数量" />
         <el-table-column prop="create_at" label="创建时间">
           <template #default="scope">
             {{ timestampToTime(scope.row.create_at) }}
           </template>
         </el-table-column>
-        <el-table-column prop="receiver" label="接收者" :show-overflow-tooltip="true" />
-        <el-table-column prop="sender" label="发送者" :show-overflow-tooltip="true" />
-        <el-table-column prop="txn_hash" label="交易哈希" :show-overflow-tooltip="true" />
-        <el-table-column prop="type_tag" label="通证标识" width="400" :show-overflow-tooltip="true">
+        <el-table-column prop="sender" label="发送者" :show-overflow-tooltip="true">
           <template #default="scope">
-            <router-link :to="'/tokenDetail?tag=' + scope.row.type_tag">
-              {{ scope.row.type_tag }}
+            <router-link :to="'/accountDetail?address=' + scope.row.sender">
+              {{ scope.row.sender }}
+            </router-link>
+          </template>
+        </el-table-column>
+        <el-table-column prop="receiver" label="接收者" :show-overflow-tooltip="true">
+          <template #default="scope">
+            <router-link :to="'/accountDetail?address=' + scope.row.receiver">
+              {{ scope.row.receiver }}
+            </router-link>
+          </template>
+        </el-table-column>
+        <el-table-column prop="txn_hash" label="交易哈希" :show-overflow-tooltip="true">
+          <template #default="scope">
+            <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash">
+              {{ scope.row.txn_hash }}
             </router-link>
           </template>
         </el-table-column>

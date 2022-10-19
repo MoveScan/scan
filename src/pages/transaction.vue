@@ -101,15 +101,15 @@
     <div class="table">
       <div>下面是区块列表，最新的10000条，每页20条</div>
       <el-table :data="tableData" v-loading="loading">
+        <el-table-column prop="global_index" label="全局索引号" />
         <el-table-column prop="create_at" label="创建时间">
           <template #default="scope">
             {{ timestampToTime(scope.row.create_at) }}
           </template>
         </el-table-column>
-        <el-table-column prop="gas_used" label="GAS消耗量" />
-        <el-table-column prop="global_index" label="全局索引号" />
         <el-table-column prop="success" label="是否成功" />
-        <el-table-column prop="transaction_type" label="交易类型" />
+        <el-table-column prop="gas_used" label="GAS消耗量" />
+        <el-table-column prop="txn_type" label="交易类型" />
         <el-table-column prop="txn_hash" label="交易哈希" :show-overflow-tooltip="true" width="300">
           <template #default="scope">
             <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=' + scope.row.txn_type">

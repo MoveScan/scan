@@ -72,15 +72,13 @@
                 {{ timestampToTime(scope.row.chainTime) }}
               </template>
             </el-table-column>
-            <!-- <el-table-column prop="expiration_secs" label="过期时间">
+            <el-table-column prop="sender" label="发送者" :show-overflow-tooltip="true">
               <template #default="scope">
-                {{ timestampToTime(scope.row.expiration_secs) }}
+                <router-link :to="'/accountDetail?address=' + scope.row.sender">
+                  {{ scope.row.sender }}
+                </router-link>
               </template>
             </el-table-column>
-            <el-table-column prop="gas_unit_price" label="GAS单位价格" />
-            <el-table-column prop="max_gas_amount" label="最大GAS消耗量" /> -->
-            <el-table-column prop="sender" label="发送者" :show-overflow-tooltip="true" />
-            <!-- <el-table-column prop="sequence_number" label="序列号" /> -->
             <el-table-column prop="txn_hash" label="交易哈希" :show-overflow-tooltip="true" width="300">
               <template #default="scope">
                 <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash">
@@ -111,9 +109,27 @@
               </template>
             </el-table-column>
             <!-- <el-table-column prop="identifier" label="标识符" /> -->
-            <el-table-column prop="receiver" label="接收者" :show-overflow-tooltip="true" />
-            <el-table-column prop="sender" label="发送者" :show-overflow-tooltip="true" />
-            <el-table-column prop="txn_hash" label="交易哈希" :show-overflow-tooltip="true" />
+            <el-table-column prop="sender" label="发送者" :show-overflow-tooltip="true">
+              <template #default="scope">
+                <router-link :to="'/accountDetail?address=' + scope.row.sender">
+                  {{ scope.row.sender }}
+                </router-link>
+              </template>
+            </el-table-column>
+            <el-table-column prop="receiver" label="接收者" :show-overflow-tooltip="true">
+              <template #default="scope">
+                <router-link :to="'/accountDetail?address=' + scope.row.receiver">
+                  {{ scope.row.receiver }}
+                </router-link>
+              </template>
+            </el-table-column>
+            <el-table-column prop="txn_hash" label="交易哈希" :show-overflow-tooltip="true">
+              <template #default="scope">
+                <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash">
+                  {{ scope.row.txn_hash }}
+                </router-link>
+              </template>
+            </el-table-column>
             <el-table-column prop="type_tag" label="通证标识" width="400" :show-overflow-tooltip="true">
               <template #default="scope">
                 <router-link :to="'/tokenDetail?tag=' + scope.row.type_tag">
@@ -126,7 +142,11 @@
         <el-tab-pane label="资源列表" name="resources">
           <el-table :data="tableData3" v-loading="loading">
             <el-table-column prop="key" label="键" />
-            <el-table-column prop="value" label="值" />
+            <el-table-column prop="value" label="值">
+              <template #default="props">
+                <json-viewer :value="JSON.parse(props.row.value)" :expand-depth="5" copyable boxed sort></json-viewer>
+              </template>
+            </el-table-column>
           </el-table>
         </el-tab-pane>
       </el-tabs>

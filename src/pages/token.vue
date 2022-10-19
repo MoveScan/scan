@@ -120,16 +120,6 @@
 
       <div>共{{ total }}个通证</div>
       <el-table :data="tableData" v-loading="loading">
-        <el-table-column prop="create_at" label="创建时间">
-          <template #default="scope">
-            {{ timestampToTime(scope.row.create_at) }}
-          </template>
-        </el-table-column>
-        <el-table-column prop="creator" label="创建者" />
-        <el-table-column prop="description" label="描述" />
-        <el-table-column prop="holders" label="持币地址数" />
-        <el-table-column prop="max_amount" label="最大发行量" />
-        <el-table-column prop="supply" label="供应量" />
         <el-table-column prop="type_tag" label="通证标识" width="400" :show-overflow-tooltip="true">
           <template #default="scope">
             <router-link :to="'/tokenDetail?tag=' + scope.row.type_tag">
@@ -137,6 +127,22 @@
             </router-link>
           </template>
         </el-table-column>
+        <el-table-column prop="create_at" label="创建时间">
+          <template #default="scope">
+            {{ timestampToTime(scope.row.create_at) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="creator" label="创建者">
+          <template #default="scope">
+            <router-link v-if="scope.row.creator !== null" :to="'/accountDetail?address=' + scope.row.creator">
+              {{ setSubstring(scope.row.creator) }}
+            </router-link>
+          </template>
+        </el-table-column>
+        <el-table-column prop="description" label="描述" />
+        <el-table-column prop="holders" label="持币地址数" />
+        <el-table-column prop="max_amount" label="最大发行量" />
+        <el-table-column prop="supply" label="供应量" />
       </el-table>
 
       <div class="page">

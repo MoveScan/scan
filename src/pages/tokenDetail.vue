@@ -15,25 +15,25 @@
       <el-col :span="8">
         <el-card class="list">
           <span class="title">概况</span>
-          <div>
+          <!-- <div>
             <span style="font-size: 18px; font-weight: 700">$1.000035</span>
             <span>≈ 16.385058 TRX</span>
-          </div>
+          </div> -->
           <div>
             <span>发行量：</span>
-            <span>34,130,268,679.280810</span>
+            <span>{{ detail.max_amount }}</span>
           </div>
           <div>
             <span>流通量：</span>
-            <span>34,130,268,679.280810</span>
+            <span>{{ detail.supply }}</span>
           </div>
           <div>
             <span>总市值：</span>
-            <span>$34,131,686,214</span>
+            <span></span>
           </div>
           <div>
             <span>流通市值：</span>
-            <span>$34,131,686,214</span>
+            <span></span>
           </div>
         </el-card>
       </el-col>
@@ -52,18 +52,18 @@
             <span>持币地址数：</span>
             <span>{{ detail.holders }}</span>
           </div>
-          <div>
+          <!-- <div>
             <span>最大发行量：</span>
             <span>{{ detail.max_amount }}</span>
-          </div>
-          <div>
+          </div> -->
+          <!-- <div>
             <span>供应量：</span>
             <span>{{ detail.supply }}</span>
-          </div>
-          <div>
+          </div> -->
+          <!-- <div>
             <span>通证标识：</span>
             <span>{{ detail.type_tag }}</span>
-          </div>
+          </div> -->
         </el-card>
       </el-col>
       <el-col :span="8">
@@ -98,7 +98,13 @@
         <el-tab-pane label="通证持有者" name="second">
           <div class="">共{{ total }}个</div>
           <el-table :data="tableData" v-loading="loading">
-            <el-table-column prop="address" label="账户" width="660" />
+            <el-table-column prop="address" label="账户" width="660">
+              <template #default="scope">
+                <router-link v-if="scope.row.address !== null" :to="'/accountDetail?address=' + scope.row.address">
+                  {{ scope.row.address }}
+                </router-link>
+              </template>
+            </el-table-column>
             <el-table-column prop="amount" label="数量" />
             <el-table-column prop="supply" label="供应量" />
           </el-table>
@@ -111,10 +117,35 @@
           <el-table :data="tableData_" v-loading="loading_">
             <el-table-column prop="amount" label="数量" />
             <el-table-column prop="amount_value" label="数量值" />
-            <el-table-column prop="identifier" label="接收者" />
-            <el-table-column prop="sender" label="发送者" :show-overflow-tooltip="true" />
-            <el-table-column prop="txn_hash" label="交易哈希" :show-overflow-tooltip="true" />
-            <el-table-column prop="type_tag" label="通证标识" :show-overflow-tooltip="true" />
+            <el-table-column prop="sender" label="发送者" :show-overflow-tooltip="true">
+              <template #default="scope">
+                <router-link :to="'/accountDetail?address=' + scope.row.sender">
+                  {{ scope.row.sender }}
+                </router-link>
+              </template>
+            </el-table-column>
+            <el-table-column prop="receiver" label="接收者" :show-overflow-tooltip="true">
+              <template #default="scope">
+                <router-link :to="'/accountDetail?address=' + scope.row.receiver">
+                  {{ scope.row.receiver }}
+                </router-link>
+              </template>
+            </el-table-column>
+            <el-table-column prop="txn_hash" label="交易哈希" :show-overflow-tooltip="true">
+              <template #default="scope">
+                <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash">
+                  {{ scope.row.txn_hash }}
+                </router-link>
+              </template>
+            </el-table-column>
+            <el-table-column prop="type_tag" label="通证标识" :show-overflow-tooltip="true">
+              <template #default="scope">
+                <router-link :to="'/tokenDetail?tag=' + scope.row.type_tag">
+                  {{ scope.row.type_tag }}
+                </router-link>
+              </template>
+            </el-table-column>
+
             <el-table-column prop="create_at" label="创建时间">
               <template #default="scope">
                 {{ timestampToTime(scope.row.create_at) }}
@@ -139,7 +170,7 @@ import Header from '../components/header.vue'
 import Search from '../components/search.vue'
 import Footer from '../components/footer.vue'
 import { getTokenInfo, getTokenHoldersList, getTransferListTag } from '@/http/api/index.ts'
-import { timestampToTimeLong } from '@/utils/public.ts'
+import { timestampToTimeLong, substring } from '@/utils/public.ts'
 
 export default defineComponent({
   name: 'token Detail',
@@ -219,6 +250,9 @@ export default defineComponent({
         data.loading_ = true
         data.currentPage_ = val
         data.getTransferList(route.query.tag)
+      },
+      setSubstring: (str: number) => {
+        return substring(str)
       }
     })
 

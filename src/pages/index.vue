@@ -221,8 +221,7 @@
                     <div>块高度:{{ item.height }}</div>
                     <div>GAS消耗量:{{ item.gas_used }}</div>
                     <div>是否成功:{{ item.success ? '是' : '否' }}</div>
-
-                    <div>创建时间:{{ item.create_at }}</div>
+                    <div>创建时间:{{ timestampToTime(item.create_at) }}</div>
                     <div>全局索引号:{{ item.global_index }}</div>
                     <div>交易类型:{{ item.transaction_type }}</div>
                   </div>
@@ -248,6 +247,7 @@ import Header from '../components/header.vue'
 import Search from '../components/search.vue'
 import Footer from '../components/footer.vue'
 import { getBlockListStartHeight, getTransactionList } from '@/http/api/index.ts'
+import { timestampToTimeLong } from '@/utils/public.ts'
 
 export default defineComponent({
   name: 'Token',
@@ -285,6 +285,9 @@ export default defineComponent({
           .catch((e) => {
             console.log(e)
           })
+      },
+      timestampToTime: (time: number) => {
+        return timestampToTimeLong(time)
       },
       initChart: () => {
         // 获取dom，断言HTMLElement类型，否则会报错

@@ -8,7 +8,7 @@
  */
 import http from '@/http/Http.ts'
 
-const network = 'aptos_devnet'
+const network = 'aptos_mainnet'
 // const networkAptos = 'aptos_devnet'
 
 export async function login(data: { userName: string; password: string }) {

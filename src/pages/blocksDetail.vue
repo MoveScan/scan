@@ -4,21 +4,30 @@
   <div class="container">
     <div class="block-title">{{ $t('lang.BlockDetail') }}</div>
     <div class="blocks-data-wrap table list">
-      <div>
-        <span>创建者：</span>
-        <span>{{ detail.author }}</span>
-      </div>
-      <div>
+      <div style="width: 100%">
         <span>累加器根哈希：</span>
         <span>{{ detail.block_accumulator_root }}</span>
       </div>
-      <div>
+      <div style="width: 100%">
         <span>块哈希：</span>
         <span>{{ detail.block_hash }}</span>
       </div>
-      <div>
+      <div style="width: 100%">
         <span>块体哈希：</span>
         <span>{{ detail.body_hash }}</span>
+      </div>
+      <div style="width: 100%">
+        <span>状态根哈希：</span>
+        <span>{{ detail.state_root }}</span>
+      </div>
+      <div style="width: 100%">
+        <span>交易累加器根哈希：</span>
+        <span>{{ detail.txn_accumulator_root }}</span>
+      </div>
+
+      <div>
+        <span>创建者：</span>
+        <span>{{ detail.author }}</span>
       </div>
       <div>
         <span>链标识：</span>
@@ -60,17 +69,10 @@
         <span>父块哈希</span>
         <span>{{ detail.parent_hash }}</span>
       </div>
-      <div>
-        <span>状态根哈希</span>
-        <span>{{ detail.state_root }}</span>
-      </div>
+
       <div>
         <span>交易数</span>
         <span>{{ detail.transactions }}</span>
-      </div>
-      <div>
-        <span>交易累加器根哈希</span>
-        <span>{{ detail.txn_accumulator_root }}</span>
       </div>
     </div>
     <div class="table">
@@ -79,20 +81,26 @@
         <!-- <el-tab-pane label="转账" name="second">Config</el-tab-pane> -->
       </el-tabs>
       <el-table :data="tableData" v-loading="loading">
+        <el-table-column prop="global_index" label="全局索引号" />
         <el-table-column prop="create_at" label="创建时间">
           <template #default="scope">
             {{ timestampToTime(scope.row.create_at) }}
           </template>
         </el-table-column>
-        <el-table-column prop="gas_used" label="GAS消耗量" />
-        <el-table-column prop="global_index" label="全局索引号" />
         <el-table-column prop="success" label="是否成功">
           <template #default="scope">
             {{ scope.row.success ? '是' : '否' }}
           </template>
         </el-table-column>
+        <el-table-column prop="gas_used" label="GAS消耗量" />
         <el-table-column prop="transaction_type" label="交易类型" />
-        <el-table-column prop="txn_hash" label="交易哈希" width="550" />
+        <el-table-column prop="txn_hash" label="交易哈希" :show-overflow-tooltip="true" width="300">
+          <template #default="scope">
+            <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash">
+              {{ scope.row.txn_hash }}
+            </router-link>
+          </template>
+        </el-table-column>
       </el-table>
 
       <div class="page">
@@ -294,12 +302,12 @@ export default defineComponent({
 }
 
 .list div {
-  display: flex;
   color: #464646;
   line-height: 45px;
   border-bottom: 1px dotted rgba(58, 58, 58, 0.3);
   width: 48%;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: space-between; */
 }
 
 .list div span:nth-child(1) {

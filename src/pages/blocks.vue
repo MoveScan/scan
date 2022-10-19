@@ -164,13 +164,6 @@
       <div>下面是区块列表，最新的10000条，每页20条</div>
       <!-- {{ msg }} -->
       <el-table :data="tableData" v-loading="loading">
-        <el-table-column prop="author" label="创建者" />
-        <el-table-column prop="create_at" label="创建时间">
-          <template #default="scope">
-            {{ timestampToTime(scope.row.create_at) }}
-          </template>
-        </el-table-column>
-        <el-table-column prop="gas_used" label="GAS消耗量" />
         <el-table-column prop="height" label="高度">
           <template #default="scope">
             <router-link :to="'/blocksDetail?height=' + scope.row.height + '&hash=' + scope.row.block_hash">
@@ -178,6 +171,20 @@
             </router-link>
           </template>
         </el-table-column>
+        <el-table-column prop="create_at" label="创建时间">
+          <template #default="scope">
+            {{ timestampToTime(scope.row.create_at) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="author" label="创建者">
+          <template #default="scope">
+            <router-link v-if="scope.row.author !== null" :to="'/accountDetail?address=' + scope.row.author">
+              {{ setSubstring(scope.row.author) }}
+            </router-link>
+          </template>
+        </el-table-column>
+        <el-table-column prop="gas_used" label="GAS消耗量" />
+        <el-table-column prop="transactions" label="交易数" />
         <el-table-column prop="block_hash" label="哈希" :show-overflow-tooltip="true">
           <template #default="scope">
             <router-link :to="'/blocksDetail?hash=' + scope.row.block_hash">
@@ -185,7 +192,6 @@
             </router-link>
           </template>
         </el-table-column>
-        <el-table-column prop="transactions" label="交易数" />
       </el-table>
       <div class="page">
         <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
