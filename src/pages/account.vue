@@ -17,22 +17,13 @@
               <div class="d-flex align-items-center">
                 <div class="d-flex flex-column">
                   <span class="num">
-                    <span><a href="#/block/44540035">44540035</a></span>
+                    <span>{{ total }}</span>
                   </span>
                   <div class="d-flex" style="margin-top: 6px">
                     <span class="txt">最新账户</span>
                   </div>
                 </div>
                 <div class="d-flex flex-column">
-                  <span class="num">
-                    <span>
-                      +
-                      <span>28,786</span>
-                    </span>
-                  </span>
-                  <div class="d-flex" style="margin-top: 6px">
-                    <span class="txt"><span>昨日出块数</span></span>
-                  </div>
                 </div>
               </div>
             </div>
@@ -100,7 +91,7 @@
     </div>
 
     <div class="table">
-      <div>下面是区块列表，最新的{{ total }}条，每页20条</div>
+      <div>下面是账户列表，最新的{{ total }}条，每页20条</div>
       <el-table :data="tableData">
         <el-table-column prop="address" label="账户" width="600">
           <template #default="scope">
@@ -114,8 +105,16 @@
             {{ timestampToTime(scope.row.create_at) }}
           </template>
         </el-table-column>
-        <el-table-column prop="hold_amount" label="持币数量" />
-        <el-table-column prop="sequence_number" label="序列号" />
+        <el-table-column prop="hold_amount" label="持币数量">
+            <template #default="scope">
+             {{scope.row.hold_amount}}
+            </template>
+        </el-table-column>
+        <el-table-column prop="sequence_number" label="序列号">
+            <template #default="scope">
+              {{scope.row.sequence_number}}
+            </template>
+         </el-table-column>
       </el-table>
       <div class="page">
         <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
