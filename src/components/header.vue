@@ -1,10 +1,5 @@
 <template>
-  <el-menu
-    :default-active="activeIndex"
-    class="el-menu-demo"
-    mode="horizontal"
-    @select="handleSelect"
-  >
+  <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
     <el-menu-item index="0">LOGO</el-menu-item>
     <el-menu-item index="1">{{ $t('lang.Home') }}</el-menu-item>
     <el-sub-menu index="2">
@@ -34,7 +29,7 @@
         <el-menu-item index="6-3-3">item three</el-menu-item> -->
       </el-sub-menu>
     </el-sub-menu>
-    <el-sub-menu index="7">
+    <!-- <el-sub-menu index="7">
       <template #title>{{ $t('lang.Network') }}</template>
       <el-sub-menu index="7-1">
         <template #title>{{ $t('lang.PrimaryNetwork') }}</template>
@@ -45,9 +40,10 @@
         <el-menu-item index="7-2-1">aptos</el-menu-item>
         <el-menu-item index="7-2-2">sui</el-menu-item>
       </el-sub-menu>
-    </el-sub-menu>
+    </el-sub-menu> -->
 
     <div class="flex-grow">
+
       <div class="pd5">
         <el-dropdown style="margin: 20px">
           <span class="el-dropdown-link">
@@ -69,8 +65,16 @@
         <el-switch size="small" v-model="isDark" />
       </div>
       <div class="pd5">
-        <router-link to="/Login">{{ $t('lang.Login') }}</router-link>
+        <el-select v-model="value" :placeholder="$t('lang.Network')" @change="switchNetwork(value)"
+          style="width: 150px;">
+          <el-option-group v-for="group in options" :key="group.label" :label="group.label">
+            <el-option v-for="item in group.options" :key="item.value" :label="item.label" :value="item.value" />
+          </el-option-group>
+        </el-select>
       </div>
+      <!-- <div class="pd5">
+        <router-link to="/Login">{{ $t('lang.Login') }}</router-link>
+      </div> -->
     </div>
   </el-menu>
 </template>
@@ -93,6 +97,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
   if (key == '1') {
     router.push('/')
   }
+  if (key == '2-1') router.push('/node')
   if (key == '2-2') router.push('/blocks')
   if (key == '2-3') router.push('/transaction')
   if (key == '2-4') router.push('/transfer')
@@ -106,7 +111,49 @@ const changeLang = (lang: string) => {
   locale.value = lang
   localStorage.setItem('lang', lang)
 }
+const switchNetwork = (network: string) => {
+  localStorage.setItem('network', network)
+}
 // console.log(t('lang.userName'))
+
+const value = ref('')
+const options = [
+  {
+    // label: 'Popular cities',
+    options: [
+      {
+        value: 'aptos_mainnet',
+        label: 'aptos mainnet',
+      },
+      {
+        value: 'aptos_testnet',
+        label: 'aptos testnet',
+      },
+      {
+        value: 'aptos_devnet',
+        label: 'aptos devnet',
+      },
+    ],
+  },
+  {
+    // label: 'City name',
+    options: [
+      {
+        value: 'starcoin main',
+        label: 'starcoin_main',
+      },
+      {
+        value: 'starcoin_barnard',
+        label: 'starcoin barnard',
+      },
+      {
+        value: 'starcoin_hally',
+        label: 'starcoin hally',
+      },
+
+    ],
+  },
+]
 </script>
 <style>
 .flex-grow {

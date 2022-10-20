@@ -2,17 +2,24 @@
  * @Author: cycsky bruce_cao@qq.com
  * @Date: 2022-10-06 08:48:01
  * @LastEditors: cycsky bruce_cao@qq.com
- * @LastEditTime: 2022-10-10 22:54:01
+ * @LastEditTime: 2022-10-19 21:46:36
  * @FilePath: /move/src/http/api/index.ts
  * @Description: API
  */
 import http from '@/http/Http.ts'
 
-const network = 'aptos_mainnet'
-// const networkAptos = 'aptos_devnet'
+const network = localStorage.getItem('network') == null ? 'aptos_mainnet' : localStorage.getItem('network')
 
 export async function login(data: { userName: string; password: string }) {
   return http.post(`/login`, data)
+}
+
+// node
+export function getNodeList(data: any) {
+  return http.get(`/v1/chain/${network}/node?page=${data.page}&count=${data.count}`)
+}
+export function getChainSummary(data: any) {
+  return http.get(`/v1/chain/${network}/summary`)
 }
 
 // address account

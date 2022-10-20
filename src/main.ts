@@ -10,8 +10,12 @@ import './styles/main.css'
 import i18n from './i18n/index'
 import * as echarts from 'echarts'
 import JsonViewer from 'vue-json-viewer'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 const app = createApp(App)
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component)
+}
 app.config.globalProperties.$echarts = echarts
 app.use(createPinia()).use(router).use(ElementPlus, { size: '', zIndex: 3000 }).use(i18n).use(JsonViewer)
 app.mount('#app')

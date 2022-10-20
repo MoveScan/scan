@@ -7,6 +7,16 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/pages/index.vue') // 注意这里要带上 文件后缀.vue
   },
   {
+    path: '/node',
+    name: 'node',
+    component: () => import('@/pages/node.vue')
+  },
+  // {
+  //   path: '/blocksDetail',
+  //   name: 'blocksDetail',
+  //   component: () => import('@/pages/blocksDetail.vue')
+  // },
+  {
     path: '/blocks',
     name: 'blocks',
     component: () => import('@/pages/blocks.vue')

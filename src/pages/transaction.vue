@@ -15,14 +15,14 @@
                   <div class="d-flex align-items-center">
                     <div class="d-flex flex-column">
                       <span class="num">
-                        <span><a href="/">44540035</a></span>
+                        <span><a href="/">{{total}}</a></span>
                       </span>
                       <div class="d-flex" style="margin-top: 6px">
                         <span class="txt"><span>累计数</span></span>
                       </div>
                     </div>
                     <div class="d-flex flex-column">
-                      <span class="num">
+                      <!-- <span class="num">
                         <span>
                           +
                           <span>28,786</span>
@@ -30,7 +30,7 @@
                       </span>
                       <div class="d-flex" style="margin-top: 6px">
                         <span class="txt"><span>昨日新增</span></span>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -119,7 +119,9 @@
         </el-table-column>
       </el-table>
       <div class="page">
-        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled"
+          :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange"
+          @current-change="handleCurrentChange" />
       </div>
     </div>
   </div>

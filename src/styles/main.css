@@ -36,3 +36,8 @@ a {
 .jv-container {
   margin: 15px 0;
 }
+
+.el-icon {
+  cursor: pointer;
+  margin-left: 5px;
+}

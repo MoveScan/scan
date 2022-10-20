@@ -11,6 +11,9 @@
       <div style="width: 100%">
         <span>块哈希：</span>
         <span>{{ detail.block_hash }}</span>
+        <el-icon @click="copy(detail.block_hash)">
+          <DocumentCopy />
+        </el-icon>
       </div>
       <div style="width: 100%">
         <span>块体哈希：</span>
@@ -104,7 +107,9 @@
       </el-table>
 
       <div class="page">
-        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled"
+          :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange"
+          @current-change="handleCurrentChange" />
       </div>
     </div>
   </div>
@@ -114,11 +119,13 @@
 import { ref, toRefs, reactive, defineComponent, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import type { TabsPaneContext } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import Header from '../components/header.vue'
 import Search from '../components/search.vue'
 import Footer from '../components/footer.vue'
 import { getBlockHeight, getBlockHash, getBlockTransaction } from '@/http/api/index.ts'
 import { timestampToTimeLong } from '@/utils/public.ts'
+import useClipboard from 'vue-clipboard3'
 
 export default defineComponent({
   name: 'blocksDetail',
@@ -130,6 +137,7 @@ export default defineComponent({
   setup() {
     const router = useRouter(),
       route = useRoute()
+    const { toClipboard } = useClipboard();
     const data = reactive({
       loading: ref(true),
       activeName: ref('first'),
@@ -186,6 +194,14 @@ export default defineComponent({
       },
       timestampToTime: (time: number) => {
         return timestampToTimeLong(time)
+      },
+      copy: async (val) => {
+        try {
+          await toClipboard(val)
+          ElMessage.success('复制成功')
+        } catch (e) {
+          ElMessage.error(e)
+        }
       }
     })
 
@@ -294,7 +310,7 @@ export default defineComponent({
   text-align: left;
 }
 
-.demo-tabs > .el-tabs__content {
+.demo-tabs>.el-tabs__content {
   padding: 32px;
   color: #6b778c;
   font-size: 32px;
