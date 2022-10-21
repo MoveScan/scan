@@ -21,8 +21,7 @@ interface Http {
 }
 
 // 设置请求头和请求路径
-axios.defaults.baseURL =
-  'https://api.movescan.org'
+axios.defaults.baseURL = 'https://api.movescan.org'
 axios.defaults.timeout = 10000
 axios.defaults.headers = {
   // @ts-ignoreÒ

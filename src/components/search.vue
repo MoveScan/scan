@@ -1,44 +1,63 @@
 <template>
   <div class="container search">
-    <el-input
-      v-model="input3"
-      size="large"
-      placeholder="Please input"
-      class="input-with-select"
-      clearable
-    >
-      <template #prepend>
-        <el-button :icon="Search" />
-      </template>
-      <template #append>
-        <el-select v-model="select" size="large" placeholder="Select" style="width: 115px">
-          <el-option label="Restaurant" value="1" />
-          <el-option label="Order No." value="2" />
-          <el-option label="Tel" value="3" />
-        </el-select>
-      </template>
-    </el-input>
+    <div class="mt-4">
+      <el-input v-model="input" size="large" placeholder="Please input" class="input-with-select">
+        <template #append>
+          <el-button :icon="Search" @click="searchHash()" />
+        </template>
+      </el-input>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { Search } from '@element-plus/icons-vue'
-import { useRouter } from 'vue-router'
+import { getAddressInfo, getBlockHash, getTransactionAggregated } from '@/http/api/index.ts'
 
-const router = useRouter()
-const input3 = ref('')
-const select = ref('')
+const input = ref('')
+
+const accountAddress = (hash: any) => {
+  debugger
+  getAddressInfo({ hash: hash })
+    .then((res: any) => {
+      console.log('Aaccount', res)
+    })
+    .catch((e) => {
+      console.log(e)
+    })
+}
+const block = (hash: any) => {
+  getBlockHash({ hash: hash })
+    .then((res: any) => {
+      console.log('Block', res)
+    })
+    .catch((e) => {
+      console.log(e)
+    })
+}
+const aggregated = (hash: any) => {
+  getTransactionAggregated({ hash: hash })
+    .then((res: any) => {
+      console.log('Block', res)
+    })
+    .catch((e) => {
+      console.log(e)
+    })
+}
+
+const searchHash = () => {
+  let hash = input.value
+  debugger
+  accountAddress(hash)
+  block(hash)
+  aggregated(hash)
+}
+
+onMounted(() => {})
 </script>
 <style>
-.input-with-select .el-input-group__prepend {
-  background-color: var(--el-fill-color-blank);
-}
 .search {
   margin-bottom: 20px;
-}
-.pd5 {
-  padding-left: 20px;
-  padding-right: 20px;
 }
 </style>

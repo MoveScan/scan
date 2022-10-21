@@ -9,10 +9,12 @@
             <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
               <a href="#/blockchain/accounts">
                 <div class="data-item-left">
-                  <img src="https://tronscan.io/static/media/account_icon.2469d37c60852675d731.png" />
+                  <el-icon><Coin /></el-icon>
                   <div class="data-item-center">
                     <p class="m-0 panel-title"><span>总区块数</span></p>
-                    <h2 class="m-0"><span>{{summary.total_blocks}}</span></h2>
+                    <h2 class="m-0">
+                      <span>{{ summary.total_blocks }}</span>
+                    </h2>
                   </div>
                 </div>
                 <!-- <div class="data-item-right">
@@ -24,10 +26,12 @@
             <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
               <a href="#/data/stats2/token/tvl">
                 <div class="data-item-left">
-                  <img src="https://tronscan.io/static/media/account_icon.2469d37c60852675d731.png" />
+                  <el-icon><User /></el-icon>
                   <div class="data-item-center">
                     <p class="m-0 panel-title"><span>总账户数</span></p>
-                    <h2 class="m-0"><span>{{summary.total_accounts}}</span></h2>
+                    <h2 class="m-0">
+                      <span>{{ summary.total_accounts }}</span>
+                    </h2>
                   </div>
                 </div>
                 <!-- <div class="data-item-right">
@@ -39,10 +43,12 @@
             <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
               <a href="#/blockchain/transactions">
                 <div class="data-item-left">
-                  <img src="https://tronscan.io/static/media/transition_icon.eabe97cc6fe9bfd310ef.png" />
+                  <el-icon><Finished /></el-icon>
                   <div class="data-item-center">
                     <p class="m-0 panel-title"><span>总交易数</span></p>
-                    <h2 class="m-0"><span>{{summary.total_transfers}}</span></h2>
+                    <h2 class="m-0">
+                      <span>{{ summary.total_transfers }}</span>
+                    </h2>
                   </div>
                 </div>
                 <!-- <div class="data-item-right">
@@ -54,10 +60,12 @@
             <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
               <a href="#/data/stats2/token/hotToken">
                 <div class="data-item-left">
-                  <img src="https://tronscan.io/static/media/transferToken_icon.4ac424f12f1f7effcfe4.png" />
+                  <el-icon><Switch /></el-icon>
                   <div class="data-item-center">
                     <p class="m-0 panel-title"><span>总转账数</span></p>
-                    <h2 class="m-0"><span>{{summary.total_txns}}</span></h2>
+                    <h2 class="m-0">
+                      <span>{{ summary.total_txns }}</span>
+                    </h2>
                   </div>
                 </div>
                 <!-- <div class="data-item-right">
@@ -133,8 +141,7 @@
       <div class="block text-center">
         <el-carousel height="150px">
           <el-carousel-item class="block-box">
-            <div class="box" v-for="(item, index) in blockData.slice(0, 4)" :key="index"
-              @click="gotoBlock(item.height)">
+            <div class="box" v-for="(item, index) in blockData.slice(0, 4)" :key="index" @click="gotoBlock(item.height)">
               <ul>
                 <li class="block-number">
                   {{ item.height }}
@@ -153,8 +160,7 @@
             </div>
           </el-carousel-item>
           <el-carousel-item class="block-box">
-            <div class="box" v-for="(item, index) in blockData.slice(4, 8)" :key="index"
-              @click="gotoBlock(item.height)">
+            <div class="box" v-for="(item, index) in blockData.slice(4, 8)" :key="index" @click="gotoBlock(item.height)">
               <ul>
                 <li class="block-number">
                   {{ item.height }}
@@ -173,8 +179,7 @@
             </div>
           </el-carousel-item>
           <el-carousel-item class="block-box">
-            <div class="box" v-for="(item, index) in blockData.slice(8, 12)" :key="index"
-              @click="gotoBlock(item.height)">
+            <div class="box" v-for="(item, index) in blockData.slice(8, 12)" :key="index" @click="gotoBlock(item.height)">
               <ul>
                 <li class="block-number">
                   {{ item.height }}
@@ -218,7 +223,7 @@
                     <div>块高度:{{ item.height }}</div>
                     <div>GAS消耗量:{{ item.gas_used }}</div>
                     <div>是否成功:{{ item.success ? '是' : '否' }}</div>
-                    <div>创建时间:{{ timestampToTime(item.create_at) }}</div>
+                    <div>{{ timestampToTime(item.create_at) }}</div>
                     <div>全局索引号:{{ item.global_index }}</div>
                     <div>交易类型:{{ item.transaction_type }}</div>
                   </div>
@@ -304,30 +309,30 @@ export default defineComponent({
         // 获取dom，断言HTMLElement类型，否则会报错
         const chartEle: HTMLElement = document.getElementById('chart') as HTMLElement
         const chart = init(chartEle)
-        const option: EChartsOption = {
-          title: {
-            text: '每日交易数(14天)'
-          },
-          xAxis: {
-            type: 'category',
-            axisLabel: {
-              interval: 0, //坐标刻度之间的显示间隔，默认就可以了（默认是不重叠）
-              rotate: 38 //调整数值改变倾斜的幅度（范围-90到90）
-            },
-            data: ['09/12', '09/13', '09/14', '09/15', '09/16', '09/17', '09/18', '09/19', '09/20', '09/21', '09/22', '09/23', '09/24', '09/25']
-          },
-          yAxis: {
-            type: 'value'
-          },
-          series: [
-            {
-              data: [150, 230, 224, 218, 135, 147, 260, 150, 230, 224, 218, 135, 147, 260],
-              type: 'line',
-              smooth: true
-            }
-          ]
-        }
-        option && chart.setOption(option)
+        // const option: EChartsOption = {
+        //   title: {
+        //     text: '每日交易数(14天)'
+        //   },
+        //   xAxis: {
+        //     type: 'category',
+        //     axisLabel: {
+        //       interval: 0, //坐标刻度之间的显示间隔，默认就可以了（默认是不重叠）
+        //       rotate: 38 //调整数值改变倾斜的幅度（范围-90到90）
+        //     },
+        //     data: ['09/12', '09/13', '09/14', '09/15', '09/16', '09/17', '09/18', '09/19', '09/20', '09/21', '09/22', '09/23', '09/24', '09/25']
+        //   },
+        //   yAxis: {
+        //     type: 'value'
+        //   },
+        //   series: [
+        //     {
+        //       data: [150, 230, 224, 218, 135, 147, 260, 150, 230, 224, 218, 135, 147, 260],
+        //       type: 'line',
+        //       smooth: true
+        //     }
+        //   ]
+        // }
+        // option && chart.setOption(option)
 
         // 大小自适应窗口大小变化
         window.onresize = function () {
@@ -477,7 +482,8 @@ export default defineComponent({
   font-weight: 700;
 }
 
-.block-detail {}
+.block-detail {
+}
 
 .gray-time {
   color: #616568;
@@ -550,11 +556,11 @@ export default defineComponent({
   position: relative;
 }
 
-.mainnet-data .data-item:nth-child(odd)>a {
+.mainnet-data .data-item:nth-child(odd) > a {
   position: relative;
 }
 
-.mainnet-data .data-item>a {
+.mainnet-data .data-item > a {
   color: #91979d;
   display: flex;
   justify-content: space-between;
@@ -566,15 +572,15 @@ export default defineComponent({
   text-decoration: none;
 }
 
-.mainnet-data .data-item>a .data-item-left {
+.mainnet-data .data-item > a .data-item-left {
   display: flex;
 }
 
-.mainnet-data .data-item:nth-child(2n)>a img {
-  margin-left: 20px px;
+.mainnet-data .data-item:nth-child(2n) > a img {
+  margin-left: 20px;
 }
 
-.mainnet-data .data-item>a img {
+.mainnet-data .data-item > a img {
   height: 40px;
   margin-right: 18px;
   margin-top: 5px;
@@ -586,13 +592,13 @@ svg {
   vertical-align: middle;
 }
 
-.mainnet-data .data-item>a .data-item-left .data-item-center {
+.mainnet-data .data-item > a .data-item-left .data-item-center {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.mainnet-data .data-item>a .panel-title {
+.mainnet-data .data-item > a .panel-title {
   font-family: Lato;
   font-size: 14px;
   margin-bottom: 4px !important;
@@ -603,13 +609,13 @@ svg {
   margin: 0 !important;
 }
 
-.mainnet-data .data-item>a .panel-title {
+.mainnet-data .data-item > a .panel-title {
   font-family: Lato;
   font-size: 14px;
   margin-bottom: 4px !important;
 }
 
-.mainnet-data .data-item>a .data-item-right .right-24h {
+.mainnet-data .data-item > a .data-item-right .right-24h {
   color: #91979d;
   margin-bottom: 4px !important;
   overflow: hidden;
@@ -618,18 +624,18 @@ svg {
   text-align: right;
 }
 
-.mainnet-data .data-item>a .data-item-left .data-item-center h2 {
+.mainnet-data .data-item > a .data-item-left .data-item-center h2 {
   white-space: nowrap;
 }
 
-.mainnet-data .data-item>a .data-item-left h2 {
+.mainnet-data .data-item > a .data-item-left h2 {
   font-family: Lato;
   font-size: 20px;
   font-weight: 700;
   margin-top: 4px;
 }
 
-.mainnet-data .data-item:nth-child(odd)>a:after {
+.mainnet-data .data-item:nth-child(odd) > a:after {
   border-right: 1px dashed #e0e4e8;
   bottom: 0;
   content: '';
@@ -641,15 +647,15 @@ svg {
   width: 1px;
 }
 
-.mainnet-data .data-item>a .data-item-left {
+.mainnet-data .data-item > a .data-item-left {
   display: flex;
 }
 
-.mainnet-data .data-item:nth-child(2n)>a img {
+.mainnet-data .data-item:nth-child(2n) > a img {
   margin-left: 20px;
 }
 
-.mainnet-data .data-item>a img {
+.mainnet-data .data-item > a img {
   height: 40px;
   margin-right: 18px;
   margin-top: 5px;
@@ -662,11 +668,11 @@ svg {
   max-width: 50%;
 }
 
-.mainnet-data .data-item>a .data-item-right .green {
+.mainnet-data .data-item > a .data-item-right .green {
   color: #2d912c;
 }
 
-.mainnet-data .data-item>a .data-item-right .right-24h {
+.mainnet-data .data-item > a .data-item-right .right-24h {
   color: #91979d;
   margin-bottom: 4px !important;
   overflow: hidden;
@@ -674,7 +680,7 @@ svg {
   white-space: nowrap;
 }
 
-.mainnet-data .data-item>a .data-item-left .data-item-center {
+.mainnet-data .data-item > a .data-item-left .data-item-center {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -782,5 +788,9 @@ p {
   width: 100%;
   height: 360px;
   padding: 20px;
+}
+.el-icon {
+  margin: 0 15px;
+  font-size: 48px;
 }
 </style>

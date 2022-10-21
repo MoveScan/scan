@@ -7,6 +7,7 @@
       <div>
         <span>交易哈希：</span>
         <span>{{ detail.txn_hash }}</span>
+        <el-icon @click="copy(detail.txn_hash)"><DocumentCopy /></el-icon>
       </div>
       <div>
         <span>是否成功：</span>
@@ -19,10 +20,12 @@
       <div>
         <span>累加器根哈希：</span>
         <span>{{ detail.accumulator_root_hash }}</span>
+        <el-icon @click="copy(detail.accumulator_root_hash)"><DocumentCopy /></el-icon>
       </div>
       <div>
         <span>块哈希：</span>
         <span>{{ detail.block_hash }}</span>
+        <el-icon @click="copy(detail.block_hash)"><DocumentCopy /></el-icon>
       </div>
       <div>
         <span>块高度：</span>
@@ -30,11 +33,12 @@
       </div>
       <div>
         <span>创建时间：</span>
-        <span>{{ detail.create_at }}</span>
+        <span>{{ timestampToTime(detail.create_at) }}</span>
       </div>
       <div>
         <span>事件根哈希：</span>
         <span>{{ detail.event_root_hash }}</span>
+        <el-icon @click="copy(detail.event_root_hash)"><DocumentCopy /></el-icon>
       </div>
       <div>
         <span>GAS消耗量：</span>
@@ -54,6 +58,7 @@
       <div>
         <span>状态根哈希：</span>
         <span>{{ detail.state_root_hash }}</span>
+        <el-icon @click="copy(detail.state_root_hash)"><DocumentCopy /></el-icon>
       </div>
       <div>
         <span>虚拟机状态：</span>
@@ -145,9 +150,10 @@ import type { TabsPaneContext } from 'element-plus'
 import Header from '../components/header.vue'
 import Search from '../components/search.vue'
 import Footer from '../components/footer.vue'
-import { getTransactionHash, getTransactionAggregated } from '@/http/api/index.ts'
+import {getTransactionAggregated } from '@/http/api/index.ts'
 import { timestampToTimeLong, substring } from '@/utils/public.ts'
-
+import { ElMessage } from 'element-plus'
+import useClipboard from 'vue-clipboard3'
 export default defineComponent({
   name: 'transactionHash',
   components: {
@@ -163,7 +169,7 @@ export default defineComponent({
 
     const router = useRouter(),
       route = useRoute()
-
+    const { toClipboard } = useClipboard()
     const data = reactive({
       activeName: ref('first'),
       tableData: ref([]),
@@ -201,6 +207,15 @@ export default defineComponent({
       },
       handleClick: (tab: TabsPaneContext, event: Event) => {
         console.log(tab, event)
+      },
+      copy: async (val) => {
+        try {
+          await toClipboard(val)
+          ElMessage.success('复制成功')
+        } catch (e) {
+          console.log(e)
+          e.text == undefined ? ElMessage.error('复制失败') : ElMessage.error(e)
+        }
       }
     })
 
@@ -315,6 +330,7 @@ export default defineComponent({
 
 .list div {
   display: flex;
+  align-items: center;
   color: #464646;
   line-height: 45px;
   border-bottom: 1px dotted rgba(58, 58, 58, 0.3);

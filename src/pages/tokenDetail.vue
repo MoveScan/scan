@@ -9,7 +9,10 @@
         <div class="overview-desc">USDT is the official stablecoin issued by Tether on the TRON network.</div>
       </div>
     </div> -->
-    <div class="block-title">{{ detail.type_tag }}</div>
+    <div class="block-title">
+      {{ detail.type_tag }}
+      <el-icon @click="copy(detail.type_tag)"><DocumentCopy /></el-icon>
+    </div>
     <br />
     <el-row>
       <el-col :span="8">
@@ -46,7 +49,10 @@
           </div>
           <div>
             <span>创建者：</span>
-            <span>{{ detail.creator }}</span>
+            <span>
+              {{ detail.creator }}
+              <el-icon @click="copy(detail.creator)"><DocumentCopy /></el-icon>
+            </span>
           </div>
           <div>
             <span>持币地址数：</span>
@@ -171,6 +177,8 @@ import Search from '../components/search.vue'
 import Footer from '../components/footer.vue'
 import { getTokenInfo, getTokenHoldersList, getTransferListTag } from '@/http/api/index.ts'
 import { timestampToTimeLong, substring } from '@/utils/public.ts'
+import { ElMessage } from 'element-plus'
+import useClipboard from 'vue-clipboard3'
 
 export default defineComponent({
   name: 'token Detail',
@@ -182,6 +190,7 @@ export default defineComponent({
   setup() {
     const router = useRouter(),
       route = useRoute()
+    const { toClipboard } = useClipboard()
     const data = reactive({
       loading: ref(true),
       loading_: ref(true),
@@ -253,6 +262,15 @@ export default defineComponent({
       },
       setSubstring: (str: number) => {
         return substring(str)
+      },
+      copy: async (val) => {
+        try {
+          await toClipboard(val)
+          ElMessage.success('复制成功')
+        } catch (e) {
+          console.log(e)
+          e.text == undefined ? ElMessage.error('复制失败') : ElMessage.error(e)
+        }
       }
     })
 

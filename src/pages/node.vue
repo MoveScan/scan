@@ -17,7 +17,9 @@
               <div class="d-flex align-items-center">
                 <div class="d-flex flex-column">
                   <span class="num">
-                    <span><a href="#/block/44540035">{{total}}</a></span>
+                    <span>
+                      <a href="#/block/44540035">{{ total }}</a>
+                    </span>
                   </span>
                   <div class="d-flex" style="margin-top: 6px">
                     <span class="txt"><span>最新节点</span></span>
@@ -175,24 +177,28 @@
         <el-table-column prop="voting_power" label="投票权重" />
         <el-table-column prop="consensus_public_key" label="共识公钥" :show-overflow-tooltip="true">
           <template #default="scope">
-            {{ setSubstring(scope.row.consensus_public_key) }}
+            <el-tooltip class="box-item" effect="dark" :content="scope.row.consensus_public_key" placement="top">
+              {{ setSubstring(scope.row.consensus_public_key) }}
+            </el-tooltip>
           </template>
         </el-table-column>
         <el-table-column prop="node_address" label="节点地址" :show-overflow-tooltip="true">
           <template #default="scope">
-            {{ setSubstring(scope.row.node_address) }}
+            <el-tooltip class="box-item" effect="dark" :content="scope.row.node_address" placement="top">
+              {{ setSubstring(scope.row.node_address) }}
+            </el-tooltip>
           </template>
         </el-table-column>
         <el-table-column prop="network_address" label="网络地址" :show-overflow-tooltip="true">
           <template #default="scope">
-            {{ setSubstring(scope.row.network_address) }}
+            <el-tooltip class="box-item" effect="dark" :content="scope.row.network_address" placement="top">
+              {{ setSubstring(scope.row.network_address) }}
+            </el-tooltip>
           </template>
         </el-table-column>
       </el-table>
       <div class="page">
-        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled"
-          :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange"
-          @current-change="handleCurrentChange" />
+        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div>
     </div>
   </div>
@@ -256,7 +262,6 @@ export default defineComponent({
 
     onMounted(() => {
       data.getNode()
-
     })
 
     return {

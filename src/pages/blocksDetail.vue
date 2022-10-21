@@ -7,21 +7,22 @@
       <div style="width: 100%">
         <span>累加器根哈希：</span>
         <span>{{ detail.block_accumulator_root }}</span>
+        <el-icon @click="copy(detail.block_accumulator_root)"><DocumentCopy /></el-icon>
       </div>
       <div style="width: 100%">
         <span>块哈希：</span>
         <span>{{ detail.block_hash }}</span>
-        <el-icon @click="copy(detail.block_hash)">
-          <DocumentCopy />
-        </el-icon>
+        <el-icon @click="copy(detail.block_hash)"><DocumentCopy /></el-icon>
       </div>
       <div style="width: 100%">
         <span>块体哈希：</span>
         <span>{{ detail.body_hash }}</span>
+        <el-icon @click="copy(detail.body_hash)"><DocumentCopy /></el-icon>
       </div>
       <div style="width: 100%">
         <span>状态根哈希：</span>
         <span>{{ detail.state_root }}</span>
+        <el-icon @click="copy(detail.state_root)"><DocumentCopy /></el-icon>
       </div>
       <div style="width: 100%">
         <span>交易累加器根哈希：</span>
@@ -31,6 +32,7 @@
       <div>
         <span>创建者：</span>
         <span>{{ detail.author }}</span>
+        <el-icon @click="copy(detail.author)"><DocumentCopy /></el-icon>
       </div>
       <div>
         <span>链标识：</span>
@@ -107,9 +109,7 @@
       </el-table>
 
       <div class="page">
-        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled"
-          :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange"
-          @current-change="handleCurrentChange" />
+        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div>
     </div>
   </div>
@@ -137,7 +137,7 @@ export default defineComponent({
   setup() {
     const router = useRouter(),
       route = useRoute()
-    const { toClipboard } = useClipboard();
+    const { toClipboard } = useClipboard()
     const data = reactive({
       loading: ref(true),
       activeName: ref('first'),
@@ -200,7 +200,8 @@ export default defineComponent({
           await toClipboard(val)
           ElMessage.success('复制成功')
         } catch (e) {
-          ElMessage.error(e)
+          console.log(e)
+          e.text == undefined ? ElMessage.error('复制失败') : ElMessage.error(e)
         }
       }
     })
@@ -310,7 +311,7 @@ export default defineComponent({
   text-align: left;
 }
 
-.demo-tabs>.el-tabs__content {
+.demo-tabs > .el-tabs__content {
   padding: 32px;
   color: #6b778c;
   font-size: 32px;

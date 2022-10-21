@@ -43,7 +43,6 @@
     </el-sub-menu> -->
 
     <div class="flex-grow">
-
       <div class="pd5">
         <el-dropdown style="margin: 20px">
           <span class="el-dropdown-link">
@@ -61,12 +60,10 @@
         </el-dropdown>
       </div>
       <div class="pd5">
-        <span @click.stop="toggleDark()">{{ $t('lang.Mode') }}</span>
-        <el-switch size="small" v-model="isDark" />
+        <el-switch v-model="isDark" :active-icon="Sunny" :inactive-icon="Moon" inline-prompt style="--el-switch-on-color: #f2f2f2; --el-switch-off-color: #75797e" />
       </div>
       <div class="pd5">
-        <el-select v-model="value" :placeholder="$t('lang.Network')" @change="switchNetwork(value)"
-          style="width: 150px;">
+        <el-select v-model="value" :placeholder="$t('lang.Network')" @change="switchNetwork(value)" style="width: 150px">
           <el-option-group v-for="group in options" :key="group.label" :label="group.label">
             <el-option v-for="item in group.options" :key="item.value" :label="item.label" :value="item.value" />
           </el-option-group>
@@ -85,6 +82,7 @@ import { useDark, useToggle } from '@vueuse/core'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { ArrowDown } from '@element-plus/icons-vue'
+import { Moon, Sunny, Search } from '@element-plus/icons-vue'
 
 // 主题
 const isDark = useDark()
@@ -94,15 +92,15 @@ const router = useRouter()
 const activeIndex = ref('1')
 const handleSelect = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
-  if (key == '1') {
-    router.push('/')
-  }
+  if (key == '1') router.push('/')
   if (key == '2-1') router.push('/node')
   if (key == '2-2') router.push('/blocks')
   if (key == '2-3') router.push('/transaction')
   if (key == '2-4') router.push('/transfer')
   if (key == '2-5') router.push('/account')
   if (key == '4') router.push('/token')
+
+  if (key == '5' || key == '3-1' || key == '3-2' || key == '3-3' || key == '6-1' || key == '6-2' || key == '6-3-1') router.push('/tips')
 }
 
 // 国际化
@@ -123,36 +121,35 @@ const options = [
     options: [
       {
         value: 'aptos_mainnet',
-        label: 'aptos mainnet',
+        label: 'aptos mainnet'
       },
       {
         value: 'aptos_testnet',
-        label: 'aptos testnet',
+        label: 'aptos testnet'
       },
       {
         value: 'aptos_devnet',
-        label: 'aptos devnet',
-      },
-    ],
+        label: 'aptos devnet'
+      }
+    ]
   },
   {
     // label: 'City name',
     options: [
       {
         value: 'starcoin main',
-        label: 'starcoin_main',
+        label: 'starcoin_main'
       },
       {
         value: 'starcoin_barnard',
-        label: 'starcoin barnard',
+        label: 'starcoin barnard'
       },
       {
         value: 'starcoin_hally',
-        label: 'starcoin hally',
-      },
-
-    ],
-  },
+        label: 'starcoin hally'
+      }
+    ]
+  }
 ]
 </script>
 <style>
@@ -161,5 +158,9 @@ const options = [
   line-height: 58px;
   position: absolute;
   right: 10px;
+}
+.el-switch.is-checked .el-switch__core {
+  border-color: black;
+  background-color: #666666;
 }
 </style>

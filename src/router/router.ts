@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -7,15 +7,15 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/pages/index.vue') // 注意这里要带上 文件后缀.vue
   },
   {
+    path: '/tips',
+    name: 'tips',
+    component: () => import('@/pages/tips.vue')
+  },
+  {
     path: '/node',
     name: 'node',
     component: () => import('@/pages/node.vue')
   },
-  // {
-  //   path: '/blocksDetail',
-  //   name: 'blocksDetail',
-  //   component: () => import('@/pages/blocksDetail.vue')
-  // },
   {
     path: '/blocks',
     name: 'blocks',
@@ -75,7 +75,7 @@ const routes: RouteRecordRaw[] = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(), // createWebHashHistory
   routes
 })
 //路由导航守卫
