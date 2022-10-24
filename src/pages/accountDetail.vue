@@ -244,7 +244,7 @@ export default defineComponent({
             console.log(e)
           })
       },
-      setSubstring: (str: number) => {
+      setSubstring: (str: any) => {
         return substring(str)
       },
       jsonParse(signature) {

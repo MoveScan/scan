@@ -260,7 +260,7 @@ export default defineComponent({
         data.currentPage_ = val
         data.getTransferList(route.query.tag)
       },
-      setSubstring: (str: number) => {
+      setSubstring: (str: any) => {
         return substring(str)
       },
       copy: async (val) => {

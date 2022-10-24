@@ -109,12 +109,9 @@ const changeLang = (lang: string) => {
   locale.value = lang
   localStorage.setItem('lang', lang)
 }
-const switchNetwork = (network: string) => {
-  localStorage.setItem('network', network)
-}
-// console.log(t('lang.userName'))
 
-const value = ref('')
+// 切网
+let value: any = localStorage.getItem('network') == null ? ref('') : localStorage.getItem('network')
 const options = [
   {
     // label: 'Popular cities',
@@ -137,8 +134,8 @@ const options = [
     // label: 'City name',
     options: [
       {
-        value: 'starcoin main',
-        label: 'starcoin_main'
+        value: 'starcoin_main',
+        label: 'starcoin main'
       },
       {
         value: 'starcoin_barnard',
@@ -151,6 +148,12 @@ const options = [
     ]
   }
 ]
+const switchNetwork = (network: string) => {
+  localStorage.setItem('network', network)
+  value = network
+  location.reload()
+}
+// console.log(t('lang.userName'))
 </script>
 <style>
 .flex-grow {
@@ -162,5 +165,8 @@ const options = [
 .el-switch.is-checked .el-switch__core {
   border-color: black;
   background-color: #666666;
+}
+.pd5 {
+  margin: 0 15px;
 }
 </style>

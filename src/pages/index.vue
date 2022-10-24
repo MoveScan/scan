@@ -143,16 +143,12 @@
           <el-carousel-item class="block-box">
             <div class="box" v-for="(item, index) in blockData.slice(0, 4)" :key="index" @click="gotoBlock(item.height)">
               <ul>
-                <li class="block-number">
-                  {{ item.height }}
-                  <br />
-                  <span class="gray-time">区块哈希：{{ setSubstring(item.block_hash) }}</span>
-                </li>
+                <li class="block-number">高度：{{ item.height }}</li>
                 <li>
-                  <br />
                   <span class="black">{{ timestampToTime(item.create_at) }}</span>
                 </li>
               </ul>
+              <span class="gray-time">区块哈希：{{ setSubstring(item.block_hash) }}</span>
               <ul class="block-detail">
                 <li class="">交易数：{{ item.transactions }}</li>
                 <li>GAS消耗量：{{ item.gas_used }}</li>
@@ -162,16 +158,12 @@
           <el-carousel-item class="block-box">
             <div class="box" v-for="(item, index) in blockData.slice(4, 8)" :key="index" @click="gotoBlock(item.height)">
               <ul>
-                <li class="block-number">
-                  {{ item.height }}
-                  <br />
-                  <span class="gray-time">区块哈希：{{ setSubstring(item.block_hash) }}</span>
-                </li>
+                <li class="block-number">高度：{{ item.height }}</li>
                 <li>
-                  <br />
                   <span class="black">{{ timestampToTime(item.create_at) }}</span>
                 </li>
               </ul>
+              <span class="gray-time">区块哈希：{{ setSubstring(item.block_hash) }}</span>
               <ul class="block-detail">
                 <li class="">交易数：{{ item.transactions }}</li>
                 <li>GAS消耗量：{{ item.gas_used }}</li>
@@ -181,16 +173,12 @@
           <el-carousel-item class="block-box">
             <div class="box" v-for="(item, index) in blockData.slice(8, 12)" :key="index" @click="gotoBlock(item.height)">
               <ul>
-                <li class="block-number">
-                  {{ item.height }}
-                  <br />
-                  <span class="gray-time">区块哈希：{{ setSubstring(item.block_hash) }}</span>
-                </li>
+                <li class="block-number">高度：{{ item.height }}</li>
                 <li>
-                  <br />
                   <span class="black">{{ timestampToTime(item.create_at) }}</span>
                 </li>
               </ul>
+              <span class="gray-time">区块哈希：{{ setSubstring(item.block_hash) }}</span>
               <ul class="block-detail">
                 <li class="">交易数：{{ item.transactions }}</li>
                 <li>GAS消耗量：{{ item.gas_used }}</li>
@@ -223,7 +211,7 @@
                     <div>块高度:{{ item.height }}</div>
                     <div>GAS消耗量:{{ item.gas_used }}</div>
                     <div>是否成功:{{ item.success ? '是' : '否' }}</div>
-                    <div>{{ timestampToTime(item.create_at) }}</div>
+                    <div>创建时间:{{ timestampToTime(item.create_at) }}</div>
                     <div>全局索引号:{{ item.global_index }}</div>
                     <div>交易类型:{{ item.transaction_type }}</div>
                   </div>
@@ -302,37 +290,37 @@ export default defineComponent({
       timestampToTime: (time: number) => {
         return timestampToTimeLong(time)
       },
-      setSubstring: (str: number) => {
+      setSubstring: (str: any) => {
         return substring(str)
       },
       initChart: () => {
         // 获取dom，断言HTMLElement类型，否则会报错
         const chartEle: HTMLElement = document.getElementById('chart') as HTMLElement
         const chart = init(chartEle)
-        // const option: EChartsOption = {
-        //   title: {
-        //     text: '每日交易数(14天)'
-        //   },
-        //   xAxis: {
-        //     type: 'category',
-        //     axisLabel: {
-        //       interval: 0, //坐标刻度之间的显示间隔，默认就可以了（默认是不重叠）
-        //       rotate: 38 //调整数值改变倾斜的幅度（范围-90到90）
-        //     },
-        //     data: ['09/12', '09/13', '09/14', '09/15', '09/16', '09/17', '09/18', '09/19', '09/20', '09/21', '09/22', '09/23', '09/24', '09/25']
-        //   },
-        //   yAxis: {
-        //     type: 'value'
-        //   },
-        //   series: [
-        //     {
-        //       data: [150, 230, 224, 218, 135, 147, 260, 150, 230, 224, 218, 135, 147, 260],
-        //       type: 'line',
-        //       smooth: true
-        //     }
-        //   ]
-        // }
-        // option && chart.setOption(option)
+        const option: EChartsOption = {
+          title: {
+            text: '每日交易数(14天)'
+          },
+          xAxis: {
+            type: 'category',
+            axisLabel: {
+              interval: 0, //坐标刻度之间的显示间隔，默认就可以了（默认是不重叠）
+              rotate: 38 //调整数值改变倾斜的幅度（范围-90到90）
+            },
+            data: ['09/12', '09/13', '09/14', '09/15', '09/16', '09/17', '09/18', '09/19', '09/20', '09/21', '09/22', '09/23', '09/24', '09/25']
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [
+            {
+              data: [150, 230, 224, 218, 135, 147, 260, 150, 230, 224, 218, 135, 147, 260],
+              type: 'line',
+              smooth: true
+            }
+          ]
+        }
+        option && chart.setOption(option)
 
         // 大小自适应窗口大小变化
         window.onresize = function () {
@@ -440,6 +428,11 @@ export default defineComponent({
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: #91979d;
+}
+.block-box:hover {
+  color: #409eff;
+  cursor: pointer;
 }
 
 .block-box div {
@@ -455,7 +448,6 @@ export default defineComponent({
 }
 
 .box ul {
-  color: #91979d;
   font-size: 0.75rem;
   line-height: 1.3rem;
   list-style: none;
@@ -464,30 +456,16 @@ export default defineComponent({
   justify-content: space-between;
 }
 
-.box ul:nth-child(1):hover {
-  color: #c23631;
-  cursor: pointer;
-}
-
-.box ul li:nth-child(1) {
-  text-align: left;
-}
-
-.box ul li:nth-child(2) {
-  text-align: right;
-}
-
 .block-number {
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: bold;
 }
 
 .block-detail {
 }
 
 .gray-time {
-  color: #616568;
-  font-size: 0.75rem;
+  font-size: 14px;
 }
 
 .can {
@@ -577,7 +555,7 @@ export default defineComponent({
 }
 
 .mainnet-data .data-item:nth-child(2n) > a img {
-  margin-left: 20px;
+  margin-left: 20px px;
 }
 
 .mainnet-data .data-item > a img {

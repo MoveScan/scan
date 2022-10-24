@@ -17,14 +17,16 @@
               <div class="d-flex align-items-center">
                 <div class="d-flex flex-column">
                   <span class="num">
-                    <span><a href="#/block/44540035">44540035</a></span>
+                    <span>
+                      <a href="#/block/44540035">{{ total }}</a>
+                    </span>
                   </span>
                   <div class="d-flex" style="margin-top: 6px">
                     <span class="txt"><span>最新区块</span></span>
                   </div>
                 </div>
                 <div class="d-flex flex-column">
-                  <span class="num">
+                  <!-- <span class="num">
                     <span>
                       +
                       <span>28,786</span>
@@ -32,7 +34,7 @@
                   </span>
                   <div class="d-flex" style="margin-top: 6px">
                     <span class="txt"><span>昨日出块数</span></span>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -248,7 +250,7 @@ export default defineComponent({
       timestampToTime: (time: number) => {
         return timestampToTimeLong(time)
       },
-      setSubstring: (str: number) => {
+      setSubstring: (str: any) => {
         return substring(str)
       },
       handleSizeChange: (val: number) => {

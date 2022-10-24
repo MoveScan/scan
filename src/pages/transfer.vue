@@ -191,7 +191,7 @@ export default defineComponent({
       timestampToTime: (time: number) => {
         return timestampToTimeLong(time)
       },
-      setSubstring: (str: number) => {
+      setSubstring: (str: any) => {
         return substring(str)
       },
       handleSizeChange: (val: number) => {

@@ -82,6 +82,10 @@ export function getTransactionAggregated(data: any) {
   return http.get(`/v1/transaction/${network}/aggregated/${data.hash}`)
 }
 
+export function getTransactionVersion(data: any) {
+  return http.get(`/v1/transaction/${network}/version/${data.version}`)
+}
+
 // transfer // 0x749e9feb6310ed23d5657e0a68e4db4a281fead2a2cca95b6810509e65d506b7
 export function getTransferListAddress(data: any) {
   return http.get(`/v1/transfer/${network}/by_address/${data.address}`)
