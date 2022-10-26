@@ -98,7 +98,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
   if (key == '2-3') router.push('/transaction')
   if (key == '2-4') router.push('/transfer')
   if (key == '2-5') router.push('/account')
-  if (key == '4') router.push('/token')
+  if (key == '4') router.push('/coin')
 
   if (key == '5' || key == '3-1' || key == '3-2' || key == '3-3' || key == '6-1' || key == '6-2' || key == '6-3-1') router.push('/tips')
 }

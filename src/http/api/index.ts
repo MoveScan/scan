@@ -50,19 +50,19 @@ export function getBlockTransaction(data: any) {
   return http.get(`/v1/transaction/${network}/by_block/${data.hash}`)
 }
 
-// token
-export function getTokenList(data: any) {
-  return http.get(`/v1/token/${network}/page/${data.page}?count=${data.count}`)
+// coin
+export function getCoinList(data: any) {
+  return http.get(`/v1/coin/${network}/page/${data.page}?count=${data.count}`)
 }
-export function getTokenHoldersList(data: any) {
-  return http.get(`/v1/token/${network}/holders/page/${data.page}?type_tag=${data.type_tag}&count=${data.count}`)
+export function getCoinHoldersList(data: any) {
+  return http.get(`/v1/coin/${network}/holders/page/${data.page}?coin_id=${data.coin_id}&count=${data.count}`)
 }
-export function getTokenInfo(data: any) {
-  return http.get(`/v1/token/${network}/${data.tag}`)
+export function getCoinInfo(data: any) {
+  return http.get(`/v1/coin/${network}/${data.coin_id}`)
 }
 // 首页MarketCap
 export function getMarketCap(data: any) {
-  return http.get(`/v1/token/${network}/market_cap/${data.token}`)
+  return http.get(`/v1/coin/${network}/market_cap/${data.token}`)
 }
 
 // transaction // 0x310728596fce7d327ff85cc3faff6aeb4a3399e78ec03fffea82f937eb9fbf57

@@ -16,7 +16,7 @@ import Search from '../components/search.vue'
 import Footer from '../components/footer.vue'
 
 export default defineComponent({
-  name: 'token Detail',
+  name: 'new page',
   components: {
     Header,
     Search,

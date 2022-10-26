@@ -2,28 +2,33 @@
   <Header></Header>
   <Search></Search>
   <div class="container">
-    <!-- <el-row>
-      <el-col :span="8">1</el-col>
-      <el-col :span="8">2</el-col>
-      <el-col :span="8">3</el-col>
-    </el-row> -->
-    <div class="block-title">{{ $t('lang.Account') }}</div>
+    <div class="block-title">{{ $t('lang.Token') }}</div>
     <div class="blocks-data-wrap">
       <div class="blocks_overview blocks_list_overview">
         <div class="">
           <div class="card">
             <div class="card-body" id="txcont">
-              <h2 class="d-flex"><span>账户数</span></h2>
+              <h2 class="d-flex"><span>通证总数</span></h2>
               <div class="d-flex align-items-center">
                 <div class="d-flex flex-column">
                   <span class="num">
                     <span>{{ total }}</span>
                   </span>
                   <div class="d-flex" style="margin-top: 6px">
-                    <span class="txt">最新账户</span>
+                    <span class="txt">累计</span>
                   </div>
                 </div>
-                <div class="d-flex flex-column"></div>
+                <!-- <div class="d-flex flex-column">
+                  <span class="num">
+                    <span>
+                      +
+                      <span>28,786</span>
+                    </span>
+                  </span>
+                  <div class="d-flex" style="margin-top: 6px">
+                    <span class="txt"><span>新增</span></span>
+                  </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -34,22 +39,38 @@
         <div class="">
           <div class="card">
             <div class="card-body" id="txcont">
-              <h2 class="d-flex"><span>持有TRX账户</span></h2>
+              <h2 class="d-flex"><span>通证分布</span></h2>
               <div class="d-flex align-items-center">
                 <div class="d-flex flex-column">
                   <span class="num">
                     <span><a href="#/block/44540035">44540035</a></span>
                   </span>
                   <div class="d-flex" style="margin-top: 6px">
-                    <span class="txt">持有TRX账户数</span>
+                    <span class="txt">TRC20</span>
                   </div>
                 </div>
                 <div class="d-flex flex-column">
                   <span class="num">
-                    <span>55.6%</span>
+                    <span>55.6</span>
                   </span>
                   <div class="d-flex" style="margin-top: 6px">
-                    <span class="txt"><span>持有用户占比</span></span>
+                    <span class="txt"><span>TRC721</span></span>
+                  </div>
+                </div>
+                <div class="d-flex flex-column">
+                  <span class="num">
+                    <span>55.6</span>
+                  </span>
+                  <div class="d-flex" style="margin-top: 6px">
+                    <span class="txt"><span>TRC1155</span></span>
+                  </div>
+                </div>
+                <div class="d-flex flex-column">
+                  <span class="num">
+                    <span>55.6</span>
+                  </span>
+                  <div class="d-flex" style="margin-top: 6px">
+                    <span class="txt"><span>TRC10</span></span>
                   </div>
                 </div>
               </div>
@@ -61,7 +82,7 @@
         <div class="">
           <div class="card">
             <div class="card-body" id="txcont">
-              <h2 class="d-flex"><span>活跃账户</span></h2>
+              <h2 class="d-flex"><span>链上资产</span></h2>
               <div class="d-flex align-items-center">
                 <div class="d-flex flex-column">
                   <span class="num">
@@ -88,14 +109,21 @@
         </div>
       </div> -->
     </div>
-
     <div class="table">
-      <div>下面是账户列表，最新的{{ total }}条，每页20条</div>
-      <el-table :data="tableData">
-        <el-table-column prop="address" label="账户" width="600">
+      <!-- <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
+        <el-tab-pane label="全部" name="first">全部</el-tab-pane>
+        <el-tab-pane label="TRC20" name="second">TRC20</el-tab-pane>
+        <el-tab-pane label="TRC721" name="third">TRC721</el-tab-pane>
+        <el-tab-pane label="TRC1155" name="TRC1155">TRC1155</el-tab-pane>
+        <el-tab-pane label="TRC10" name="TRC10">TRC10</el-tab-pane>
+      </el-tabs> -->
+
+      <div>共{{ total }}个通证</div>
+      <el-table :data="tableData" v-loading="loading">
+        <el-table-column prop="coin_id" label="通证标识" width="400" :show-overflow-tooltip="true">
           <template #default="scope">
-            <router-link :to="'/accountDetail?address=' + scope.row.address">
-              {{ scope.row.address }}
+            <router-link :to="'/coinDetail?tag=' + scope.row.coin_id">
+              {{ scope.row.coin_id }}
             </router-link>
           </template>
         </el-table-column>
@@ -104,17 +132,18 @@
             {{ timestampToTime(scope.row.create_at) }}
           </template>
         </el-table-column>
-        <el-table-column prop="hold_amount" label="持币数量">
+        <el-table-column prop="creator" label="创建者" width="200">
           <template #default="scope">
-            {{ scope.row.hold_amount }}
+            <router-link v-if="scope.row.creator !== null" :to="'/accountDetail?address=' + scope.row.creator">
+              {{ setSubstring(scope.row.creator) }}
+            </router-link>
           </template>
         </el-table-column>
-        <el-table-column prop="sequence_number" label="序列号">
-          <template #default="scope">
-            {{ scope.row.sequence_number }}
-          </template>
-        </el-table-column>
+        <el-table-column prop="holders" label="持币地址数" />
+        <el-table-column prop="max_amount" label="最大发行量" />
+        <el-table-column prop="supply" label="供应量" />
       </el-table>
+
       <div class="page">
         <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div>
@@ -124,14 +153,15 @@
 </template>
 <script lang="ts">
 import { ref, toRefs, reactive, defineComponent, onMounted } from 'vue'
+import type { TabsPaneContext } from 'element-plus'
 import Header from '../components/header.vue'
 import Search from '../components/search.vue'
 import Footer from '../components/footer.vue'
-import { getAddressList } from '@/http/api/index.ts'
+import { getCoinList } from '@/http/api/index.ts'
 import { timestampToTimeLong, substring } from '@/utils/public.ts'
 
 export default defineComponent({
-  name: 'Account',
+  name: 'Coin',
   components: {
     Header,
     Search,
@@ -145,11 +175,12 @@ export default defineComponent({
       total: ref(0),
       background: ref(false),
       disabled: ref(false),
+      activeName: ref('first'),
       tableData: [],
-      getAddress: () => {
-        getAddressList({ page: data.currentPage, count: data.pageSize })
+      getCoin: () => {
+        getCoinList({ page: data.currentPage, count: data.pageSize })
           .then((res: any) => {
-            console.log('address', res)
+            console.log('coin', res)
             data.tableData = res.contents
             data.total = res.total
             data.loading = false
@@ -158,12 +189,17 @@ export default defineComponent({
             console.log(e)
           })
       },
+
+      handleClick: (tab: TabsPaneContext, event: Event) => {
+        console.log(tab, event)
+      },
       timestampToTime: (time: number) => {
         return timestampToTimeLong(time)
       },
       setSubstring: (str: any) => {
         return substring(str)
       },
+
       handleSizeChange: (val: number) => {
         console.log(`${val} items per page`)
       },
@@ -171,14 +207,14 @@ export default defineComponent({
         console.log(`current page: ${val}`)
         data.loading = true
         data.currentPage = val
-        data.getAddress()
+        data.getCoin()
       }
     })
 
     const refData = toRefs(data)
 
     onMounted(() => {
-      data.getAddress()
+      data.getCoin()
     })
 
     return {
@@ -215,14 +251,14 @@ export default defineComponent({
 }
 
 .card {
-  word-wrap: break-word;
-  background-clip: initial;
-  border: 1px solid hsla(37, 25%, 83%, 0.75);
-  border-radius: 0.25rem;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  position: relative;
+  background: rgba(180, 180, 180, 0.05);
+  border-radius: 10px;
+}
+
+.box {
+  margin: 20px 0;
+  height: 270px;
+  padding: 15px;
 }
 
 .card-body {
@@ -262,7 +298,6 @@ export default defineComponent({
 .num {
   font-size: 1.25rem !important;
   font-weight: bold;
-  color: green;
 }
 
 .txt {
@@ -278,5 +313,11 @@ export default defineComponent({
   font-weight: 700;
   line-height: 2rem;
   text-align: left;
+}
+
+/*  */
+#chart {
+  width: 100%;
+  height: 270px;
 }
 </style>

@@ -52,14 +52,14 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/pages/accountDetail.vue')
   },
   {
-    path: '/token',
-    name: 'token',
-    component: () => import('@/pages/token.vue')
+    path: '/coin',
+    name: 'coin',
+    component: () => import('@/pages/coin.vue')
   },
   {
-    path: '/tokenDetail',
-    name: 'tokenDetail',
-    component: () => import('@/pages/tokenDetail.vue')
+    path: '/coinDetail',
+    name: 'coinDetail',
+    component: () => import('@/pages/coinDetail.vue')
   },
   {
     path: '/Login',

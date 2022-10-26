@@ -2,113 +2,127 @@
   <Header></Header>
   <Search></Search>
   <div class="container">
-    <div class="flex">
+    <!-- <div style="display: flex">
+      <img class="logo-img" src="https://static.tronscan.org/production/logo/usdtlogo.png" />
       <div class="block-title">
-        账户
-        <div class="overview-desc">{{ detail.address }}</div>
+        Tether USD (USDT)
+        <div class="overview-desc">USDT is the official stablecoin issued by Tether on the TRON network.</div>
       </div>
-      <div style="font-size: 14px">创建时间：{{ timestampToTime(detail.create_at) }}</div>
+    </div> -->
+    <div class="block-title">
+      {{ detail.coin_id }}
+      <el-icon @click="copy(detail.coin_id)"><DocumentCopy /></el-icon>
     </div>
     <br />
     <el-row>
       <el-col :span="12">
         <el-card class="list">
-          <span class="title">总资产</span>
+          <span class="title">概况</span>
           <!-- <div>
             <span style="font-size: 18px; font-weight: 700">$1.000035</span>
             <span>≈ 16.385058 TRX</span>
           </div> -->
           <div>
-            <span>认证密钥：</span>
-            <span>{{ detail.authentication_key }}</span>
+            <span>发行量：</span>
+            <span>{{ detail.max_amount }}</span>
           </div>
+          <div>
+            <span>流通量：</span>
+            <span>{{ detail.supply }}</span>
+          </div>
+          <div>
+            <span>总市值：</span>
+            <span></span>
+          </div>
+          <!-- <div>
+            <span>流通市值：</span>
+            <span></span>
+          </div> -->
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card class="list">
+          <span class="title">基础信息</span>
           <div>
             <span>创建时间：</span>
             <span>{{ timestampToTime(detail.create_at) }}</span>
           </div>
           <div>
-            <span>持币数量：</span>
-            <span>{{ detail.hold_amount }}</span>
+            <span>创建者：</span>
+            <span>
+              {{ detail.creator }}
+              <el-icon @click="copy(detail.creator)"><DocumentCopy /></el-icon>
+            </span>
           </div>
           <div>
-            <span>序列号：</span>
-            <span>{{ detail.sequence_number }}</span>
+            <span>持币地址数：</span>
+            <span>{{ detail.holders }}</span>
           </div>
-          <div>
+          <!-- <div>
+            <span>最大发行量：</span>
+            <span>{{ detail.max_amount }}</span>
+          </div> -->
+          <!-- <div>
             <span>供应量：</span>
             <span>{{ detail.supply }}</span>
-          </div>
+          </div> -->
+          <!-- <div>
+            <span>通证标识：</span>
+            <span>{{ detail.type_tag }}</span>
+          </div> -->
         </el-card>
       </el-col>
-      <el-col :span="12">
-        <!-- <el-card style="margin-right: 0">
-          <span class="title">钱包</span>
-          <el-scrollbar height="365px">
-            <div class="list_m">
-              <div v-for="item in 10">
-                <span>
-                  SUN(SUN)
-                  <br />
-                  <span class="txt2">asdfasdfasdfadfad34wdsdss</span>
-                </span>
-                <span>
-                  1.0002
-                  <br />
-                  <span class="txt2">≈ $1.00</span>
-                </span>
-              </div>
-            </div>
-          </el-scrollbar>
-        </el-card> -->
-      </el-col>
+      <!--<el-col :span="8">
+         <el-card class="list" style="margin-right: 0">
+          <span class="title">更多</span>
+          <div>
+            <span>持有地址数：</span>
+            <span>15,654,012 地址</span>
+          </div>
+          <div>
+            <span>累计转账数：</span>
+            <span>615,954,807 笔</span>
+          </div>
+          <div>
+            <span>转账数 ( 24h )：</span>
+            <span>1,388,819 笔</span>
+          </div>
+          <div>
+            <span>交易额 ( 24h )：</span>
+            <span>$52.57b</span>
+          </div>
+          <div>
+            <span>流动性：</span>
+            <span>$258.03m</span>
+          </div>
+        </el-card> 
+      </el-col>-->
     </el-row>
 
     <div class="table">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane label="交易记录" name="transaction">
+        <el-tab-pane label="通证持有者" name="second">
+          <div class="">共{{ total }}个</div>
           <el-table :data="tableData" v-loading="loading">
-            <el-table-column prop="chainTime" label="链上时间">
+            <el-table-column prop="address" label="账户" width="660">
               <template #default="scope">
-                {{ timestampToTime(scope.row.chainTime) }}
-              </template>
-            </el-table-column>
-            <el-table-column prop="sender" label="发送者" :show-overflow-tooltip="true">
-              <template #default="scope">
-                <router-link :to="'/accountDetail?address=' + scope.row.sender">
-                  {{ scope.row.sender }}
+                <router-link v-if="scope.row.address !== null" :to="'/accountDetail?address=' + scope.row.address">
+                  {{ scope.row.address }}
                 </router-link>
               </template>
             </el-table-column>
-            <el-table-column prop="txn_hash" label="交易哈希" :show-overflow-tooltip="true" width="300">
-              <template #default="scope">
-                <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash">
-                  {{ setSubstring(scope.row.txn_hash) }}
-                </router-link>
-              </template>
-            </el-table-column>
-            <el-table-column label="类型">
-              <template #default="props">{{ jsonParse(props.row.signature).type }}</template>
-            </el-table-column>
-            <el-table-column type="expand" label="签名" width="100">
-              <template #default="props">
-                <json-viewer :value="JSON.parse(props.row.signature)" :expand-depth="5" copyable boxed sort></json-viewer>
-              </template>
-            </el-table-column>
+            <el-table-column prop="amount" label="数量" />
+            <el-table-column prop="supply" label="供应量" />
           </el-table>
           <div class="page">
             <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
           </div>
         </el-tab-pane>
-        <el-tab-pane label="转账记录" name="transfer">
-          <el-table :data="tableData2" v-loading="loading">
+        <el-tab-pane label="通证转账" name="first">
+          <div class="">共{{ total_ }}个</div>
+          <el-table :data="tableData_" v-loading="loading_">
             <el-table-column prop="amount" label="数量" />
-            <!-- <el-table-column prop="amount_value" label="数额" /> -->
-            <el-table-column prop="create_at" label="创建时间">
-              <template #default="scope">
-                {{ timestampToTime(scope.row.create_at) }}
-              </template>
-            </el-table-column>
-            <!-- <el-table-column prop="identifier" label="标识符" /> -->
+            <el-table-column prop="amount_value" label="数量值" />
             <el-table-column prop="sender" label="发送者" :show-overflow-tooltip="true">
               <template #default="scope">
                 <router-link :to="'/accountDetail?address=' + scope.row.sender">
@@ -130,27 +144,26 @@
                 </router-link>
               </template>
             </el-table-column>
-            <el-table-column prop="type_tag" label="通证标识" width="400" :show-overflow-tooltip="true">
+            <el-table-column prop="coin_id" label="通证标识" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/coinDetail?tag=' + scope.row.type_tag">
-                  {{ scope.row.type_tag }}
+                <router-link :to="'/coinDetail?tag=' + scope.row.coin_id">
+                  {{ scope.row.coin_id }}
                 </router-link>
               </template>
             </el-table-column>
-          </el-table>
-        </el-tab-pane>
-        <el-tab-pane label="资源列表" name="resources">
-          <el-table :data="tableData3" v-loading="loading">
-            <el-table-column prop="key" label="键" />
-            <el-table-column prop="value" label="值">
-              <template #default="props">
-                <json-viewer :value="JSON.parse(props.row.value)" :expand-depth="5" copyable boxed sort></json-viewer>
+
+            <el-table-column prop="create_at" label="创建时间">
+              <template #default="scope">
+                {{ timestampToTime(scope.row.create_at) }}
               </template>
             </el-table-column>
           </el-table>
+          <div class="page">
+            <el-pagination v-model:currentPage="currentPage_" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total_" @size-change="handleSizeChange" @current-change="handleCurrentChange_" />
+          </div>
         </el-tab-pane>
+        <!-- <el-tab-pane label="交易" name="second">交易</el-tab-pane> -->
       </el-tabs>
-      <!-- <div>共100个交易，列表仅展示最新的10000条记录</div> -->
     </div>
   </div>
   <Footer></Footer>
@@ -162,11 +175,13 @@ import type { TabsPaneContext } from 'element-plus'
 import Header from '../components/header.vue'
 import Search from '../components/search.vue'
 import Footer from '../components/footer.vue'
-import { getAddressInfo, getTransactionListAddress, getTransferListAddress, getAddressResources } from '@/http/api/index.ts'
+import { getCoinInfo, getCoinHoldersList, getTransferListTag } from '@/http/api/index.ts'
 import { timestampToTimeLong, substring } from '@/utils/public.ts'
+import { ElMessage } from 'element-plus'
+import useClipboard from 'vue-clipboard3'
 
 export default defineComponent({
-  name: 'address Detail',
+  name: 'Coin Detail',
   components: {
     Header,
     Search,
@@ -175,37 +190,35 @@ export default defineComponent({
   setup() {
     const router = useRouter(),
       route = useRoute()
+    const { toClipboard } = useClipboard()
     const data = reactive({
       loading: ref(true),
+      loading_: ref(true),
       currentPage: ref(1),
+      currentPage_: ref(1),
       pageSize: ref(20),
-      total: ref(0),
       background: ref(false),
       disabled: ref(false),
+      total: ref(0),
+      total_: ref(0),
       detail: ref({}),
-      activeName: ref('transaction'),
-      tableData: ref([]),
-      tableData2: ref([]),
-      tableData3: ref([]),
-      getAddress: (address: any) => {
-        getAddressInfo({ address: address })
+      activeName: ref('second'),
+      tableData: [],
+      tableData_: [],
+      getcoinDetail: (tag: any) => {
+        getCoinInfo({ coin_id: tag })
           .then((res: any) => {
-            console.log('address Detail', res)
+            console.log('Coin Detail', res)
             data.detail = res
           })
           .catch((e) => {
             console.log(e)
           })
       },
-      getTransactionList: (address: any) => {
-        getTransactionListAddress({
-          address: address,
-          page: data.currentPage,
-          count: data.pageSize,
-          with_event: ''
-        })
+      getCoinHolders: (tag: any) => {
+        getCoinHoldersList({ coin_id: tag, page: data.currentPage, count: data.pageSize })
           .then((res: any) => {
-            console.log('交易记录', res)
+            console.log('Holders', res)
             data.tableData = res.contents
             data.total = res.total
             data.loading = false
@@ -214,48 +227,20 @@ export default defineComponent({
             console.log(e)
           })
       },
-      getTransferList: (address: any) => {
-        getTransferListAddress({
-          address: address,
-          page: data.currentPage,
-          count: data.pageSize,
-          query_type: ''
-        })
+      getTransferList: (tag: any) => {
+        getTransferListTag({ type_tag: tag, page: data.currentPage, count: data.pageSize })
           .then((res: any) => {
-            console.log('转账记录', res)
-            data.tableData2 = res.contents
+            console.log('TransferList', res)
+            data.tableData_ = res.contents
+            data.total_ = res.total
+            data.loading_ = false
           })
           .catch((e) => {
             console.log(e)
           })
-      },
-      getResources: (address: any) => {
-        getAddressResources({
-          address: address,
-          page: data.currentPage,
-          count: data.pageSize,
-          query_type: ''
-        })
-          .then((res: any) => {
-            console.log('资源列表', res)
-            data.tableData3 = res
-          })
-          .catch((e) => {
-            console.log(e)
-          })
-      },
-      setSubstring: (str: any) => {
-        return substring(str)
-      },
-      jsonParse(signature) {
-        return JSON.parse(signature)
       },
       handleClick: (tab: TabsPaneContext, event: Event) => {
-        // console.log(tab, event, data.activeName)
-        console.log(data.activeName)
-        // if (data.activeName == 'transaction') data.getTransactionList(route.query.address)
-        // if (data.activeName == 'transfer') data.getTransferList(route.query.address)
-        // if (data.activeName == 'resources') data.getResources(route.query.address)
+        console.log(tab, event)
       },
       timestampToTime: (time: number) => {
         return timestampToTimeLong(time)
@@ -265,19 +250,36 @@ export default defineComponent({
       },
       handleCurrentChange: (val: number) => {
         console.log(`current page: ${val}`)
-        data.loading = false
+        data.loading = true
         data.currentPage = val
-        data.getTransactionList(route.query.address)
+        data.getCoinHolders(route.query.tag)
+      },
+      handleCurrentChange_: (val: number) => {
+        console.log(`current page: ${val}`)
+        data.loading_ = true
+        data.currentPage_ = val
+        data.getTransferList(route.query.tag)
+      },
+      setSubstring: (str: any) => {
+        return substring(str)
+      },
+      copy: async (val) => {
+        try {
+          await toClipboard(val)
+          ElMessage.success('复制成功')
+        } catch (e) {
+          console.log(e)
+          e.text == undefined ? ElMessage.error('复制失败') : ElMessage.error(e)
+        }
       }
     })
 
     const refData = toRefs(data)
 
     onMounted(() => {
-      data.getAddress(route.query.address)
-      data.getTransactionList(route.query.address)
-      data.getTransferList(route.query.address)
-      data.getResources(route.query.address)
+      data.getcoinDetail(route.query.tag)
+      data.getCoinHolders(route.query.tag)
+      data.getTransferList(route.query.tag)
     })
 
     return {
@@ -368,16 +370,6 @@ export default defineComponent({
   white-space: normal;
 }
 
-.txt2 {
-  color: #73787b;
-  font-size: 12px;
-}
-
-.flex {
-  display: flex;
-  justify-content: space-between;
-}
-
 /*  */
 .logo-img {
   border-radius: 50%;
@@ -408,7 +400,7 @@ export default defineComponent({
 
 .list {
   margin-right: 20px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .list .title {
@@ -426,27 +418,15 @@ export default defineComponent({
   justify-content: space-between;
 }
 
+.list div span:nth-child(1) {
+  width: 150px;
+}
+
 .list div span:nth-child(2) {
   color: #73787b;
 }
-
-.list_m {
-  margin-right: 20px;
-  font-size: 14px;
-}
-
-.list_m .title {
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 18px;
-}
-
-.list_m div {
-  padding: 8px 0;
-  line-height: 14px;
-  border-bottom: 1px dotted rgba(58, 58, 58, 0.3);
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
+.table div:nth-child(1) {
+  line-height: 40px;
+  color: #ccc;
 }
 </style>

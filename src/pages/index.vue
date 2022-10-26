@@ -24,7 +24,7 @@
               </a>
             </div>
             <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
-              <a href="#/data/stats2/token/tvl">
+              <a href="#/data/stats2/coin/tvl">
                 <div class="data-item-left">
                   <el-icon><User /></el-icon>
                   <div class="data-item-center">
@@ -58,7 +58,7 @@
               </a>
             </div>
             <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
-              <a href="#/data/stats2/token/hotToken">
+              <a href="#/">
                 <div class="data-item-left">
                   <el-icon><Switch /></el-icon>
                   <div class="data-item-center">
@@ -238,6 +238,7 @@ import Search from '../components/search.vue'
 import Footer from '../components/footer.vue'
 import { getBlockListStartHeight, getTransactionList, getChainSummary } from '@/http/api/index.ts'
 import { timestampToTimeLong, substring } from '@/utils/public.ts'
+import { ElLoading } from 'element-plus'
 
 export default defineComponent({
   name: 'Token',
@@ -247,6 +248,12 @@ export default defineComponent({
     Footer
   },
   setup() {
+    // const loading = ElLoading.service({
+    //   lock: true,
+    //   text: 'Loading',
+    //   background: 'rgba(0, 0, 0, 0.7)'
+    // })
+
     const router = useRouter()
     const data = reactive({
       currentPage: ref(1),
@@ -332,12 +339,23 @@ export default defineComponent({
       },
       gotoTransaction: (hash) => {
         router.push('/transactionDetail?hash=' + hash)
+      },
+      isPageLoad: () => {
+        console.log('111')
+        document.onreadystatechange = () => {
+          if (document.readyState == 'complete') {
+            alert('2')
+          } else {
+            alert('1')
+          }
+        }
       }
     })
 
     const refData = toRefs(data)
 
     onMounted(() => {
+      data.isPageLoad()
       // data.initChart()
       data.chainSummary()
       data.getBlock()

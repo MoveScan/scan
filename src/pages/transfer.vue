@@ -109,7 +109,7 @@
       <el-table :data="tableData" v-loading="loading">
         <el-table-column prop="type_tag" label="通证标识" width="400" :show-overflow-tooltip="true">
           <template #default="scope">
-            <router-link :to="'/tokenDetail?tag=' + scope.row.type_tag">
+            <router-link :to="'/coinDetail?tag=' + scope.row.type_tag">
               {{ scope.row.type_tag }}
             </router-link>
           </template>
