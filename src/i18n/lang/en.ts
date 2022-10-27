@@ -15,7 +15,7 @@ export default {
     Overview: 'Overview',
     Deployment: 'Deployment',
     Verify: 'Verify',
-    Token: 'Pass',
+    Token: 'Token',
     Data: 'Data',
     More: 'More',
     DevelopmentResources: 'Development Resources',

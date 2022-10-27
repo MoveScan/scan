@@ -9,7 +9,9 @@
             <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
               <a href="#/blockchain/accounts">
                 <div class="data-item-left">
-                  <el-icon><Coin /></el-icon>
+                  <el-icon>
+                    <Coin />
+                  </el-icon>
                   <div class="data-item-center">
                     <p class="m-0 panel-title"><span>总区块数</span></p>
                     <h2 class="m-0">
@@ -26,7 +28,9 @@
             <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
               <a href="#/data/stats2/coin/tvl">
                 <div class="data-item-left">
-                  <el-icon><User /></el-icon>
+                  <el-icon>
+                    <User />
+                  </el-icon>
                   <div class="data-item-center">
                     <p class="m-0 panel-title"><span>总账户数</span></p>
                     <h2 class="m-0">
@@ -43,7 +47,9 @@
             <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
               <a href="#/blockchain/transactions">
                 <div class="data-item-left">
-                  <el-icon><Finished /></el-icon>
+                  <el-icon>
+                    <Finished />
+                  </el-icon>
                   <div class="data-item-center">
                     <p class="m-0 panel-title"><span>总交易数</span></p>
                     <h2 class="m-0">
@@ -60,7 +66,9 @@
             <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
               <a href="#/">
                 <div class="data-item-left">
-                  <el-icon><Switch /></el-icon>
+                  <el-icon>
+                    <Switch />
+                  </el-icon>
                   <div class="data-item-center">
                     <p class="m-0 panel-title"><span>总转账数</span></p>
                     <h2 class="m-0">
@@ -141,7 +149,8 @@
       <div class="block text-center">
         <el-carousel height="150px">
           <el-carousel-item class="block-box">
-            <div class="box" v-for="(item, index) in blockData.slice(0, 4)" :key="index" @click="gotoBlock(item.height)">
+            <div class="box" v-for="(item, index) in blockData.slice(0, 4)" :key="index"
+              @click="gotoBlock(item.height)">
               <ul>
                 <li class="block-number">高度：{{ item.height }}</li>
                 <li>
@@ -156,7 +165,8 @@
             </div>
           </el-carousel-item>
           <el-carousel-item class="block-box">
-            <div class="box" v-for="(item, index) in blockData.slice(4, 8)" :key="index" @click="gotoBlock(item.height)">
+            <div class="box" v-for="(item, index) in blockData.slice(4, 8)" :key="index"
+              @click="gotoBlock(item.height)">
               <ul>
                 <li class="block-number">高度：{{ item.height }}</li>
                 <li>
@@ -171,7 +181,8 @@
             </div>
           </el-carousel-item>
           <el-carousel-item class="block-box">
-            <div class="box" v-for="(item, index) in blockData.slice(8, 12)" :key="index" @click="gotoBlock(item.height)">
+            <div class="box" v-for="(item, index) in blockData.slice(8, 12)" :key="index"
+              @click="gotoBlock(item.height)">
               <ul>
                 <li class="block-number">高度：{{ item.height }}</li>
                 <li>
@@ -355,7 +366,7 @@ export default defineComponent({
     const refData = toRefs(data)
 
     onMounted(() => {
-      data.isPageLoad()
+      // data.isPageLoad()
       // data.initChart()
       data.chainSummary()
       data.getBlock()
@@ -448,6 +459,7 @@ export default defineComponent({
   align-items: center;
   color: #91979d;
 }
+
 .block-box:hover {
   color: #409eff;
   cursor: pointer;
@@ -479,8 +491,7 @@ export default defineComponent({
   font-weight: bold;
 }
 
-.block-detail {
-}
+.block-detail {}
 
 .gray-time {
   font-size: 14px;
@@ -552,11 +563,11 @@ export default defineComponent({
   position: relative;
 }
 
-.mainnet-data .data-item:nth-child(odd) > a {
+.mainnet-data .data-item:nth-child(odd)>a {
   position: relative;
 }
 
-.mainnet-data .data-item > a {
+.mainnet-data .data-item>a {
   color: #91979d;
   display: flex;
   justify-content: space-between;
@@ -568,15 +579,15 @@ export default defineComponent({
   text-decoration: none;
 }
 
-.mainnet-data .data-item > a .data-item-left {
+.mainnet-data .data-item>a .data-item-left {
   display: flex;
 }
 
-.mainnet-data .data-item:nth-child(2n) > a img {
+.mainnet-data .data-item:nth-child(2n)>a img {
   margin-left: 20px px;
 }
 
-.mainnet-data .data-item > a img {
+.mainnet-data .data-item>a img {
   height: 40px;
   margin-right: 18px;
   margin-top: 5px;
@@ -588,13 +599,13 @@ svg {
   vertical-align: middle;
 }
 
-.mainnet-data .data-item > a .data-item-left .data-item-center {
+.mainnet-data .data-item>a .data-item-left .data-item-center {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.mainnet-data .data-item > a .panel-title {
+.mainnet-data .data-item>a .panel-title {
   font-family: Lato;
   font-size: 14px;
   margin-bottom: 4px !important;
@@ -605,13 +616,13 @@ svg {
   margin: 0 !important;
 }
 
-.mainnet-data .data-item > a .panel-title {
+.mainnet-data .data-item>a .panel-title {
   font-family: Lato;
   font-size: 14px;
   margin-bottom: 4px !important;
 }
 
-.mainnet-data .data-item > a .data-item-right .right-24h {
+.mainnet-data .data-item>a .data-item-right .right-24h {
   color: #91979d;
   margin-bottom: 4px !important;
   overflow: hidden;
@@ -620,18 +631,18 @@ svg {
   text-align: right;
 }
 
-.mainnet-data .data-item > a .data-item-left .data-item-center h2 {
+.mainnet-data .data-item>a .data-item-left .data-item-center h2 {
   white-space: nowrap;
 }
 
-.mainnet-data .data-item > a .data-item-left h2 {
+.mainnet-data .data-item>a .data-item-left h2 {
   font-family: Lato;
   font-size: 20px;
   font-weight: 700;
   margin-top: 4px;
 }
 
-.mainnet-data .data-item:nth-child(odd) > a:after {
+.mainnet-data .data-item:nth-child(odd)>a:after {
   border-right: 1px dashed #e0e4e8;
   bottom: 0;
   content: '';
@@ -643,15 +654,15 @@ svg {
   width: 1px;
 }
 
-.mainnet-data .data-item > a .data-item-left {
+.mainnet-data .data-item>a .data-item-left {
   display: flex;
 }
 
-.mainnet-data .data-item:nth-child(2n) > a img {
+.mainnet-data .data-item:nth-child(2n)>a img {
   margin-left: 20px;
 }
 
-.mainnet-data .data-item > a img {
+.mainnet-data .data-item>a img {
   height: 40px;
   margin-right: 18px;
   margin-top: 5px;
@@ -664,11 +675,11 @@ svg {
   max-width: 50%;
 }
 
-.mainnet-data .data-item > a .data-item-right .green {
+.mainnet-data .data-item>a .data-item-right .green {
   color: #2d912c;
 }
 
-.mainnet-data .data-item > a .data-item-right .right-24h {
+.mainnet-data .data-item>a .data-item-right .right-24h {
   color: #91979d;
   margin-bottom: 4px !important;
   overflow: hidden;
@@ -676,7 +687,7 @@ svg {
   white-space: nowrap;
 }
 
-.mainnet-data .data-item > a .data-item-left .data-item-center {
+.mainnet-data .data-item>a .data-item-left .data-item-center {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -785,6 +796,7 @@ p {
   height: 360px;
   padding: 20px;
 }
+
 .el-icon {
   margin: 0 15px;
   font-size: 48px;
