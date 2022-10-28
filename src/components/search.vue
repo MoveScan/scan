@@ -1,9 +1,10 @@
 <template>
   <div class="container search" id="search">
     <div class="mt-4">
-      <el-input v-model="input" size="large" placeholder="Search Explorer" @keyup.enter.native="searchHash()" class="input-with-select" clearable @clear="clearSearch()" @focus="tipsTxt(true)" @blur="tipsTxt(false)">
+      <el-input v-model="input" size="large" placeholder="账户地址/交易哈希或版本/区块高度" @keyup.enter.native="searchHash()"
+        class="input-with-select" clearable @clear="clearSearch()" @focus="tipsTxt(true)" @blur="tipsTxt(false)">
         <template #append>
-          <el-button type="primary" :icon="icon.sc" @click="searchHash()">Search</el-button>
+          <el-button type="primary" :icon="icon.sc" @click="searchHash()">搜索</el-button>
         </template>
       </el-input>
       <div class="tips-txt"><span v-show="isTxt">Account Address / Txn Hash or Version / Block Height</span></div>
@@ -26,7 +27,8 @@
         </div>
         <div v-if="show.transaction">
           Transaction:
-          <router-link :to="'/transactionDetail?hash=' + dataTransaction.hash + '&txn_type=' + dataTransaction.txn_type">
+          <router-link
+            :to="'/transactionDetail?hash=' + dataTransaction.hash + '&txn_type=' + dataTransaction.txn_type">
             {{ setSubstring(dataTransaction.hash) }}
           </router-link>
         </div>
@@ -193,12 +195,14 @@ export default defineComponent({
   line-height: 3rem;
   position: relative;
 }
+
 .tips-txt {
   font-size: 12px;
   color: #999;
   line-height: 1rem;
   height: 1rem;
 }
+
 .sc-content {
   background: rgb(247 247 247);
   width: 97.6%;
@@ -207,6 +211,7 @@ export default defineComponent({
   z-index: 1;
   top: 64px;
 }
+
 .sc-content div {
   margin: 0 15px;
 }

@@ -38,7 +38,7 @@
               <div class="d-flex align-items-center">
                 <div class="d-flex flex-column">
                   <span class="num">
-                    <span><a href="#/block/44540035">44540035</a></span>
+                    <span><a href="#">44540035</a></span>
                   </span>
                   <div class="d-flex" style="margin-top: 6px">
                     <span class="txt">持有TRX账户数</span>
@@ -65,7 +65,7 @@
               <div class="d-flex align-items-center">
                 <div class="d-flex flex-column">
                   <span class="num">
-                    <span><a href="#/block/44540035">44540035</a></span>
+                    <span><a href="#">44540035</a></span>
                   </span>
                   <div class="d-flex" style="margin-top: 6px">
                     <span class="txt">日活跃账户</span>
@@ -90,7 +90,7 @@
     </div>
 
     <div class="table">
-      <div>下面是账户列表，最新的{{ total }}条，每页20条</div>
+      <div>下面是账户列表，最新的1000条，每页20条</div>
       <el-table :data="tableData">
         <el-table-column prop="address" label="账户" width="600">
           <template #default="scope">
@@ -101,7 +101,7 @@
         </el-table-column>
         <el-table-column prop="create_at" label="创建时间">
           <template #default="scope">
-            {{ timestampToTime(scope.row.create_at) }}
+            <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="hold_amount" label="持币数量">
@@ -116,7 +116,7 @@
         </el-table-column>
       </el-table>
       <div class="page">
-        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="1000" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div>
     </div>
   </div>

@@ -1,3 +1,4 @@
+
 import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
@@ -74,8 +75,9 @@ const routes: RouteRecordRaw[] = [
   }
 ]
 
+// createWebHistory路由模式路径不带#号(生产环境下不能直接访问项目，需要nginx转发)
 const router = createRouter({
-  history: createWebHistory(), // createWebHashHistory
+  history: createWebHashHistory(),
   routes
 })
 //路由导航守卫

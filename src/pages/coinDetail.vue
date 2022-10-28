@@ -3,7 +3,9 @@
   <Search></Search>
   <div class="container">
     <!-- <div style="display: flex">
-      <img class="logo-img" src="https://static.tronscan.org/production/logo/usdtlogo.png" />
+      <el-icon>
+        <User />
+      </el-icon>
       <div class="block-title">
         Tether USD (USDT)
         <div class="overview-desc">USDT is the official stablecoin issued by Tether on the TRON network.</div>
@@ -11,7 +13,9 @@
     </div> -->
     <div class="block-title">
       {{ detail.coin_id }}
-      <el-icon @click="copy(detail.coin_id)"><DocumentCopy /></el-icon>
+      <el-icon v-if="detail.coin_id != null" @click="copy(detail.coin_id)">
+        <DocumentCopy />
+      </el-icon>
     </div>
     <br />
     <el-row>
@@ -45,13 +49,15 @@
           <span class="title">基础信息</span>
           <div>
             <span>创建时间：</span>
-            <span>{{ timestampToTime(detail.create_at) }}</span>
+            <span v-if="detail.create_at != null">{{ timestampToTime(detail.create_at) }}</span>
           </div>
           <div>
             <span>创建者：</span>
             <span>
               {{ detail.creator }}
-              <el-icon @click="copy(detail.creator)"><DocumentCopy /></el-icon>
+              <el-icon v-if="detail.creator != null" @click="copy(detail.creator)">
+                <DocumentCopy />
+              </el-icon>
             </span>
           </div>
           <div>
@@ -154,7 +160,7 @@
 
             <el-table-column prop="create_at" label="创建时间">
               <template #default="scope">
-                {{ timestampToTime(scope.row.create_at) }}
+                <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
               </template>
             </el-table-column>
           </el-table>
@@ -412,6 +418,7 @@ export default defineComponent({
 .list div {
   color: #464646;
   line-height: 45px;
+  font-size: 14px;
   border-bottom: 1px dotted rgba(58, 58, 58, 0.3);
   width: 100%;
   display: flex;
@@ -425,6 +432,7 @@ export default defineComponent({
 .list div span:nth-child(2) {
   color: #73787b;
 }
+
 .table div:nth-child(1) {
   line-height: 40px;
   color: #ccc;

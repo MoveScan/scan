@@ -17,9 +17,7 @@
               <div class="d-flex align-items-center">
                 <div class="d-flex flex-column">
                   <span class="num">
-                    <span>
-                      <a href="#/block/44540035">{{ total }}</a>
-                    </span>
+                    <span>{{ total }}</span>
                   </span>
                   <div class="d-flex" style="margin-top: 6px">
                     <span class="txt"><span>最新节点</span></span>
@@ -163,7 +161,7 @@
       
      -->
     <div class="table">
-      <div>下面是节点列表，最新的10000条，每页20条</div>
+      <div>下面是节点列表，最新的1000条，每页20条</div>
       <!-- {{ msg }} -->
       <el-table :data="tableData" v-loading="loading">
         <el-table-column prop="name" label="名称" />
@@ -198,7 +196,7 @@
         </el-table-column>
       </el-table>
       <div class="page">
-        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="1000" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div>
     </div>
   </div>

@@ -7,7 +7,7 @@
         <el-card class="box-card" style="margin-right: 15px; height: 282px">
           <div class="ant-row card-body row home-stats pt-0 pb-0 mainnet-data m-0">
             <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
-              <a href="#/blockchain/accounts">
+              <a href="#">
                 <div class="data-item-left">
                   <el-icon>
                     <Coin />
@@ -26,7 +26,7 @@
               </a>
             </div>
             <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
-              <a href="#/data/stats2/coin/tvl">
+              <a href="#">
                 <div class="data-item-left">
                   <el-icon>
                     <User />
@@ -45,7 +45,7 @@
               </a>
             </div>
             <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
-              <a href="#/blockchain/transactions">
+              <a href="#">
                 <div class="data-item-left">
                   <el-icon>
                     <Finished />
@@ -89,10 +89,12 @@
         <el-card class="box-card" style="height: 280px">
           <div class="trxgroup-wrapper-container">
             <div class="trxgroup-left-content">
-              <a href="#/data/stats/supply">
+              <a href="#">
                 <div class="market-item">
                   <div class="market-item-left">
-                    <img src="https://tronscan.io/static/media/market.3bd61aed1609a72184515d84118d6b8a.svg" />
+                    <el-icon>
+                    <User />
+                  </el-icon>
                     <div class="market-item-center">
                       <p class="trxgroup-left-title"><span>Market Cap</span></p>
                       <p class="trxgroup-left-number"><span>$5,538,110,223</span></p>
@@ -101,10 +103,12 @@
                   <p class="market-item-right green">+0.28 %</p>
                 </div>
               </a>
-              <a href="#/data/stats2/circulation/priceStats">
+              <a href="#">
                 <div class="market-item">
                   <div class="market-item-left">
-                    <img src="https://tronscan.io/static/media/volume.b83fb2f325400dfe889b41e9e7872876.svg" />
+                    <el-icon>
+                    <User />
+                  </el-icon>
                     <div class="market-item-center">
                       <p class="trxgroup-left-title"><span>Market Trading Volume (24h)</span></p>
                       <p class="trxgroup-left-number"><span>$352,817,086</span></p>
@@ -113,10 +117,12 @@
                   <p class="market-item-right red">-13.5 %</p>
                 </div>
               </a>
-              <a href="#/data/charts2/circulation/OverallFreezingRate">
+              <a href="#">
                 <div class="market-item">
                   <div class="market-item-left">
-                    <img src="https://tronscan.io/static/media/tvl_price.261634d5a86adffe241adaf872f7d15c.svg" />
+                    <el-icon>
+                    <User />
+                  </el-icon>
                     <div class="market-item-center">
                       <p class="trxgroup-left-title"><span>Total TRX Staked</span></p>
                       <p class="trxgroup-left-number"><span>43,984,956,811</span></p>
@@ -149,8 +155,7 @@
       <div class="block text-center">
         <el-carousel height="150px">
           <el-carousel-item class="block-box">
-            <div class="box" v-for="(item, index) in blockData.slice(0, 4)" :key="index"
-              @click="gotoBlock(item.height)">
+            <div class="box" v-for="(item, index) in blockData.slice(0, 4)" :key="index" @click="gotoBlock(item.height)">
               <ul>
                 <li class="block-number">高度：{{ item.height }}</li>
                 <li>
@@ -165,8 +170,7 @@
             </div>
           </el-carousel-item>
           <el-carousel-item class="block-box">
-            <div class="box" v-for="(item, index) in blockData.slice(4, 8)" :key="index"
-              @click="gotoBlock(item.height)">
+            <div class="box" v-for="(item, index) in blockData.slice(4, 8)" :key="index" @click="gotoBlock(item.height)">
               <ul>
                 <li class="block-number">高度：{{ item.height }}</li>
                 <li>
@@ -181,8 +185,7 @@
             </div>
           </el-carousel-item>
           <el-carousel-item class="block-box">
-            <div class="box" v-for="(item, index) in blockData.slice(8, 12)" :key="index"
-              @click="gotoBlock(item.height)">
+            <div class="box" v-for="(item, index) in blockData.slice(8, 12)" :key="index" @click="gotoBlock(item.height)">
               <ul>
                 <li class="block-number">高度：{{ item.height }}</li>
                 <li>
@@ -222,7 +225,10 @@
                     <div>块高度:{{ item.height }}</div>
                     <div>GAS消耗量:{{ item.gas_used }}</div>
                     <div>是否成功:{{ item.success ? '是' : '否' }}</div>
-                    <div>创建时间:{{ timestampToTime(item.create_at) }}</div>
+                    <div>
+                      创建时间:
+                      <span v-if="item.create_at != null">{{ timestampToTime(item.create_at) }}</span>
+                    </div>
                     <div>全局索引号:{{ item.global_index }}</div>
                     <div>交易类型:{{ item.transaction_type }}</div>
                   </div>
@@ -491,7 +497,8 @@ export default defineComponent({
   font-weight: bold;
 }
 
-.block-detail {}
+.block-detail {
+}
 
 .gray-time {
   font-size: 14px;
@@ -563,11 +570,11 @@ export default defineComponent({
   position: relative;
 }
 
-.mainnet-data .data-item:nth-child(odd)>a {
+.mainnet-data .data-item:nth-child(odd) > a {
   position: relative;
 }
 
-.mainnet-data .data-item>a {
+.mainnet-data .data-item > a {
   color: #91979d;
   display: flex;
   justify-content: space-between;
@@ -579,15 +586,15 @@ export default defineComponent({
   text-decoration: none;
 }
 
-.mainnet-data .data-item>a .data-item-left {
+.mainnet-data .data-item > a .data-item-left {
   display: flex;
 }
 
-.mainnet-data .data-item:nth-child(2n)>a img {
+.mainnet-data .data-item:nth-child(2n) > a img {
   margin-left: 20px px;
 }
 
-.mainnet-data .data-item>a img {
+.mainnet-data .data-item > a img {
   height: 40px;
   margin-right: 18px;
   margin-top: 5px;
@@ -599,13 +606,13 @@ svg {
   vertical-align: middle;
 }
 
-.mainnet-data .data-item>a .data-item-left .data-item-center {
+.mainnet-data .data-item > a .data-item-left .data-item-center {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.mainnet-data .data-item>a .panel-title {
+.mainnet-data .data-item > a .panel-title {
   font-family: Lato;
   font-size: 14px;
   margin-bottom: 4px !important;
@@ -616,13 +623,13 @@ svg {
   margin: 0 !important;
 }
 
-.mainnet-data .data-item>a .panel-title {
+.mainnet-data .data-item > a .panel-title {
   font-family: Lato;
   font-size: 14px;
   margin-bottom: 4px !important;
 }
 
-.mainnet-data .data-item>a .data-item-right .right-24h {
+.mainnet-data .data-item > a .data-item-right .right-24h {
   color: #91979d;
   margin-bottom: 4px !important;
   overflow: hidden;
@@ -631,18 +638,18 @@ svg {
   text-align: right;
 }
 
-.mainnet-data .data-item>a .data-item-left .data-item-center h2 {
+.mainnet-data .data-item > a .data-item-left .data-item-center h2 {
   white-space: nowrap;
 }
 
-.mainnet-data .data-item>a .data-item-left h2 {
+.mainnet-data .data-item > a .data-item-left h2 {
   font-family: Lato;
   font-size: 20px;
   font-weight: 700;
   margin-top: 4px;
 }
 
-.mainnet-data .data-item:nth-child(odd)>a:after {
+.mainnet-data .data-item:nth-child(odd) > a:after {
   border-right: 1px dashed #e0e4e8;
   bottom: 0;
   content: '';
@@ -654,15 +661,15 @@ svg {
   width: 1px;
 }
 
-.mainnet-data .data-item>a .data-item-left {
+.mainnet-data .data-item > a .data-item-left {
   display: flex;
 }
 
-.mainnet-data .data-item:nth-child(2n)>a img {
+.mainnet-data .data-item:nth-child(2n) > a img {
   margin-left: 20px;
 }
 
-.mainnet-data .data-item>a img {
+.mainnet-data .data-item > a img {
   height: 40px;
   margin-right: 18px;
   margin-top: 5px;
@@ -675,11 +682,11 @@ svg {
   max-width: 50%;
 }
 
-.mainnet-data .data-item>a .data-item-right .green {
+.mainnet-data .data-item > a .data-item-right .green {
   color: #2d912c;
 }
 
-.mainnet-data .data-item>a .data-item-right .right-24h {
+.mainnet-data .data-item > a .data-item-right .right-24h {
   color: #91979d;
   margin-bottom: 4px !important;
   overflow: hidden;
@@ -687,7 +694,7 @@ svg {
   white-space: nowrap;
 }
 
-.mainnet-data .data-item>a .data-item-left .data-item-center {
+.mainnet-data .data-item > a .data-item-left .data-item-center {
   display: flex;
   flex-direction: column;
   justify-content: space-between;

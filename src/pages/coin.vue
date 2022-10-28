@@ -43,7 +43,7 @@
               <div class="d-flex align-items-center">
                 <div class="d-flex flex-column">
                   <span class="num">
-                    <span><a href="#/block/44540035">44540035</a></span>
+                    <span><a href="#">44540035</a></span>
                   </span>
                   <div class="d-flex" style="margin-top: 6px">
                     <span class="txt">TRC20</span>
@@ -86,7 +86,7 @@
               <div class="d-flex align-items-center">
                 <div class="d-flex flex-column">
                   <span class="num">
-                    <span><a href="#/block/44540035">44540035</a></span>
+                    <span><a href="#">44540035</a></span>
                   </span>
                   <div class="d-flex" style="margin-top: 6px">
                     <span class="txt">日活跃账户</span>
@@ -118,7 +118,7 @@
         <el-tab-pane label="TRC10" name="TRC10">TRC10</el-tab-pane>
       </el-tabs> -->
 
-      <div>共{{ total }}个通证</div>
+      <div>下面是通证列表，最新的1000条，每页20条</div>
       <el-table :data="tableData" v-loading="loading">
         <el-table-column prop="coin_id" label="通证标识" width="400" :show-overflow-tooltip="true">
           <template #default="scope">
@@ -129,13 +129,13 @@
         </el-table-column>
         <el-table-column prop="create_at" label="创建时间">
           <template #default="scope">
-            {{ timestampToTime(scope.row.create_at) }}
+            <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="creator" label="创建者" width="200">
           <template #default="scope">
             <router-link v-if="scope.row.creator !== null" :to="'/accountDetail?address=' + scope.row.creator">
-              {{ setSubstring(scope.row.creator) }}
+              {{ scope.row.creator.length < 10 ? scope.row.creator : setSubstring(scope.row.creator) }}
             </router-link>
           </template>
         </el-table-column>
@@ -145,7 +145,7 @@
       </el-table>
 
       <div class="page">
-        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="1000" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div>
     </div>
   </div>

@@ -5,9 +5,17 @@
     <div class="flex">
       <div class="block-title">
         账户
-        <div class="overview-desc">{{ detail.address }}</div>
+        <div class="overview-desc">
+          {{ detail.address }}
+          <el-icon v-if="detail.address != null" @click="copy(detail.address)">
+            <DocumentCopy />
+          </el-icon>
+        </div>
       </div>
-      <div style="font-size: 14px">创建时间：{{ timestampToTime(detail.create_at) }}</div>
+      <div style="font-size: 14px">
+        创建时间：
+        <span v-if="detail.create_at != null">{{ timestampToTime(detail.create_at) }}</span>
+      </div>
     </div>
     <br />
     <el-row>
@@ -24,7 +32,7 @@
           </div>
           <div>
             <span>创建时间：</span>
-            <span>{{ timestampToTime(detail.create_at) }}</span>
+            <span v-if="detail.create_at != null">{{ timestampToTime(detail.create_at) }}</span>
           </div>
           <div>
             <span>持币数量：</span>
@@ -105,7 +113,7 @@
             <!-- <el-table-column prop="amount_value" label="数额" /> -->
             <el-table-column prop="create_at" label="创建时间">
               <template #default="scope">
-                {{ timestampToTime(scope.row.create_at) }}
+                <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
               </template>
             </el-table-column>
             <!-- <el-table-column prop="identifier" label="标识符" /> -->
@@ -150,7 +158,7 @@
           </el-table>
         </el-tab-pane>
       </el-tabs>
-      <!-- <div>共100个交易，列表仅展示最新的10000条记录</div> -->
+      <!-- <div>共100个交易，列表仅展示2010000条记录</div> -->
     </div>
   </div>
   <Footer></Footer>
@@ -401,9 +409,8 @@ export default defineComponent({
 }
 
 .overview-desc {
-  color: #73787b;
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .list {
@@ -420,6 +427,7 @@ export default defineComponent({
 .list div {
   color: #464646;
   line-height: 45px;
+  font-size: 14px;
   border-bottom: 1px dotted rgba(58, 58, 58, 0.3);
   width: 100%;
   display: flex;

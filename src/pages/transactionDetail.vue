@@ -7,7 +7,9 @@
       <div>
         <span>交易哈希：</span>
         <span>{{ detail.txn_hash }}</span>
-        <el-icon @click="copy(detail.txn_hash)"><DocumentCopy /></el-icon>
+        <el-icon v-if="detail.txn_hash != null" @click="copy(detail.txn_hash)">
+          <DocumentCopy />
+        </el-icon>
       </div>
       <div>
         <span>是否成功：</span>
@@ -20,12 +22,16 @@
       <div>
         <span>累加器根哈希：</span>
         <span>{{ detail.accumulator_root_hash }}</span>
-        <el-icon @click="copy(detail.accumulator_root_hash)"><DocumentCopy /></el-icon>
+        <el-icon v-if="detail.accumulator_root_hash != null" @click="copy(detail.accumulator_root_hash)">
+          <DocumentCopy />
+        </el-icon>
       </div>
       <div>
         <span>块哈希：</span>
         <span>{{ detail.block_hash }}</span>
-        <el-icon @click="copy(detail.block_hash)"><DocumentCopy /></el-icon>
+        <el-icon v-if="detail.block_hash != null" @click="copy(detail.block_hash)">
+          <DocumentCopy />
+        </el-icon>
       </div>
       <div>
         <span>块高度：</span>
@@ -33,12 +39,14 @@
       </div>
       <div>
         <span>创建时间：</span>
-        <span>{{ timestampToTime(detail.create_at) }}</span>
+        <span v-if="detail.create_at != null">{{ timestampToTime(detail.create_at) }}</span>
       </div>
       <div>
         <span>事件根哈希：</span>
         <span>{{ detail.event_root_hash }}</span>
-        <el-icon @click="copy(detail.event_root_hash)"><DocumentCopy /></el-icon>
+        <el-icon v-if="detail.event_root_hash != null" @click="copy(detail.event_root_hash)">
+          <DocumentCopy />
+        </el-icon>
       </div>
       <div>
         <span>GAS消耗量：</span>
@@ -58,7 +66,9 @@
       <div>
         <span>状态根哈希：</span>
         <span>{{ detail.state_root_hash }}</span>
-        <el-icon @click="copy(detail.state_root_hash)"><DocumentCopy /></el-icon>
+        <el-icon v-if="detail.state_root_hash != null" @click="copy(detail.state_root_hash)">
+          <DocumentCopy />
+        </el-icon>
       </div>
       <div>
         <span>虚拟机状态：</span>
@@ -72,7 +82,7 @@
             <el-table-column prop="change_type" label="变化类型" />
             <el-table-column prop="create_at" label="创建时间">
               <template #default="scope">
-                {{ timestampToTime(scope.row.create_at) }}
+                <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
               </template>
             </el-table-column>
             <el-table-column prop="address" label="账户" :show-overflow-tooltip="true">
@@ -95,7 +105,8 @@
 
             <el-table-column type="expand" label="变化数据" width="100">
               <template #default="props">
-                <json-viewer :value="JSON.parse(props.row.change_data)" :expand-depth="5" copyable boxed sort></json-viewer>
+                <json-viewer :value="JSON.parse(props.row.change_data)" :expand-depth="5" copyable boxed sort>
+                </json-viewer>
               </template>
             </el-table-column>
           </el-table>
@@ -105,7 +116,7 @@
             <el-table-column prop="id" label="ID" />
             <el-table-column prop="create_at" label="创建时间">
               <template #default="scope">
-                {{ timestampToTime(scope.row.create_at) }}
+                <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
               </template>
             </el-table-column>
             <el-table-column prop="address" label="账户地址" :show-overflow-tooltip="true">
@@ -133,7 +144,8 @@
             </el-table-column>
             <el-table-column type="expand" label="事件数据" width="100">
               <template #default="props">
-                <json-viewer :value="JSON.parse(props.row.event_data)" :expand-depth="5" copyable boxed sort></json-viewer>
+                <json-viewer :value="JSON.parse(props.row.event_data)" :expand-depth="5" copyable boxed sort>
+                </json-viewer>
               </template>
             </el-table-column>
           </el-table>
@@ -321,7 +333,7 @@ export default defineComponent({
   text-align: left;
 }
 
-.demo-tabs > .el-tabs__content {
+.demo-tabs>.el-tabs__content {
   padding: 32px;
   color: #6b778c;
   font-size: 32px;
@@ -333,6 +345,7 @@ export default defineComponent({
   align-items: center;
   color: #464646;
   line-height: 45px;
+  font-size: 14px;
   border-bottom: 1px dotted rgba(58, 58, 58, 0.3);
   width: 100%;
 }

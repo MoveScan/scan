@@ -16,7 +16,7 @@
                     <div class="d-flex flex-column">
                       <span class="num">
                         <span>
-                          <a href="/">{{ total }}</a>
+                          <a href="#">{{ total }}</a>
                         </span>
                       </span>
                       <div class="d-flex" style="margin-top: 6px">
@@ -101,12 +101,12 @@
     </el-row>
 
     <div class="table">
-      <div>下面是区块列表，最新的10000条，每页20条</div>
+      <div>下面是区块列表，最新的1000条，每页20条</div>
       <el-table :data="tableData" v-loading="loading">
         <el-table-column prop="global_index" label="全局索引号" />
         <el-table-column prop="create_at" label="创建时间">
           <template #default="scope">
-            {{ timestampToTime(scope.row.create_at) }}
+            <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="success" label="是否成功" />
@@ -121,7 +121,7 @@
         </el-table-column>
       </el-table>
       <div class="page">
-        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="1000" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div>
     </div>
   </div>
@@ -191,7 +191,7 @@ export default defineComponent({
         const chart = init(chartEle)
         const option: EChartsOption = {
           title: {
-            text: '每日交易分部'
+            text: '每日交易分布（开发中）'
           },
           tooltip: {
             trigger: 'item'
@@ -201,7 +201,21 @@ export default defineComponent({
               name: 'Access From',
               type: 'pie',
               radius: ['40%', '70%'],
-
+              avoidLabelOverlap: false,
+              label: {
+                show: false,
+                position: 'center'
+              },
+              emphasis: {
+                label: {
+                  show: true,
+                  fontSize: '40',
+                  fontWeight: 'bold'
+                }
+              },
+              labelLine: {
+                show: false
+              },
               data: [
                 { value: 1048, name: 'Search Engine' },
                 { value: 735, name: 'Direct' },

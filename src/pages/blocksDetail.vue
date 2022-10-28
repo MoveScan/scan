@@ -7,22 +7,30 @@
       <div style="width: 100%">
         <span>累加器根哈希：</span>
         <span>{{ detail.block_accumulator_root }}</span>
-        <el-icon @click="copy(detail.block_accumulator_root)"><DocumentCopy /></el-icon>
+        <el-icon v-if="detail.block_accumulator_root != null" @click="copy(detail.block_accumulator_root)">
+          <DocumentCopy />
+        </el-icon>
       </div>
       <div style="width: 100%">
         <span>块哈希：</span>
         <span>{{ detail.block_hash }}</span>
-        <el-icon @click="copy(detail.block_hash)"><DocumentCopy /></el-icon>
+        <el-icon v-if="detail.block_hash != null" @click="copy(detail.block_hash)">
+          <DocumentCopy />
+        </el-icon>
       </div>
       <div style="width: 100%">
         <span>块体哈希：</span>
         <span>{{ detail.body_hash }}</span>
-        <el-icon @click="copy(detail.body_hash)"><DocumentCopy /></el-icon>
+        <el-icon v-if="detail.body_hash != null" @click="copy(detail.body_hash)">
+          <DocumentCopy />
+        </el-icon>
       </div>
       <div style="width: 100%">
         <span>状态根哈希：</span>
         <span>{{ detail.state_root }}</span>
-        <el-icon @click="copy(detail.state_root)"><DocumentCopy /></el-icon>
+        <el-icon v-if="detail.state_root != null" @click="copy(detail.state_root)">
+          <DocumentCopy />
+        </el-icon>
       </div>
       <div style="width: 100%">
         <span>交易累加器根哈希：</span>
@@ -32,7 +40,9 @@
       <div>
         <span>创建者：</span>
         <span>{{ detail.author }}</span>
-        <el-icon @click="copy(detail.author)"><DocumentCopy /></el-icon>
+        <el-icon v-if="detail.author != null" @click="copy(detail.author)">
+          <DocumentCopy />
+        </el-icon>
       </div>
       <div>
         <span>链标识：</span>
@@ -40,7 +50,7 @@
       </div>
       <div>
         <span>创建时间：</span>
-        <span>{{ timestampToTime(detail.create_at) }}</span>
+        <span v-if="detail.create_at != null">{{ timestampToTime(detail.create_at) }}</span>
       </div>
       <div>
         <span>难度：</span>
@@ -89,7 +99,7 @@
         <el-table-column prop="global_index" label="全局索引号" />
         <el-table-column prop="create_at" label="创建时间">
           <template #default="scope">
-            {{ timestampToTime(scope.row.create_at) }}
+            <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="success" label="是否成功">
@@ -98,7 +108,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="gas_used" label="GAS消耗量" />
-        <el-table-column prop="transaction_type" label="交易类型" />
+        <el-table-column prop="txn_type" label="交易类型" />
         <el-table-column prop="txn_hash" label="交易哈希" :show-overflow-tooltip="true" width="300">
           <template #default="scope">
             <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash">
@@ -109,7 +119,9 @@
       </el-table>
 
       <div class="page">
-        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled"
+          :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange"
+          @current-change="handleCurrentChange" />
       </div>
     </div>
   </div>
@@ -311,7 +323,7 @@ export default defineComponent({
   text-align: left;
 }
 
-.demo-tabs > .el-tabs__content {
+.demo-tabs>.el-tabs__content {
   padding: 32px;
   color: #6b778c;
   font-size: 32px;
@@ -321,6 +333,7 @@ export default defineComponent({
 .list div {
   color: #464646;
   line-height: 45px;
+  font-size: 14px;
   border-bottom: 1px dotted rgba(58, 58, 58, 0.3);
   width: 48%;
   /* display: flex;

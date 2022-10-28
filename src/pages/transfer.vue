@@ -15,7 +15,7 @@
                   <div class="d-flex align-items-center">
                     <div class="d-flex flex-column">
                       <span class="num">
-                        <span><a href="/">44540035</a></span>
+                        <span><a href="#">44540035</a></span>
                       </span>
                       <div class="d-flex" style="margin-top: 6px">
                         <span class="txt"><span>累计数</span></span>
@@ -105,7 +105,7 @@
         <el-tab-pane label="TRC1115转账" name="third">TRC1115转账</el-tab-pane>
       </el-tabs> -->
 
-      <div>下面是区块列表，最新的10000条，每页20条</div>
+      <div>下面是转账列表，最新的1000条，每页20条</div>
       <el-table :data="tableData" v-loading="loading">
         <el-table-column prop="type_tag" label="通证标识" width="400" :show-overflow-tooltip="true">
           <template #default="scope">
@@ -117,7 +117,7 @@
         <el-table-column prop="amount" label="数量" />
         <el-table-column prop="create_at" label="创建时间">
           <template #default="scope">
-            {{ timestampToTime(scope.row.create_at) }}
+            <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="sender" label="发送者" :show-overflow-tooltip="true">
@@ -137,14 +137,14 @@
         <el-table-column prop="txn_hash" label="交易哈希" :show-overflow-tooltip="true">
           <template #default="scope">
             <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash">
-              {{ scope.row.txn_hash }}
+              {{ setSubstring(scope.row.txn_hash) }}
             </router-link>
           </template>
         </el-table-column>
       </el-table>
 
       <div class="page">
-        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="1000" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div>
     </div>
   </div>

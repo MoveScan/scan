@@ -8,6 +8,7 @@
       <el-col :span="8">3</el-col>
     </el-row> -->
     <div class="block-title">{{ $t('lang.Block') }}</div>
+    <!-- 
     <div class="blocks-data-wrap">
       <div class="blocks_overview blocks_list_overview">
         <div class="">
@@ -18,7 +19,7 @@
                 <div class="d-flex flex-column">
                   <span class="num">
                     <span>
-                      <a href="#/block/44540035">{{ total }}</a>
+                      <a href="#">{{ total }}</a>
                     </span>
                   </span>
                   <div class="d-flex" style="margin-top: 6px">
@@ -26,7 +27,7 @@
                   </div>
                 </div>
                 <div class="d-flex flex-column">
-                  <!-- <span class="num">
+                  <span class="num">
                     <span>
                       +
                       <span>28,786</span>
@@ -34,14 +35,14 @@
                   </span>
                   <div class="d-flex" style="margin-top: 6px">
                     <span class="txt"><span>昨日出块数</span></span>
-                  </div> -->
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- <div class="blocks_overview blocks_list_overview">
+      <div class="blocks_overview blocks_list_overview">
         <div class="">
           <div class="card">
             <div class="card-body" id="tradingAmount">
@@ -156,15 +157,15 @@
             </div>
           </div>
         </div>
-      </div> -->
-    </div>
+      </div>
+    </div> 
+  -->
 
     <!-- 
       
      -->
     <div class="table">
-      <div>下面是区块列表，最新的10000条，每页20条</div>
-      <!-- {{ msg }} -->
+      <div>下面是区块列表，最新的1000条，每页20条</div>
       <el-table :data="tableData" v-loading="loading">
         <el-table-column prop="height" label="高度">
           <template #default="scope">
@@ -175,7 +176,7 @@
         </el-table-column>
         <el-table-column prop="create_at" label="创建时间">
           <template #default="scope">
-            {{ timestampToTime(scope.row.create_at) }}
+            <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="author" label="创建者">
@@ -196,7 +197,7 @@
         </el-table-column>
       </el-table>
       <div class="page">
-        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="1000" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div>
     </div>
   </div>
@@ -222,7 +223,7 @@ export default defineComponent({
       loading: ref(true),
       currentPage: ref(1),
       pageSize: ref(20),
-      total: ref(0),
+      total: ref(1000),
       background: ref(false),
       disabled: ref(false),
       tableData: [],
@@ -240,7 +241,7 @@ export default defineComponent({
           .then((res: any) => {
             console.log('BlockStart', res)
             data.tableData = res.contents
-            data.total = res.total
+            // data.total = res.total
             data.loading = false
           })
           .catch((e) => {
@@ -265,7 +266,6 @@ export default defineComponent({
     })
 
     const refData = toRefs(data)
-    let msg = ref('fuck')
 
     onMounted(() => {
       data.getBlock()
@@ -273,8 +273,7 @@ export default defineComponent({
     })
 
     return {
-      ...refData,
-      msg
+      ...refData
     }
   }
 })
