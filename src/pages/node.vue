@@ -168,30 +168,30 @@
       <div>{{ $t('lang.LatestList') }}</div>
       <!-- {{ msg }} -->
       <el-table :data="tableData" v-loading="loading">
-        <el-table-column prop="name" label="名称" />
-        <el-table-column prop="address" label="地址" :show-overflow-tooltip="true">
+        <el-table-column prop="name" :label="$t('lang.NodeName')" />
+        <el-table-column prop="address" :label="$t('lang.Address')" :show-overflow-tooltip="true">
           <template #default="scope">
             <router-link :to="'/accountDetail?address=' + scope.row.address">
               {{ setSubstring(scope.row.address) }}
             </router-link>
           </template>
         </el-table-column>
-        <el-table-column prop="voting_power" label="投票权重" />
-        <el-table-column prop="consensus_public_key" label="共识公钥" :show-overflow-tooltip="true">
+        <el-table-column prop="voting_power" :label="$t('lang.VotingPower')" />
+        <el-table-column prop="consensus_public_key" :label="$t('lang.ConsensusPubKey')" :show-overflow-tooltip="true">
           <template #default="scope">
             <el-tooltip class="box-item" effect="dark" :content="scope.row.consensus_public_key" placement="top">
               {{ setSubstring(scope.row.consensus_public_key) }}
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column prop="node_address" label="节点地址" :show-overflow-tooltip="true">
+        <el-table-column prop="node_address" :label="$t('lang.NodeAddress')" :show-overflow-tooltip="true">
           <template #default="scope">
             <el-tooltip class="box-item" effect="dark" :content="scope.row.node_address" placement="top">
               {{ setSubstring(scope.row.node_address) }}
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column prop="network_address" label="网络地址" :show-overflow-tooltip="true">
+        <el-table-column prop="network_address" :label="$t('lang.NetworkAddress')" :show-overflow-tooltip="true">
           <template #default="scope">
             <el-tooltip class="box-item" effect="dark" :content="scope.row.network_address" placement="top">
               {{ setSubstring(scope.row.network_address) }}

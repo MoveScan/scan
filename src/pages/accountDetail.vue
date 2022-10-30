@@ -283,10 +283,10 @@ export default defineComponent({
       copy: async (val) => {
         try {
           await toClipboard(val)
-          ElMessage.success('复制成功')
+          ElMessage.success('copy success')
         } catch (e) {
           console.log(e)
-          e.text == undefined ? ElMessage.error('复制失败') : ElMessage.error(e)
+          e.text == undefined ? ElMessage.error('copy failed') : ElMessage.error(e)
         }
       }
     })

@@ -107,34 +107,34 @@
 
       <div>{{ $t('lang.LatestList') }}</div>
       <el-table :data="tableData" v-loading="loading">
-        <el-table-column prop="type_tag" label="通证标识" width="400" :show-overflow-tooltip="true">
+        <el-table-column prop="type_tag" :label="$t('lang.CoinID')" width="400" :show-overflow-tooltip="true">
           <template #default="scope">
             <router-link :to="'/coinDetail?tag=' + scope.row.type_tag">
               {{ scope.row.type_tag }}
             </router-link>
           </template>
         </el-table-column>
-        <el-table-column prop="amount" label="数量" />
-        <el-table-column prop="create_at" label="创建时间">
+        <el-table-column prop="amount" :label="$t('lang.Amount')" />
+        <el-table-column prop="create_at" :label="$t('lang.CreateAt')">
           <template #default="scope">
             <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="sender" label="发送者" :show-overflow-tooltip="true">
+        <el-table-column prop="sender" :label="$t('lang.Sender')" :show-overflow-tooltip="true">
           <template #default="scope">
             <router-link :to="'/accountDetail?address=' + scope.row.sender">
               {{ scope.row.sender }}
             </router-link>
           </template>
         </el-table-column>
-        <el-table-column prop="receiver" label="接收者" :show-overflow-tooltip="true">
+        <el-table-column prop="receiver" :label="$t('lang.Receiver')" :show-overflow-tooltip="true">
           <template #default="scope">
             <router-link :to="'/accountDetail?address=' + scope.row.receiver">
               {{ scope.row.receiver }}
             </router-link>
           </template>
         </el-table-column>
-        <el-table-column prop="txn_hash" label="交易哈希" :show-overflow-tooltip="true">
+        <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true">
           <template #default="scope">
             <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash">
               {{ setSubstring(scope.row.txn_hash) }}

@@ -104,7 +104,7 @@
         </el-table-column>
         <el-table-column prop="success" :label="$t('lang.IsSuccess')">
           <template #default="scope">
-            {{ scope.row.success ? '是' : '否' }}
+            {{ scope.row.success ? $t('lang.Yes') : $t('lang.No') }}
           </template>
         </el-table-column>
         <el-table-column prop="gas_used" :label="$t('lang.GasUsed')" />
@@ -208,10 +208,10 @@ export default defineComponent({
       copy: async (val) => {
         try {
           await toClipboard(val)
-          ElMessage.success('复制成功')
+          ElMessage.success('copy success')
         } catch (e) {
           console.log(e)
-          e.text == undefined ? ElMessage.error('复制失败') : ElMessage.error(e)
+          e.text == undefined ? ElMessage.error('copy failed') : ElMessage.error(e)
         }
       }
     })

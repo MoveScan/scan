@@ -11,7 +11,9 @@
             <div class="">
               <div class="card">
                 <div class="card-body" id="txcont">
-                  <h2 class="d-flex"><span>交易数</span></h2>
+                  <h2 class="d-flex">
+                    <span>{{ $t('lang.Txns') }}</span>
+                  </h2>
                   <div class="d-flex align-items-center">
                     <div class="d-flex flex-column">
                       <span class="num">
@@ -20,7 +22,9 @@
                         </span>
                       </span>
                       <div class="d-flex" style="margin-top: 6px">
-                        <span class="txt"><span>累计数</span></span>
+                        <span class="txt">
+                          <span>{{ $t('lang.Total') }}</span>
+                        </span>
                       </div>
                     </div>
                     <div class="d-flex flex-column">
@@ -103,16 +107,16 @@
     <div class="table">
       <div>{{ $t('lang.LatestList') }}</div>
       <el-table :data="tableData" v-loading="loading">
-        <el-table-column prop="global_index" label="全局索引号" />
-        <el-table-column prop="create_at" label="创建时间">
+        <el-table-column prop="global_index" :label="$t('lang.GlobalIndex')" />
+        <el-table-column prop="create_at" :label="$t('lang.CreateAt')">
           <template #default="scope">
             <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="success" label="是否成功" />
-        <el-table-column prop="gas_used" label="GAS消耗量" />
-        <el-table-column prop="txn_type" label="交易类型" />
-        <el-table-column prop="txn_hash" label="交易哈希" :show-overflow-tooltip="true" width="300">
+        <el-table-column prop="success" :label="$t('lang.IsSuccess')" />
+        <el-table-column prop="gas_used" :label="$t('lang.GasUsed')" />
+        <el-table-column prop="txn_type" :label="$t('lang.TxnType')" />
+        <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true" width="300">
           <template #default="scope">
             <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=' + scope.row.txn_type">
               {{ setSubstring(scope.row.txn_hash) }}
@@ -137,6 +141,7 @@ import Search from '../components/search.vue'
 import Footer from '../components/footer.vue'
 import { getTransactionList } from '@/http/api/index.ts'
 import { timestampToTimeLong, substring } from '@/utils/public.ts'
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
   name: 'transaction',
@@ -146,6 +151,7 @@ export default defineComponent({
     Footer
   },
   setup() {
+    const { t } = useI18n()
     const data = reactive({
       loading: ref(true),
       currentPage: ref(1),
@@ -191,7 +197,7 @@ export default defineComponent({
         const chart = init(chartEle)
         const option: EChartsOption = {
           title: {
-            text: '每日交易分布（开发中）'
+            text: t('lang.DailyTxnDistribution')
           },
           tooltip: {
             trigger: 'item'

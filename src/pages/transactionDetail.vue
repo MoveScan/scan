@@ -5,97 +5,97 @@
     <div class="block-title">{{ $t('lang.TransactionDetail') }}</div>
     <div class="blocks-data-wrap table list">
       <div>
-        <span>交易哈希：</span>
+        <span>{{ $t('lang.TxnHash') }}：</span>
         <span>{{ detail.txn_hash }}</span>
         <el-icon v-if="detail.txn_hash != null" @click="copy(detail.txn_hash)">
           <DocumentCopy />
         </el-icon>
       </div>
       <div>
-        <span>是否成功：</span>
-        <span>{{ detail.success ? '是' : '否' }}</span>
+        <span>{{ $t('lang.IsSuccess') }}：</span>
+        <span>{{ detail.success ? $t('lang.Yes') : $t('lang.No') }}</span>
       </div>
       <div>
-        <span>交易类型：</span>
+        <span>{{ $t('lang.TxnType') }}：</span>
         <span>{{ detail.txn_type }}</span>
       </div>
       <div>
-        <span>累加器根哈希：</span>
+        <span>{{ $t('lang.AccumulatorRootHash') }}：</span>
         <span>{{ detail.accumulator_root_hash }}</span>
         <el-icon v-if="detail.accumulator_root_hash != null" @click="copy(detail.accumulator_root_hash)">
           <DocumentCopy />
         </el-icon>
       </div>
       <div>
-        <span>块哈希：</span>
+        <span>{{ $t('lang.BlockHash') }}：</span>
         <span>{{ detail.block_hash }}</span>
         <el-icon v-if="detail.block_hash != null" @click="copy(detail.block_hash)">
           <DocumentCopy />
         </el-icon>
       </div>
       <div>
-        <span>块高度：</span>
+        <span>{{ $t('lang.Block') + $t('lang.Height') }}：</span>
         <span>{{ detail.block_number }}</span>
       </div>
       <div>
-        <span>创建时间：</span>
+        <span>{{ $t('lang.CreateAt') }}：</span>
         <span v-if="detail.create_at != null">{{ timestampToTime(detail.create_at) }}</span>
       </div>
       <div>
-        <span>事件根哈希：</span>
+        <span>{{ $t('lang.EventRootHash') }}：</span>
         <span>{{ detail.event_root_hash }}</span>
         <el-icon v-if="detail.event_root_hash != null" @click="copy(detail.event_root_hash)">
           <DocumentCopy />
         </el-icon>
       </div>
       <div>
-        <span>GAS消耗量：</span>
+        <span>{{ $t('lang.GasUsed') }}：</span>
         <span>{{ detail.gas_used }}</span>
       </div>
       <div>
-        <span>全局索引号：</span>
+        <span>{{ $t('lang.GlobalIndex') }}：</span>
         <span>{{ detail.global_index }}</span>
       </div>
       <div>
-        <span>负载：</span>
+        <span>{{ $t('lang.Payload') }}：</span>
         <!-- <span>{{ detail.payload }}</span> -->
         <span v-if="detail.payload != null" style="width: 90%">
           <json-viewer :value="detail.payload" :expand-depth="5" copyable boxed sort></json-viewer>
         </span>
       </div>
       <div>
-        <span>状态根哈希：</span>
+        <span>{{ $t('lang.StateRoot') }}：</span>
         <span>{{ detail.state_root_hash }}</span>
         <el-icon v-if="detail.state_root_hash != null" @click="copy(detail.state_root_hash)">
           <DocumentCopy />
         </el-icon>
       </div>
       <div>
-        <span>虚拟机状态：</span>
+        <span>{{ $t('lang.VMState') }}：</span>
         <span>{{ detail.vm_status }}</span>
       </div>
     </div>
     <div v-if="$route.query.txn_type == 'user_transaction'">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane label="资源变化" name="first">
+        <el-tab-pane :label="$t('lang.ResourceChanges')" name="first">
           <el-table :data="detail.changes">
-            <el-table-column prop="change_type" label="变化类型" />
-            <el-table-column prop="create_at" label="创建时间">
+            <el-table-column prop="change_type" :label="$t('lang.ChangeType')" />
+            <el-table-column prop="create_at" :label="$t('lang.CreateAt')">
               <template #default="scope">
                 <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="address" label="账户" :show-overflow-tooltip="true">
+            <el-table-column prop="address" :label="$t('lang.Account')" :show-overflow-tooltip="true">
               <template #default="scope">
                 <router-link :to="'/accountDetail?address=' + scope.row.address">
                   {{ scope.row.address }}
                 </router-link>
               </template>
             </el-table-column>
-            <el-table-column label="状态标记哈希" :show-overflow-tooltip="true">
+            <el-table-column :label="$t('lang.StateKeyHash')" :show-overflow-tooltip="true">
               <template #default="scope">{{ scope.row.change_id.state_key_hash }}</template>
             </el-table-column>
-            <el-table-column label="交易哈希" :show-overflow-tooltip="true">
+            <el-table-column :label="$t('lang.TxnHash')" :show-overflow-tooltip="true">
               <template #default="scope">
                 <router-link :to="'/transactionDetail?hash=' + scope.row.change_id.txn_hash">
                   {{ scope.row.change_id.txn_hash }}
@@ -103,49 +103,47 @@
               </template>
             </el-table-column>
 
-            <el-table-column type="expand" label="变化数据" width="100">
+            <el-table-column type="expand" :label="$t('lang.ChangeData')" width="100">
               <template #default="props">
-                <json-viewer :value="JSON.parse(props.row.change_data)" :expand-depth="5" copyable boxed sort>
-                </json-viewer>
+                <json-viewer :value="JSON.parse(props.row.change_data)" :expand-depth="5" copyable boxed sort></json-viewer>
               </template>
             </el-table-column>
           </el-table>
         </el-tab-pane>
-        <el-tab-pane label="事件" name="second">
+        <el-tab-pane :label="$t('lang.Event')" name="second">
           <el-table :data="detail.events">
             <el-table-column prop="id" label="ID" />
-            <el-table-column prop="create_at" label="创建时间">
+            <el-table-column prop="create_at" :label="$t('lang.CreateAt')">
               <template #default="scope">
                 <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="address" label="账户地址" :show-overflow-tooltip="true">
+            <el-table-column prop="address" :label="$t('lang.Account') + $t('lang.Address')" :show-overflow-tooltip="true">
               <template #default="scope">
                 <router-link :to="'/accountDetail?address=' + scope.row.account_address">
                   {{ scope.row.account_address }}
                 </router-link>
               </template>
             </el-table-column>
-            <el-table-column prop="creation_number" label="创建者序号" />
-            <el-table-column prop="event_sequence_number" label="事件序列号" />
-            <el-table-column prop="txn_hash" label="交易哈希" :show-overflow-tooltip="true">
+            <el-table-column prop="creation_number" :label="$t('lang.CreationNumber')" />
+            <el-table-column prop="event_sequence_number" :label="$t('lang.EventSequenceNumber')" />
+            <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true">
               <template #default="scope">
                 <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash">
                   {{ scope.row.txn_hash }}
                 </router-link>
               </template>
             </el-table-column>
-            <el-table-column prop="type_tag" label="通证标识" :show-overflow-tooltip="true">
+            <el-table-column prop="type_tag" :label="$t('lang.CoinID')" :show-overflow-tooltip="true">
               <template #default="scope">
                 <router-link :to="'/coinDetail?tag=' + scope.row.type_tag">
                   {{ scope.row.type_tag }}
                 </router-link>
               </template>
             </el-table-column>
-            <el-table-column type="expand" label="事件数据" width="100">
+            <el-table-column type="expand" :label="$t('lang.EventData')" width="100">
               <template #default="props">
-                <json-viewer :value="JSON.parse(props.row.event_data)" :expand-depth="5" copyable boxed sort>
-                </json-viewer>
+                <json-viewer :value="JSON.parse(props.row.event_data)" :expand-depth="5" copyable boxed sort></json-viewer>
               </template>
             </el-table-column>
           </el-table>
@@ -223,10 +221,10 @@ export default defineComponent({
       copy: async (val) => {
         try {
           await toClipboard(val)
-          ElMessage.success('复制成功')
+          ElMessage.success('copy success')
         } catch (e) {
           console.log(e)
-          e.text == undefined ? ElMessage.error('复制失败') : ElMessage.error(e)
+          e.text == undefined ? ElMessage.error('copy failed') : ElMessage.error(e)
         }
       }
     })
@@ -333,7 +331,7 @@ export default defineComponent({
   text-align: left;
 }
 
-.demo-tabs>.el-tabs__content {
+.demo-tabs > .el-tabs__content {
   padding: 32px;
   color: #6b778c;
   font-size: 32px;

@@ -1,3 +1,5 @@
+import { useI18n } from 'vue-i18n'
+
 // 10位时间戳秒转换为标准时间 10位时间戳乘以1000
 export function timestampToTime(timestamp) {
   var date = new Date(timestamp * 1000)
@@ -22,9 +24,10 @@ export function timestampToTime_(timestamp) {
 }
 // 返回1天2时3分5秒
 export function timestampToTimeLong(timestamp) {
+  const { t } = useI18n()
   let startTime = timestampToTime_(timestamp)
   let endTime = getNowDate()
-  return twoTimeInterval(startTime, endTime) + '前'
+  return twoTimeInterval(startTime, endTime) + ' ' + t('lang.Ago')
 }
 
 export function substring(str) {
@@ -38,6 +41,7 @@ export function substring(str) {
  * @return 1天2时3分5秒
  */
 export function twoTimeInterval(startTime, endTime) {
+  const { t } = useI18n()
   // 开始时间
   let d1 = startTime.replace(/\-/g, '/')
   let date1 = new Date(d1)
@@ -64,7 +68,7 @@ export function twoTimeInterval(startTime, endTime) {
   let residue3 = residue2 % (60 * 1000) // 计算分钟数后剩余的毫秒数
   let seconds = Math.round(residue3 / 1000)
 
-  let returnVal = (days == 0 ? '' : days + '天') + (hours == 0 ? '' : days + '时') + (minutes == 0 ? '' : minutes + '分') + (seconds == 0 ? '' : seconds + '秒')
+  let returnVal = (days == 0 ? '' : days + t('lang.Day')) + ' ' + (hours == 0 ? '' : days + t('lang.H')) + (minutes == 0 ? '' : minutes + t('lang.M') + ' ') + (seconds == 0 ? '' : seconds + t('lang.S'))
   return returnVal
 }
 

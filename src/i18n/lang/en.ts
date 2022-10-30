@@ -49,6 +49,7 @@ export default {
     NodeName: 'Node Name',
     VotingPower: 'Voting Power',
     ConsensusPubKey: 'Consensus Pub Key',
+    Address: 'Address',
     NodeAddress: 'Node Address',
     NetworkAddress: 'Network Address',
     CreateAt: 'Create At',
@@ -108,6 +109,17 @@ export default {
     TransferList: 'Transfer List',
     TransactionList: 'Transaction List',
     ResourceList: 'Resource List',
+    ResourceChanges: 'Resource changes',
+    Event: 'Event',
+    Search: 'Search',
+    Yes: 'Yes',
+    No: 'No',
+    Day: 'Day',
+    H: 'h',
+    M: 'min',
+    S: 's',
+    Ago: 'ago',
+    SearchPlaceholder: 'Account Address / Txn Hash or Version / Block Height',
     LatestList: 'The latest 10,000 records are shown'
   }
 }

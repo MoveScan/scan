@@ -232,7 +232,7 @@
                   <div class="record">
                     <div>{{ $t('lang.Block') + $t('lang.Height') }}:{{ item.block_number }}</div>
                     <div>{{ $t('lang.GasUsed') }}:{{ item.gas_used }}</div>
-                    <div>{{ $t('lang.IsSuccess') }}:{{ item.success ? '是' : '否' }}</div>
+                    <div>{{ $t('lang.IsSuccess') }}:{{ item.success ? $t('lang.Yes') : $t('lang.No') }}</div>
                     <div>
                       <span v-if="item.create_at != null">{{ timestampToTime(item.create_at) }}</span>
                     </div>

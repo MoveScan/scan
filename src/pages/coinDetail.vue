@@ -270,10 +270,10 @@ export default defineComponent({
       copy: async (val) => {
         try {
           await toClipboard(val)
-          ElMessage.success('复制成功')
+          ElMessage.success('copy success')
         } catch (e) {
           console.log(e)
-          e.text == undefined ? ElMessage.error('复制失败') : ElMessage.error(e)
+          e.text == undefined ? ElMessage.error('copy failed') : ElMessage.error(e)
         }
       }
     })
@@ -419,8 +419,8 @@ export default defineComponent({
   font-size: 14px;
   border-bottom: 1px dotted rgba(58, 58, 58, 0.3);
   width: 100%;
-  display: flex;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: space-between; */
 }
 
 .list div span:nth-child(1) {
