@@ -13,7 +13,9 @@
                     <Coin />
                   </el-icon>
                   <div class="data-item-center">
-                    <p class="m-0 panel-title"><span>总区块数</span></p>
+                    <p class="m-0 panel-title">
+                      <span>{{ $t('lang.TotalBlocks') }}</span>
+                    </p>
                     <h2 class="m-0">
                       <span>{{ summary.total_blocks }}</span>
                     </h2>
@@ -32,7 +34,9 @@
                     <User />
                   </el-icon>
                   <div class="data-item-center">
-                    <p class="m-0 panel-title"><span>总账户数</span></p>
+                    <p class="m-0 panel-title">
+                      <span>{{ $t('lang.TotalAccounts') }}</span>
+                    </p>
                     <h2 class="m-0">
                       <span>{{ summary.total_accounts }}</span>
                     </h2>
@@ -51,7 +55,9 @@
                     <Finished />
                   </el-icon>
                   <div class="data-item-center">
-                    <p class="m-0 panel-title"><span>总交易数</span></p>
+                    <p class="m-0 panel-title">
+                      <span>{{ $t('lang.TotalTxns') }}</span>
+                    </p>
                     <h2 class="m-0">
                       <span>{{ summary.total_transfers }}</span>
                     </h2>
@@ -70,7 +76,9 @@
                     <Switch />
                   </el-icon>
                   <div class="data-item-center">
-                    <p class="m-0 panel-title"><span>总转账数</span></p>
+                    <p class="m-0 panel-title">
+                      <span>{{ $t('lang.TotalTransfers') }}</span>
+                    </p>
                     <h2 class="m-0">
                       <span>{{ summary.total_txns }}</span>
                     </h2>
@@ -144,10 +152,10 @@
       <div class="block-title">
         <div class="block-title-left">
           <a href="/blocks">
-            <span>{{ $t('lang.BlockDisplay') }}</span>
+            <span>{{ $t('lang.Blocks') }}</span>
           </a>
         </div>
-        <a class="block-more" href="/blocks">
+        <a class="block-more" href="#/blocks">
           <span>{{ $t('lang.More') }}</span>
         </a>
       </div>
@@ -157,45 +165,45 @@
           <el-carousel-item class="block-box">
             <div class="box" v-for="(item, index) in blockData.slice(0, 4)" :key="index" @click="gotoBlock(item.height)">
               <ul>
-                <li class="block-number">高度：{{ item.height }}</li>
+                <li class="block-number">{{ $t('lang.Height') }}：{{ item.height }}</li>
                 <li>
                   <span class="black">{{ timestampToTime(item.create_at) }}</span>
                 </li>
               </ul>
-              <span class="gray-time">区块哈希：{{ setSubstring(item.block_hash) }}</span>
+              <span class="gray-time">{{ $t('lang.BlockHash') }}：{{ setSubstring(item.block_hash) }}</span>
               <ul class="block-detail">
-                <li class="">交易数：{{ item.transactions }}</li>
-                <li>GAS消耗量：{{ item.gas_used }}</li>
+                <li class="">{{ $t('lang.Txns') }}：{{ item.transactions }}</li>
+                <li>{{ $t('lang.GasUsed') }}：{{ item.gas_used }}</li>
               </ul>
             </div>
           </el-carousel-item>
           <el-carousel-item class="block-box">
             <div class="box" v-for="(item, index) in blockData.slice(4, 8)" :key="index" @click="gotoBlock(item.height)">
               <ul>
-                <li class="block-number">高度：{{ item.height }}</li>
+                <li class="block-number">{{ $t('lang.Height') }}：{{ item.height }}</li>
                 <li>
                   <span class="black">{{ timestampToTime(item.create_at) }}</span>
                 </li>
               </ul>
-              <span class="gray-time">区块哈希：{{ setSubstring(item.block_hash) }}</span>
+              <span class="gray-time">{{ $t('lang.BlockHash') }}：{{ setSubstring(item.block_hash) }}</span>
               <ul class="block-detail">
-                <li class="">交易数：{{ item.transactions }}</li>
-                <li>GAS消耗量：{{ item.gas_used }}</li>
+                <li class="">{{ $t('lang.Txns') }}：{{ item.transactions }}</li>
+                <li>{{ $t('lang.GasUsed') }}：{{ item.gas_used }}</li>
               </ul>
             </div>
           </el-carousel-item>
           <el-carousel-item class="block-box">
             <div class="box" v-for="(item, index) in blockData.slice(8, 12)" :key="index" @click="gotoBlock(item.height)">
               <ul>
-                <li class="block-number">高度：{{ item.height }}</li>
+                <li class="block-number">{{ $t('lang.Height') }}：{{ item.height }}</li>
                 <li>
                   <span class="black">{{ timestampToTime(item.create_at) }}</span>
                 </li>
               </ul>
-              <span class="gray-time">区块哈希：{{ setSubstring(item.block_hash) }}</span>
+              <span class="gray-time">{{ $t('lang.BlockHash') }}：{{ setSubstring(item.block_hash) }}</span>
               <ul class="block-detail">
-                <li class="">交易数：{{ item.transactions }}</li>
-                <li>GAS消耗量：{{ item.gas_used }}</li>
+                <li class="">{{ $t('lang.Txns') }}：{{ item.transactions }}</li>
+                <li>{{ $t('lang.GasUsed') }}：{{ item.gas_used }}</li>
               </ul>
             </div>
           </el-carousel-item>
@@ -210,7 +218,7 @@
             <span>{{ $t('lang.TransactionDisplay') }}</span>
           </a>
         </div>
-        <a class="block-more" href="/transaction">
+        <a class="block-more" href="#/transaction">
           <span>{{ $t('lang.More') }}</span>
         </a>
       </div>
@@ -222,15 +230,14 @@
               <ul>
                 <li v-for="(item, index) in transactionData" :key="index" @click="gotoTransaction(item.txn_hash)">
                   <div class="record">
-                    <div>块高度:{{ item.height }}</div>
-                    <div>GAS消耗量:{{ item.gas_used }}</div>
-                    <div>是否成功:{{ item.success ? '是' : '否' }}</div>
+                    <div>{{ $t('lang.Block') + $t('lang.Height') }}:{{ item.block_number }}</div>
+                    <div>{{ $t('lang.GasUsed') }}:{{ item.gas_used }}</div>
+                    <div>{{ $t('lang.IsSuccess') }}:{{ item.success ? '是' : '否' }}</div>
                     <div>
-                      创建时间:
                       <span v-if="item.create_at != null">{{ timestampToTime(item.create_at) }}</span>
                     </div>
-                    <div>全局索引号:{{ item.global_index }}</div>
-                    <div>交易类型:{{ item.transaction_type }}</div>
+                    <div>{{ $t('lang.GlobalIndex') }}:{{ item.global_index }}</div>
+                    <div>{{ $t('lang.TxnType') }}:{{ item.transaction_type }}</div>
                   </div>
                 </li>
               </ul>

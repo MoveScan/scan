@@ -105,7 +105,7 @@
         <el-tab-pane label="TRC1115转账" name="third">TRC1115转账</el-tab-pane>
       </el-tabs> -->
 
-      <div>下面是转账列表，最新的1000条，每页20条</div>
+      <div>{{ $t('lang.LatestList') }}</div>
       <el-table :data="tableData" v-loading="loading">
         <el-table-column prop="type_tag" label="通证标识" width="400" :show-overflow-tooltip="true">
           <template #default="scope">

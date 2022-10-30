@@ -3,7 +3,7 @@
   <Search></Search>
   <div class="container box">
     <br />
-    <h2>{{ msg }}</h2>
+    <h2>{{ $t('lang.ComingSoon') }}</h2>
     <br />
     <el-skeleton :rows="5" />
   </div>

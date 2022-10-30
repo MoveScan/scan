@@ -21,21 +21,21 @@
     <el-row>
       <el-col :span="12">
         <el-card class="list">
-          <span class="title">概况</span>
+          <span class="title">{{ $t('lang.Survey') }}</span>
           <!-- <div>
             <span style="font-size: 18px; font-weight: 700">$1.000035</span>
             <span>≈ 16.385058 TRX</span>
           </div> -->
           <div>
-            <span>发行量：</span>
+            <span>{{ $t('lang.Supply') }}：</span>
             <span>{{ detail.max_amount }}</span>
           </div>
           <div>
-            <span>流通量：</span>
+            <span>{{ $t('lang.CirculatingSupply') }}：</span>
             <span>{{ detail.supply }}</span>
           </div>
           <div>
-            <span>总市值：</span>
+            <span>{{ $t('lang.MarketCap') }}：</span>
             <span></span>
           </div>
           <!-- <div>
@@ -46,13 +46,13 @@
       </el-col>
       <el-col :span="12">
         <el-card class="list">
-          <span class="title">基础信息</span>
+          <span class="title">{{ $t('lang.Basicinfo') }}</span>
           <div>
-            <span>创建时间：</span>
+            <span>{{ $t('lang.CreateAt') }}：</span>
             <span v-if="detail.create_at != null">{{ timestampToTime(detail.create_at) }}</span>
           </div>
           <div>
-            <span>创建者：</span>
+            <span>{{ $t('lang.Creator') }}：</span>
             <span>
               {{ detail.creator }}
               <el-icon v-if="detail.creator != null" @click="copy(detail.creator)">
@@ -61,7 +61,7 @@
             </span>
           </div>
           <div>
-            <span>持币地址数：</span>
+            <span>{{ $t('lang.HolderAmount') }}：</span>
             <span>{{ detail.holders }}</span>
           </div>
           <!-- <div>
@@ -107,60 +107,58 @@
 
     <div class="table">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane label="通证持有者" name="second">
-          <div class="">共{{ total }}个</div>
+        <el-tab-pane :label="$t('lang.PassHolder')" name="second">
+          <div class="">total {{ total }}</div>
           <el-table :data="tableData" v-loading="loading">
-            <el-table-column prop="address" label="账户" width="660">
+            <el-table-column prop="address" :label="$t('lang.Account')" width="660">
               <template #default="scope">
                 <router-link v-if="scope.row.address !== null" :to="'/accountDetail?address=' + scope.row.address">
                   {{ scope.row.address }}
                 </router-link>
               </template>
             </el-table-column>
-            <el-table-column prop="amount" label="数量" />
-            <el-table-column prop="supply" label="供应量" />
+            <el-table-column prop="amount" :label="$t('lang.Amount')" />
+            <!-- <el-table-column prop="supply" label="供应量" /> -->
           </el-table>
           <div class="page">
             <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
           </div>
         </el-tab-pane>
-        <el-tab-pane label="通证转账" name="first">
-          <div class="">共{{ total_ }}个</div>
+        <el-tab-pane :label="$t('lang.TransferList')" name="first">
+          <div class="">total {{ total_ }}</div>
           <el-table :data="tableData_" v-loading="loading_">
-            <el-table-column prop="amount" label="数量" />
-            <el-table-column prop="amount_value" label="数量值" />
-            <el-table-column prop="sender" label="发送者" :show-overflow-tooltip="true">
+            <el-table-column prop="type_tag" :label="$t('lang.CoinID')" width="400" :show-overflow-tooltip="true">
+              <template #default="scope">
+                <router-link :to="'/coinDetail?tag=' + scope.row.type_tag">
+                  {{ scope.row.type_tag }}
+                </router-link>
+              </template>
+            </el-table-column>
+            <el-table-column prop="amount" :label="$t('lang.Amount')" />
+            <el-table-column prop="create_at" :label="$t('lang.CreateAt')">
+              <template #default="scope">
+                <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="sender" :label="$t('lang.Sender')" :show-overflow-tooltip="true">
               <template #default="scope">
                 <router-link :to="'/accountDetail?address=' + scope.row.sender">
                   {{ scope.row.sender }}
                 </router-link>
               </template>
             </el-table-column>
-            <el-table-column prop="receiver" label="接收者" :show-overflow-tooltip="true">
+            <el-table-column prop="receiver" :label="$t('lang.Receiver')" :show-overflow-tooltip="true">
               <template #default="scope">
                 <router-link :to="'/accountDetail?address=' + scope.row.receiver">
                   {{ scope.row.receiver }}
                 </router-link>
               </template>
             </el-table-column>
-            <el-table-column prop="txn_hash" label="交易哈希" :show-overflow-tooltip="true">
+            <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true">
               <template #default="scope">
                 <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash">
-                  {{ scope.row.txn_hash }}
+                  {{ setSubstring(scope.row.txn_hash) }}
                 </router-link>
-              </template>
-            </el-table-column>
-            <el-table-column prop="coin_id" label="通证标识" :show-overflow-tooltip="true">
-              <template #default="scope">
-                <router-link :to="'/coinDetail?tag=' + scope.row.coin_id">
-                  {{ scope.row.coin_id }}
-                </router-link>
-              </template>
-            </el-table-column>
-
-            <el-table-column prop="create_at" label="创建时间">
-              <template #default="scope">
-                <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
               </template>
             </el-table-column>
           </el-table>

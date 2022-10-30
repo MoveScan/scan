@@ -4,7 +4,9 @@
       <el-row>
         <el-col :span="3">
           <div class="developCenter">
-            <h5><span>开发中心</span></h5>
+            <h5>
+              <span>{{ $t('lang.Developer') }}</span>
+            </h5>
             <ul class="list-unstyled quick-links">
               <!-- <li class="quick-links-li">
                 <a href="#" target="_blank">Github</a>
@@ -25,7 +27,9 @@
         </el-col>
         <el-col :span="3">
           <div class="aboutUsWrapper">
-            <h5 class="text-capitalize"><span>关于我们</span></h5>
+            <h5 class="text-capitalize">
+              <span>{{ $t('lang.AboutUs') }}</span>
+            </h5>
             <ul class="list-unstyled quick-links">
               <!-- <li class="quick-links-li text-capitalize">
                 <a href="#"><span>团队介绍</span></a>

@@ -13,14 +13,16 @@
         <div class="">
           <div class="card">
             <div class="card-body" id="txcont">
-              <h2 class="d-flex"><span>账户数</span></h2>
+              <h2 class="d-flex">
+                <span>{{ $t('lang.Accounts') }}</span>
+              </h2>
               <div class="d-flex align-items-center">
                 <div class="d-flex flex-column">
                   <span class="num">
                     <span>{{ total }}</span>
                   </span>
                   <div class="d-flex" style="margin-top: 6px">
-                    <span class="txt">最新账户</span>
+                    <span class="txt">{{ $t('lang.TheNewest') + $t('lang.Account') }}</span>
                   </div>
                 </div>
                 <div class="d-flex flex-column"></div>
@@ -90,26 +92,26 @@
     </div>
 
     <div class="table">
-      <div>下面是账户列表，最新的1000条，每页20条</div>
+      <div>{{ $t('lang.LatestList') }}</div>
       <el-table :data="tableData">
-        <el-table-column prop="address" label="账户" width="600">
+        <el-table-column prop="address" :label="$t('lang.Account')" width="600">
           <template #default="scope">
             <router-link :to="'/accountDetail?address=' + scope.row.address">
               {{ scope.row.address }}
             </router-link>
           </template>
         </el-table-column>
-        <el-table-column prop="create_at" label="创建时间">
+        <el-table-column prop="create_at" :label="$t('lang.CreateAt')">
           <template #default="scope">
             <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="hold_amount" label="持币数量">
+        <el-table-column prop="hold_amount" :label="$t('lang.Holders')">
           <template #default="scope">
             {{ scope.row.hold_amount }}
           </template>
         </el-table-column>
-        <el-table-column prop="sequence_number" label="序列号">
+        <el-table-column prop="sequence_number" :label="$t('lang.SequenceNumber')">
           <template #default="scope">
             {{ scope.row.sequence_number }}
           </template>

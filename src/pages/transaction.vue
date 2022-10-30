@@ -101,7 +101,7 @@
     </el-row>
 
     <div class="table">
-      <div>下面是区块列表，最新的1000条，每页20条</div>
+      <div>{{ $t('lang.LatestList') }}</div>
       <el-table :data="tableData" v-loading="loading">
         <el-table-column prop="global_index" label="全局索引号" />
         <el-table-column prop="create_at" label="创建时间">

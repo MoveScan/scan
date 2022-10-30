@@ -4,7 +4,7 @@
   <div class="container">
     <div class="flex">
       <div class="block-title">
-        账户
+        {{ $t('lang.Account') }}
         <div class="overview-desc">
           {{ detail.address }}
           <el-icon v-if="detail.address != null" @click="copy(detail.address)">
@@ -13,7 +13,7 @@
         </div>
       </div>
       <div style="font-size: 14px">
-        创建时间：
+        {{ $t('lang.CreateAt') }}：
         <span v-if="detail.create_at != null">{{ timestampToTime(detail.create_at) }}</span>
       </div>
     </div>
@@ -21,31 +21,31 @@
     <el-row>
       <el-col :span="12">
         <el-card class="list">
-          <span class="title">总资产</span>
+          <span class="title">{{ $t('lang.TotalAssets') }}</span>
           <!-- <div>
             <span style="font-size: 18px; font-weight: 700">$1.000035</span>
             <span>≈ 16.385058 TRX</span>
           </div> -->
           <div>
-            <span>认证密钥：</span>
+            <span>{{ $t('lang.AuthenticationKey') }}：</span>
             <span>{{ detail.authentication_key }}</span>
           </div>
           <div>
-            <span>创建时间：</span>
+            <span>{{ $t('lang.CreateAt') }}：</span>
             <span v-if="detail.create_at != null">{{ timestampToTime(detail.create_at) }}</span>
           </div>
           <div>
-            <span>持币数量：</span>
+            <span>{{ $t('lang.HoldAmount') }}：</span>
             <span>{{ detail.hold_amount }}</span>
           </div>
           <div>
-            <span>序列号：</span>
+            <span>{{ $t('lang.SequenceNumber') }}：</span>
             <span>{{ detail.sequence_number }}</span>
           </div>
-          <div>
+          <!-- <div>
             <span>供应量：</span>
             <span>{{ detail.supply }}</span>
-          </div>
+          </div> -->
         </el-card>
       </el-col>
       <el-col :span="12">
@@ -73,31 +73,31 @@
 
     <div class="table">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane label="交易记录" name="transaction">
+        <el-tab-pane :label="$t('lang.TransactionList')" name="transaction">
           <el-table :data="tableData" v-loading="loading">
-            <el-table-column prop="chainTime" label="链上时间">
+            <el-table-column prop="chainTime" :label="$t('lang.ChainTime')">
               <template #default="scope">
                 {{ timestampToTime(scope.row.chainTime) }}
               </template>
             </el-table-column>
-            <el-table-column prop="sender" label="发送者" :show-overflow-tooltip="true">
+            <el-table-column prop="sender" :label="$t('lang.Sender')" :show-overflow-tooltip="true">
               <template #default="scope">
                 <router-link :to="'/accountDetail?address=' + scope.row.sender">
                   {{ scope.row.sender }}
                 </router-link>
               </template>
             </el-table-column>
-            <el-table-column prop="txn_hash" label="交易哈希" :show-overflow-tooltip="true" width="300">
+            <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true" width="300">
               <template #default="scope">
                 <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash">
                   {{ setSubstring(scope.row.txn_hash) }}
                 </router-link>
               </template>
             </el-table-column>
-            <el-table-column label="类型">
+            <el-table-column :label="$t('lang.SignType')">
               <template #default="props">{{ jsonParse(props.row.signature).type }}</template>
             </el-table-column>
-            <el-table-column type="expand" label="签名" width="100">
+            <el-table-column type="expand" :label="$t('lang.Signature')" width="100">
               <template #default="props">
                 <json-viewer :value="JSON.parse(props.row.signature)" :expand-depth="5" copyable boxed sort></json-viewer>
               </template>
@@ -107,38 +107,38 @@
             <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
           </div>
         </el-tab-pane>
-        <el-tab-pane label="转账记录" name="transfer">
+        <el-tab-pane :label="$t('lang.TransferList')" name="transfer">
           <el-table :data="tableData2" v-loading="loading">
-            <el-table-column prop="amount" label="数量" />
+            <el-table-column prop="amount" :label="$t('lang.Amount')" />
             <!-- <el-table-column prop="amount_value" label="数额" /> -->
-            <el-table-column prop="create_at" label="创建时间">
+            <el-table-column prop="create_at" :label="$t('lang.CreateAt')">
               <template #default="scope">
                 <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
               </template>
             </el-table-column>
             <!-- <el-table-column prop="identifier" label="标识符" /> -->
-            <el-table-column prop="sender" label="发送者" :show-overflow-tooltip="true">
+            <el-table-column prop="sender" :label="$t('lang.Sender')" :show-overflow-tooltip="true">
               <template #default="scope">
                 <router-link :to="'/accountDetail?address=' + scope.row.sender">
                   {{ scope.row.sender }}
                 </router-link>
               </template>
             </el-table-column>
-            <el-table-column prop="receiver" label="接收者" :show-overflow-tooltip="true">
+            <el-table-column prop="receiver" :label="$t('lang.Receiver')" :show-overflow-tooltip="true">
               <template #default="scope">
                 <router-link :to="'/accountDetail?address=' + scope.row.receiver">
                   {{ scope.row.receiver }}
                 </router-link>
               </template>
             </el-table-column>
-            <el-table-column prop="txn_hash" label="交易哈希" :show-overflow-tooltip="true">
+            <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true">
               <template #default="scope">
                 <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash">
                   {{ scope.row.txn_hash }}
                 </router-link>
               </template>
             </el-table-column>
-            <el-table-column prop="type_tag" label="通证标识" width="400" :show-overflow-tooltip="true">
+            <el-table-column prop="type_tag" :label="$t('lang.CoinID')" width="400" :show-overflow-tooltip="true">
               <template #default="scope">
                 <router-link :to="'/coinDetail?tag=' + scope.row.type_tag">
                   {{ scope.row.type_tag }}
@@ -147,10 +147,10 @@
             </el-table-column>
           </el-table>
         </el-tab-pane>
-        <el-tab-pane label="资源列表" name="resources">
+        <el-tab-pane :label="$t('lang.ResourceList')" name="resources">
           <el-table :data="tableData3" v-loading="loading">
-            <el-table-column prop="key" label="键" />
-            <el-table-column prop="value" label="值">
+            <el-table-column prop="key" :label="$t('lang.Key')" />
+            <el-table-column prop="value" :label="$t('lang.Value')">
               <template #default="props">
                 <json-viewer :value="JSON.parse(props.row.value)" :expand-depth="5" copyable boxed sort></json-viewer>
               </template>
@@ -167,11 +167,13 @@
 import { ref, toRefs, reactive, defineComponent, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import type { TabsPaneContext } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import Header from '../components/header.vue'
 import Search from '../components/search.vue'
 import Footer from '../components/footer.vue'
 import { getAddressInfo, getTransactionListAddress, getTransferListAddress, getAddressResources } from '@/http/api/index.ts'
 import { timestampToTimeLong, substring } from '@/utils/public.ts'
+import useClipboard from 'vue-clipboard3'
 
 export default defineComponent({
   name: 'address Detail',
@@ -183,6 +185,7 @@ export default defineComponent({
   setup() {
     const router = useRouter(),
       route = useRoute()
+    const { toClipboard } = useClipboard()
     const data = reactive({
       loading: ref(true),
       currentPage: ref(1),
@@ -276,6 +279,15 @@ export default defineComponent({
         data.loading = false
         data.currentPage = val
         data.getTransactionList(route.query.address)
+      },
+      copy: async (val) => {
+        try {
+          await toClipboard(val)
+          ElMessage.success('复制成功')
+        } catch (e) {
+          console.log(e)
+          e.text == undefined ? ElMessage.error('复制失败') : ElMessage.error(e)
+        }
       }
     })
 

@@ -1,10 +1,10 @@
 <template>
   <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-    <el-menu-item index="0">LOGO</el-menu-item>
+    <el-menu-item index="0"><img src="../assets/logo.png" class="logo" /></el-menu-item>
     <el-menu-item index="1">{{ $t('lang.Home') }}</el-menu-item>
     <el-sub-menu index="2">
       <template #title>{{ $t('lang.Blockchain') }}</template>
-      <el-menu-item index="2-1">{{ $t('lang.Node') }}</el-menu-item>
+      <el-menu-item index="2-1">{{ $t('lang.Nodes') }}</el-menu-item>
       <el-menu-item index="2-2">{{ $t('lang.Block') }}</el-menu-item>
       <el-menu-item index="2-3">{{ $t('lang.Transaction') }}</el-menu-item>
       <el-menu-item index="2-4">{{ $t('lang.Transfer') }}</el-menu-item>
@@ -16,7 +16,7 @@
       <el-menu-item index="3-2">{{ $t('lang.Deployment') }}</el-menu-item>
       <el-menu-item index="3-3">{{ $t('lang.Verify') }}</el-menu-item>
     </el-sub-menu>
-    <el-menu-item index="4">{{ $t('lang.Token') }}</el-menu-item>
+    <el-menu-item index="4">{{ $t('lang.Coin') }}</el-menu-item>
     <el-menu-item index="5">{{ $t('lang.Data') }}</el-menu-item>
     <el-sub-menu index="6">
       <template #title>{{ $t('lang.More') }}</template>
@@ -46,7 +46,7 @@
       <div class="pd5">
         <el-dropdown style="margin: 20px">
           <span class="el-dropdown-link">
-            语言
+            {{ $t('lang.Language') }}
             <el-icon class="el-icon--right">
               <arrow-down />
             </el-icon>
@@ -168,5 +168,10 @@ const switchNetwork = (network: string) => {
 }
 .pd5 {
   margin: 0 15px;
+}
+.logo {
+  width: 45px;
+  margin: 5px;
+  border-radius: 50%;
 }
 </style>

@@ -5,75 +5,75 @@
     <div class="block-title">{{ $t('lang.BlockDetail') }}</div>
     <div class="blocks-data-wrap table list">
       <div style="width: 100%">
-        <span>累加器根哈希：</span>
+        <span>{{ $t('lang.BlockAccumulatorRoot') }}：</span>
         <span>{{ detail.block_accumulator_root }}</span>
         <el-icon v-if="detail.block_accumulator_root != null" @click="copy(detail.block_accumulator_root)">
           <DocumentCopy />
         </el-icon>
       </div>
       <div style="width: 100%">
-        <span>块哈希：</span>
+        <span>{{ $t('lang.BlockHash') }}：</span>
         <span>{{ detail.block_hash }}</span>
         <el-icon v-if="detail.block_hash != null" @click="copy(detail.block_hash)">
           <DocumentCopy />
         </el-icon>
       </div>
       <div style="width: 100%">
-        <span>块体哈希：</span>
+        <span>{{ $t('lang.BodyHash') }}：</span>
         <span>{{ detail.body_hash }}</span>
         <el-icon v-if="detail.body_hash != null" @click="copy(detail.body_hash)">
           <DocumentCopy />
         </el-icon>
       </div>
       <div style="width: 100%">
-        <span>状态根哈希：</span>
+        <span>{{ $t('lang.StateRoot') }}：</span>
         <span>{{ detail.state_root }}</span>
         <el-icon v-if="detail.state_root != null" @click="copy(detail.state_root)">
           <DocumentCopy />
         </el-icon>
       </div>
       <div style="width: 100%">
-        <span>交易累加器根哈希：</span>
+        <span>{{ $t('lang.TxnAccumulatorRoot') }}：</span>
         <span>{{ detail.txn_accumulator_root }}</span>
       </div>
 
       <div>
-        <span>创建者：</span>
+        <span>{{ $t('lang.Creator') }}：</span>
         <span>{{ detail.author }}</span>
         <el-icon v-if="detail.author != null" @click="copy(detail.author)">
           <DocumentCopy />
         </el-icon>
       </div>
       <div>
-        <span>链标识：</span>
+        <span>{{ $t('lang.ChainID') }}：</span>
         <span>{{ detail.chain_id }}</span>
       </div>
       <div>
-        <span>创建时间：</span>
+        <span>{{ $t('lang.CreateAt') }}创建时间：</span>
         <span v-if="detail.create_at != null">{{ timestampToTime(detail.create_at) }}</span>
       </div>
       <div>
-        <span>难度：</span>
+        <span>{{ $t('lang.Difficulty') }}：</span>
         <span>{{ detail.difficulty }}</span>
       </div>
       <div>
-        <span>扩展信息：</span>
+        <span>{{ $t('lang.Extra') }}：</span>
         <span>{{ detail.extra }}</span>
       </div>
       <div>
-        <span>首版本：</span>
+        <span>{{ $t('lang.FirstVersion') }}：</span>
         <span>{{ detail.first_version }}</span>
       </div>
       <div>
-        <span>GAS消耗量：</span>
+        <span>{{ $t('lang.GasUsed') }}：</span>
         <span>{{ detail.gas_used }}</span>
       </div>
       <div>
-        <span>高度：</span>
+        <span>{{ $t('lang.Height') }}：</span>
         <span>{{ detail.height }}</span>
       </div>
       <div>
-        <span>最新版本</span>
+        <span>{{ $t('lang.LastVersion') }}</span>
         <span>{{ detail.last_version }}</span>
       </div>
       <div>
@@ -81,35 +81,35 @@
         <span>{{ detail.nonce }}</span>
       </div>
       <div>
-        <span>父块哈希</span>
+        <span>{{ $t('lang.ParentHash') }}</span>
         <span>{{ detail.parent_hash }}</span>
       </div>
 
       <div>
-        <span>交易数</span>
+        <span>{{ $t('lang.Txns') }}</span>
         <span>{{ detail.transactions }}</span>
       </div>
     </div>
     <div class="table">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane label="交易" name="first">共{{ total }}个交易</el-tab-pane>
+        <el-tab-pane :label="$t('lang.Transaction')" name="first">{{ total }} {{ $t('lang.Txns') }}</el-tab-pane>
         <!-- <el-tab-pane label="转账" name="second">Config</el-tab-pane> -->
       </el-tabs>
       <el-table :data="tableData" v-loading="loading">
-        <el-table-column prop="global_index" label="全局索引号" />
-        <el-table-column prop="create_at" label="创建时间">
+        <el-table-column prop="global_index" :label="$t('lang.Index')" />
+        <el-table-column prop="create_at" :label="$t('lang.CreateAt')">
           <template #default="scope">
             <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="success" label="是否成功">
+        <el-table-column prop="success" :label="$t('lang.IsSuccess')">
           <template #default="scope">
             {{ scope.row.success ? '是' : '否' }}
           </template>
         </el-table-column>
-        <el-table-column prop="gas_used" label="GAS消耗量" />
-        <el-table-column prop="txn_type" label="交易类型" />
-        <el-table-column prop="txn_hash" label="交易哈希" :show-overflow-tooltip="true" width="300">
+        <el-table-column prop="gas_used" :label="$t('lang.GasUsed')" />
+        <el-table-column prop="txn_type" :label="$t('lang.TxnType')" />
+        <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true" width="300">
           <template #default="scope">
             <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash">
               {{ scope.row.txn_hash }}
@@ -119,9 +119,7 @@
       </el-table>
 
       <div class="page">
-        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled"
-          :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange"
-          @current-change="handleCurrentChange" />
+        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div>
     </div>
   </div>
@@ -323,7 +321,7 @@ export default defineComponent({
   text-align: left;
 }
 
-.demo-tabs>.el-tabs__content {
+.demo-tabs > .el-tabs__content {
   padding: 32px;
   color: #6b778c;
   font-size: 32px;

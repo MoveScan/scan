@@ -2,21 +2,20 @@
   <Header></Header>
   <Search></Search>
   <div class="container">
-    <div class="block-title">{{ $t('lang.Token') }}</div>
+    <div class="block-title">{{ $t('lang.Coin') }}</div>
     <div class="blocks-data-wrap">
       <div class="blocks_overview blocks_list_overview">
         <div class="">
           <div class="card">
             <div class="card-body" id="txcont">
-              <h2 class="d-flex"><span>通证总数</span></h2>
+              <h2 class="d-flex">
+                <span>{{ $t('lang.TotalCoins') }}</span>
+              </h2>
               <div class="d-flex align-items-center">
                 <div class="d-flex flex-column">
                   <span class="num">
                     <span>{{ total }}</span>
                   </span>
-                  <div class="d-flex" style="margin-top: 6px">
-                    <span class="txt">累计</span>
-                  </div>
                 </div>
                 <!-- <div class="d-flex flex-column">
                   <span class="num">
@@ -118,30 +117,30 @@
         <el-tab-pane label="TRC10" name="TRC10">TRC10</el-tab-pane>
       </el-tabs> -->
 
-      <div>下面是通证列表，最新的1000条，每页20条</div>
+      <div>{{ $t('lang.LatestList') }}</div>
       <el-table :data="tableData" v-loading="loading">
-        <el-table-column prop="coin_id" label="通证标识" width="400" :show-overflow-tooltip="true">
+        <el-table-column prop="coin_id" :label="$t('lang.CoinID')" width="400" :show-overflow-tooltip="true">
           <template #default="scope">
             <router-link :to="'/coinDetail?tag=' + scope.row.coin_id">
               {{ scope.row.coin_id }}
             </router-link>
           </template>
         </el-table-column>
-        <el-table-column prop="create_at" label="创建时间">
+        <el-table-column prop="create_at" :label="$t('lang.CreateAt')">
           <template #default="scope">
             <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="creator" label="创建者" width="200">
+        <el-table-column prop="creator" :label="$t('lang.Creator')" width="200">
           <template #default="scope">
             <router-link v-if="scope.row.creator !== null" :to="'/accountDetail?address=' + scope.row.creator">
               {{ scope.row.creator.length < 10 ? scope.row.creator : setSubstring(scope.row.creator) }}
             </router-link>
           </template>
         </el-table-column>
-        <el-table-column prop="holders" label="持币地址数" />
-        <el-table-column prop="max_amount" label="最大发行量" />
-        <el-table-column prop="supply" label="供应量" />
+        <el-table-column prop="holders" :label="$t('lang.HolderAmount')" />
+        <el-table-column prop="max_amount" :label="$t('lang.MaxSupply')" />
+        <!-- <el-table-column prop="supply" label="供应量" /> -->
       </el-table>
 
       <div class="page">

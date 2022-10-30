@@ -7,20 +7,24 @@
       <el-col :span="8">2</el-col>
       <el-col :span="8">3</el-col>
     </el-row> -->
-    <div class="block-title">{{ $t('lang.Node') }}</div>
+    <div class="block-title">{{ $t('lang.Nodes') }}</div>
     <div class="blocks-data-wrap">
       <div class="blocks_overview blocks_list_overview">
         <div class="">
           <div class="card">
             <div class="card-body" id="txcont">
-              <h2 class="d-flex"><span>节点数</span></h2>
+              <h2 class="d-flex">
+                <span>{{ $t('lang.Amount') }}</span>
+              </h2>
               <div class="d-flex align-items-center">
                 <div class="d-flex flex-column">
                   <span class="num">
                     <span>{{ total }}</span>
                   </span>
                   <div class="d-flex" style="margin-top: 6px">
-                    <span class="txt"><span>最新节点</span></span>
+                    <span class="txt">
+                      <span>{{ $t('lang.TheNewest') }}</span>
+                    </span>
                   </div>
                 </div>
                 <div class="d-flex flex-column">
@@ -161,7 +165,7 @@
       
      -->
     <div class="table">
-      <div>下面是节点列表，最新的1000条，每页20条</div>
+      <div>{{ $t('lang.LatestList') }}</div>
       <!-- {{ msg }} -->
       <el-table :data="tableData" v-loading="loading">
         <el-table-column prop="name" label="名称" />

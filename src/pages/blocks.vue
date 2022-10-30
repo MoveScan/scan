@@ -165,30 +165,30 @@
       
      -->
     <div class="table">
-      <div>下面是区块列表，最新的1000条，每页20条</div>
+      <div>{{ $t('lang.LatestList') }}</div>
       <el-table :data="tableData" v-loading="loading">
-        <el-table-column prop="height" label="高度">
+        <el-table-column prop="height" :label="$t('lang.Height')">
           <template #default="scope">
             <router-link :to="'/blocksDetail?height=' + scope.row.height + '&hash=' + scope.row.block_hash">
               {{ scope.row.height }}
             </router-link>
           </template>
         </el-table-column>
-        <el-table-column prop="create_at" label="创建时间">
+        <el-table-column prop="create_at" :label="$t('lang.CreateAt')">
           <template #default="scope">
             <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="author" label="创建者">
+        <el-table-column prop="author" :label="$t('lang.Creator')">
           <template #default="scope">
             <router-link v-if="scope.row.author !== null" :to="'/accountDetail?address=' + scope.row.author">
               {{ setSubstring(scope.row.author) }}
             </router-link>
           </template>
         </el-table-column>
-        <el-table-column prop="gas_used" label="GAS消耗量" />
-        <el-table-column prop="transactions" label="交易数" />
-        <el-table-column prop="block_hash" label="哈希" :show-overflow-tooltip="true">
+        <el-table-column prop="gas_used" :label="$t('lang.GasUsed')" />
+        <el-table-column prop="transactions" :label="$t('lang.Txns')" />
+        <el-table-column prop="block_hash" :label="$t('lang.Hash')" :show-overflow-tooltip="true">
           <template #default="scope">
             <router-link :to="'/blocksDetail?hash=' + scope.row.block_hash">
               {{ setSubstring(scope.row.block_hash) }}
