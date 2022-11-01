@@ -1,5 +1,5 @@
-
 import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { close, start } from '@/router/nprogress'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -79,6 +79,13 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+router.beforeEach((pre, next) => {
+  start()
+})
+
+router.afterEach(() => {
+  close()
 })
 //路由导航守卫
 // router.beforeEach((to, from, next) => {

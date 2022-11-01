@@ -89,9 +89,10 @@ const isDark = useDark()
 const toggleDark = useToggle(isDark)
 
 const router = useRouter()
-const activeIndex = ref('1')
+const activeIndex = ref(localStorage.getItem('activeIndex') == null ? '1' : localStorage.getItem('activeIndex'))
 const handleSelect = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
+  console.log(activeIndex, key, keyPath)
+  localStorage.setItem('activeIndex', key)
   if (key == '1') router.push('/')
   if (key == '2-1') router.push('/node')
   if (key == '2-2') router.push('/blocks')

@@ -225,7 +225,7 @@
 
       <el-row>
         <el-col :span="15">
-          <el-scrollbar height="400px">
+          <el-scrollbar height="400px" style="margin-right: 20px; border-radius: 10px">
             <div class="transaction">
               <ul>
                 <li v-for="(item, index) in transactionData" :key="index" @click="gotoTransaction(item.txn_hash)">
@@ -244,7 +244,7 @@
             </div>
           </el-scrollbar>
         </el-col>
-        <el-col :span="9" style="background: rgba(180, 180, 180, 0.1); border-radius: 10px">
+        <el-col :span="9" style="background: rgba(180, 180, 180, 0.05); border-radius: 10px">
           <!-- <div id="chart"></div> -->
         </el-col>
       </el-row>
@@ -559,7 +559,7 @@ export default defineComponent({
 }
 
 .mainnet-data .data-item {
-  border-bottom: 1px solid #f0f2f3;
+  border-bottom: 1px solid rgb(100 100 100 / 12%);
   box-sizing: border-box;
   height: 97px;
   padding: 26px 0;
@@ -772,6 +772,7 @@ p {
   background: rgba(180, 180, 180, 0.05);
   border-radius: 10px;
   padding: 10px;
+  height: 400px;
 }
 
 .transaction ul {
