@@ -59,7 +59,7 @@
                       <span>{{ $t('lang.TotalTxns') }}</span>
                     </p>
                     <h2 class="m-0">
-                      <span>{{ summary.total_transfers }}</span>
+                      <span>{{ summary.total_txns }}</span>
                     </h2>
                   </div>
                 </div>
@@ -80,7 +80,7 @@
                       <span>{{ $t('lang.TotalTransfers') }}</span>
                     </p>
                     <h2 class="m-0">
-                      <span>{{ summary.total_txns }}</span>
+                      <span>{{ summary.total_transfers }}</span>
                     </h2>
                   </div>
                 </div>
