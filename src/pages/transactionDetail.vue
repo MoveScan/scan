@@ -247,6 +247,7 @@ export default defineComponent({
   background: rgba(180, 180, 180, 0.05);
   border-radius: 10px;
   padding: 15px;
+  margin-top: 20px;
 }
 
 .blocks-data-wrap {

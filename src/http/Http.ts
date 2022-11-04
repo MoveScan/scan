@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import NProgress from 'nprogress'
 import { Message } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
 import { getToken } from '@/utils/auth.ts'
 
 interface ResType<T> {
@@ -85,53 +86,53 @@ axios.interceptors.response.use(
       // 2.根据响应码具体处理
       switch (error.response.status) {
         case 400:
-          error.message = '错误请求'
+          ElMessage.error('错误请求')
           break
         case 401:
-          error.message = '未授权，请重新登录'
+          ElMessage.error('未授权，请重新登录')
           break
         case 403:
-          error.message = '拒绝访问'
+          ElMessage.error('拒绝访问')
           break
         case 404:
-          error.message = '请求错误,未找到该资源'
-          window.location.href = '/NotFound'
+          ElMessage.error('请求错误,未找到该资源')
+          // window.location.href = '/NotFound'
           break
         case 405:
-          error.message = '请求方法未允许'
+          ElMessage.error('请求方法未允许')
           break
         case 408:
-          error.message = '请求超时'
+          ElMessage.error('请求超时')
           break
         case 500:
-          error.message = '服务器端出错'
+          ElMessage.error('服务器端出错')
           break
         case 501:
-          error.message = '网络未实现'
+          ElMessage.error('网络未实现')
           break
         case 502:
-          error.message = '网络错误'
+          ElMessage.error('网络错误')
           break
         case 503:
-          error.message = '服务不可用'
+          ElMessage.error('服务不可用')
           break
         case 504:
-          error.message = '网络超时'
+          ElMessage.error('网络超时')
           break
         case 505:
-          error.message = 'http版本不支持该请求'
+          ElMessage.error('http版本不支持该请求')
           break
         default:
-          error.message = `连接错误${error.response.status}`
+          ElMessage.error(`连接错误${error.response.status}`)
       }
     } else {
       // 超时处理
       if (JSON.stringify(error).includes('timeout')) {
-        Message.error('服务器响应超时，请刷新当前页')
+        ElMessage.error('服务器响应超时，请刷新当前页')
       }
-      Message.error('连接服务器失败')
+      ElMessage.error('连接服务器失败')
     }
-    Message.error(error.message)
+    // ElMessage.error(error.message)
     //处理结束
     //如果不需要错误处理，以上的处理过程都可省略
     return Promise.resolve(error.response)

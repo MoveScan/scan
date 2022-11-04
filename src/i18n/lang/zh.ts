@@ -65,6 +65,8 @@ export default {
     Receiver: '接收者',
     Accounts: '账户数',
     Holders: '持币数量',
+    TopHolders: '持有者排名',
+    Proportion: '比例',
     SequenceNumber: '序列号',
     BlockAccumulatorRoot: '累加器根哈希',
     BlockHash: '块哈希',
@@ -120,6 +122,7 @@ export default {
     S: '秒',
     Ago: '前',
     SearchPlaceholder: '账户地址/交易哈希或版本/区块高度',
-    LatestList: '下面列表，最新的10000条，每页20条'
+    LatestList: '下面列表，最新的10000条，每页20条',
+    Tips: '注意：正在重新索引，块数据可能不是最新的...'
   }
 }

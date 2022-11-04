@@ -4,7 +4,7 @@
     <el-menu-item index="1">{{ $t('lang.Home') }}</el-menu-item>
     <el-sub-menu index="2">
       <template #title>{{ $t('lang.Blockchain') }}</template>
-      <el-menu-item index="2-1">{{ $t('lang.Nodes') }}</el-menu-item>
+      <!-- <el-menu-item index="2-1">{{ $t('lang.Nodes') }}</el-menu-item> -->
       <el-menu-item index="2-2">{{ $t('lang.Block') }}</el-menu-item>
       <el-menu-item index="2-3">{{ $t('lang.Transaction') }}</el-menu-item>
       <el-menu-item index="2-4">{{ $t('lang.Transfer') }}</el-menu-item>
@@ -16,7 +16,13 @@
       <el-menu-item index="3-2">{{ $t('lang.Deployment') }}</el-menu-item>
       <el-menu-item index="3-3">{{ $t('lang.Verify') }}</el-menu-item>
     </el-sub-menu>
-    <el-menu-item index="4">{{ $t('lang.Coin') }}</el-menu-item>
+    <el-menu-item index="2-1">{{ $t('lang.Nodes') }}</el-menu-item>
+    <!-- <el-menu-item index="4">{{ $t('lang.Coin') }}</el-menu-item> -->
+    <el-sub-menu index="4">
+      <template #title>{{ $t('lang.Coin') }}</template>
+      <el-menu-item index="4-1">{{ $t('lang.Overview') }}</el-menu-item>
+      <el-menu-item index="4-2">{{ $t('lang.TopHolders') }}</el-menu-item>
+    </el-sub-menu>
     <el-menu-item index="5">{{ $t('lang.Data') }}</el-menu-item>
     <el-sub-menu index="6">
       <template #title>{{ $t('lang.More') }}</template>
@@ -99,7 +105,8 @@ const handleSelect = (key: string, keyPath: string[]) => {
   if (key == '2-3') router.push('/transaction')
   if (key == '2-4') router.push('/transfer')
   if (key == '2-5') router.push('/account')
-  if (key == '4') router.push('/coin')
+  if (key == '4-1') router.push('/coin')
+  if (key == '4-2') router.push('/holders')
 
   if (key == '5' || key == '3-1' || key == '3-2' || key == '3-3' || key == '6-1' || key == '6-2' || key == '6-3-1') router.push('/tips')
 }

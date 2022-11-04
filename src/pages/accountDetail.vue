@@ -294,6 +294,9 @@ export default defineComponent({
     const refData = toRefs(data)
 
     onMounted(() => {
+      let network: any = route.query.network
+      console.log('其它网络', network)
+      if (network !== undefined) localStorage.setItem('network', network)
       data.getAddress(route.query.address)
       data.getTransactionList(route.query.address)
       data.getTransferList(route.query.address)
@@ -311,7 +314,7 @@ export default defineComponent({
   background: rgba(180, 180, 180, 0.05);
   border-radius: 10px;
   padding: 15px;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .blocks-data-wrap {

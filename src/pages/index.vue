@@ -192,7 +192,7 @@
               </ul>
             </div>
           </el-carousel-item>
-          <el-carousel-item class="block-box">
+          <!-- <el-carousel-item class="block-box">
             <div class="box" v-for="(item, index) in blockData.slice(8, 12)" :key="index" @click="gotoBlock(item.height)">
               <ul>
                 <li class="block-number">{{ $t('lang.Height') }}：{{ item.height }}</li>
@@ -206,7 +206,7 @@
                 <li>{{ $t('lang.GasUsed') }}：{{ item.gas_used }}</li>
               </ul>
             </div>
-          </el-carousel-item>
+          </el-carousel-item> -->
         </el-carousel>
       </div>
     </div>
@@ -228,7 +228,7 @@
           <el-scrollbar height="400px" style="margin-right: 20px; border-radius: 10px">
             <div class="transaction">
               <ul>
-                <li v-for="(item, index) in transactionData" :key="index" @click="gotoTransaction(item.txn_hash)">
+                <li v-for="(item, index) in transactionData" :key="index" @click="gotoTransaction(item.txn_hash, item.txn_type)">
                   <div class="record">
                     <div>{{ $t('lang.Block') + $t('lang.Height') }}:{{ item.block_number }}</div>
                     <div>{{ $t('lang.GasUsed') }}:{{ item.gas_used }}</div>
@@ -281,7 +281,7 @@ export default defineComponent({
     const router = useRouter()
     const data = reactive({
       currentPage: ref(1),
-      pageSize: ref(15),
+      pageSize: ref(10),
       total: ref(0),
       background: ref(false),
       disabled: ref(false),
@@ -361,8 +361,8 @@ export default defineComponent({
       gotoBlock: (height) => {
         router.push('/blocksDetail?height=' + height)
       },
-      gotoTransaction: (hash) => {
-        router.push('/transactionDetail?hash=' + hash)
+      gotoTransaction: (hash, type) => {
+        router.push('/transactionDetail?hash=' + hash + '&txn_type=' + type)
       },
       isPageLoad: () => {
         console.log('111')
@@ -772,7 +772,6 @@ p {
   background: rgba(180, 180, 180, 0.05);
   border-radius: 10px;
   padding: 10px;
-  height: 400px;
 }
 
 .transaction ul {

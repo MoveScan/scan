@@ -65,6 +65,8 @@ export default {
     Receiver: 'Receiver',
     Accounts: 'Accounts',
     Holders: 'Holders',
+    TopHolders: 'TopHolders',
+    Proportion: 'Proportion',
     SequenceNumber: 'Sequence Number',
     BlockAccumulatorRoot: 'Block Accumulator Root',
     BlockHash: 'Block Hash',
@@ -120,6 +122,7 @@ export default {
     S: 's',
     Ago: 'ago',
     SearchPlaceholder: 'Account Address / Txn Hash or Version / Block Height',
-    LatestList: 'The latest 10,000 records are shown'
+    LatestList: 'The latest 10,000 records are shown',
+    Tips: 'Note: Re-indexing in progress, block data might not be up to date ...'
   }
 }

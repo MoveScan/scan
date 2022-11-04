@@ -107,7 +107,7 @@
 
     <div class="table">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane :label="$t('lang.PassHolder')" name="second">
+        <!-- <el-tab-pane :label="$t('lang.PassHolder')" name="second">
           <div class="">total {{ total }}</div>
           <el-table :data="tableData" v-loading="loading">
             <el-table-column prop="address" :label="$t('lang.Account')" width="660">
@@ -118,12 +118,13 @@
               </template>
             </el-table-column>
             <el-table-column prop="amount" :label="$t('lang.Amount')" />
-            <!-- <el-table-column prop="supply" label="供应量" /> -->
           </el-table>
           <div class="page">
-            <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+            <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled"
+              :background="background" layout="prev, pager, next, jumper" :total="total > 1000 ? 1000 : total"
+              @size-change="handleSizeChange" @current-change="handleCurrentChange" />
           </div>
-        </el-tab-pane>
+        </el-tab-pane> -->
         <el-tab-pane :label="$t('lang.TransferList')" name="first">
           <div class="">total {{ total_ }}</div>
           <el-table :data="tableData_" v-loading="loading_">
@@ -163,7 +164,7 @@
             </el-table-column>
           </el-table>
           <div class="page">
-            <el-pagination v-model:currentPage="currentPage_" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total_" @size-change="handleSizeChange" @current-change="handleCurrentChange_" />
+            <el-pagination v-model:currentPage="currentPage_" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total_ > 1000 ? 1000 : total_" @size-change="handleSizeChange" @current-change="handleCurrentChange_" />
           </div>
         </el-tab-pane>
         <!-- <el-tab-pane label="交易" name="second">交易</el-tab-pane> -->
@@ -206,7 +207,7 @@ export default defineComponent({
       total: ref(0),
       total_: ref(0),
       detail: ref({}),
-      activeName: ref('second'),
+      activeName: ref('first'),
       tableData: [],
       tableData_: [],
       getcoinDetail: (tag: any) => {
@@ -282,7 +283,7 @@ export default defineComponent({
 
     onMounted(() => {
       data.getcoinDetail(route.query.tag)
-      data.getCoinHolders(route.query.tag)
+      // data.getCoinHolders(route.query.tag)
       data.getTransferList(route.query.tag)
     })
 
@@ -297,7 +298,7 @@ export default defineComponent({
   background: rgba(180, 180, 180, 0.05);
   border-radius: 10px;
   padding: 15px;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .blocks-data-wrap {

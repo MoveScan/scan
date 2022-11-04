@@ -197,7 +197,7 @@
         </el-table-column>
       </el-table>
       <div class="page">
-        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="1000" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div>
     </div>
   </div>
@@ -223,7 +223,7 @@ export default defineComponent({
       loading: ref(true),
       currentPage: ref(1),
       pageSize: ref(20),
-      total: ref(1000),
+      total: ref(0),
       background: ref(false),
       disabled: ref(false),
       tableData: [],
@@ -241,7 +241,7 @@ export default defineComponent({
           .then((res: any) => {
             console.log('BlockStart', res)
             data.tableData = res.contents
-            // data.total = res.total
+            data.total = res.total > 1000 ? 1000 : res.total
             data.loading = false
           })
           .catch((e) => {
@@ -283,6 +283,7 @@ export default defineComponent({
   background: rgba(180, 180, 180, 0.05);
   border-radius: 10px;
   padding: 15px;
+  margin-top: 20px;
 }
 
 .table div:nth-child(1) {

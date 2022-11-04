@@ -7,6 +7,7 @@
         </template>
       </el-input>
       <div class="tips-txt"><span v-show="isTxt">Account Address / Txn Hash or Version / Block Height</span></div>
+
       <div class="sc-content" v-show="isShow">
         <div v-if="show.account">
           Account:
@@ -31,6 +32,7 @@
           </router-link>
         </div>
       </div>
+      <!-- <el-alert v-if="network == 'aptos_testnet'" :title="$t('lang.Tips')" type="warning" /> -->
     </div>
   </div>
 </template>
@@ -41,10 +43,12 @@ import { Search } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { getAddressInfo, getBlockHash, getBlockHeight, getTransactionAggregated, getTransactionVersion } from '@/http/api/index.ts'
 import { substring } from '@/utils/public.ts'
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
   name: 'Search',
   setup() {
+    const { t, locale } = useI18n()
     const data = reactive({
       show: ref({
         account: false,
@@ -52,6 +56,7 @@ export default defineComponent({
         blockHeight: false,
         transaction: false
       }),
+      network: localStorage.getItem('network'),
       isTxt: ref(false),
       isShow: ref(true),
       dataAccount: ref({}),
@@ -156,7 +161,7 @@ export default defineComponent({
           .then((res: any) => {
             console.log('version', res)
             data.dataVersion = res
-            data.transaction(res.txn_hash, true)
+            if (res.txn_hash != undefined) data.transaction(res.txn_hash, true)
           })
           .catch((e) => {
             console.log(e)
@@ -179,6 +184,7 @@ export default defineComponent({
 
     onMounted(() => {
       data.closeSearchList()
+      if (data.network == 'aptos_testnet' || data.network == 'starcoin_main' || data.network == 'starcoin_barnard' || data.network == 'starcoin_hally') ElMessage({ message: t('lang.Tips'), type: 'warning' })
     })
 
     return {
