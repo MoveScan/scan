@@ -11,23 +11,27 @@
       <div class="sc-content" v-show="isShow">
         <div v-if="show.account">
           Account:
-          <router-link :to="'/accountDetail?address=' + dataAccount.address">
+          <span v-if="dataAccount.address == 'No Data'">{{ dataAccount.address }}</span>
+          <router-link v-else :to="'/accountDetail?address=' + dataAccount.address">
             {{ setSubstring(dataAccount.address) }}
           </router-link>
         </div>
         <div v-if="show.blockHash">
           Block:
-          <router-link :to="'/blocksDetail?hash=' + dataBlock.block_hash">
+          <span v-if="dataBlock.block_hash == 'No Data'">{{ dataBlock.block_hash }}</span>
+          <router-link v-else :to="'/blocksDetail?hash=' + dataBlock.block_hash">
             {{ setSubstring(dataBlock.block_hash) }}
           </router-link>
         </div>
         <div v-if="show.blockHeight">
           Block:
-          <router-link :to="'/blocksDetail?height=' + dataBlockHeight.height">{{ dataBlockHeight.height }}</router-link>
+          <span v-if="dataBlockHeight.height == 'No Data'">{{ dataBlockHeight.height }}</span>
+          <router-link v-else :to="'/blocksDetail?height=' + dataBlockHeight.height">{{ dataBlockHeight.height }}</router-link>
         </div>
         <div v-if="show.transaction">
           Transaction:
-          <router-link :to="'/transactionDetail?hash=' + dataTransaction.hash + '&txn_type=' + dataTransaction.txn_type">
+          <span v-if="dataTransaction.hash == 'No Data'">{{ dataTransaction.hash }}</span>
+          <router-link v-else :to="'/transactionDetail?hash=' + dataTransaction.hash + '&txn_type=' + dataTransaction.txn_type">
             {{ setSubstring(dataTransaction.hash) }}
           </router-link>
         </div>
@@ -59,10 +63,10 @@ export default defineComponent({
       network: localStorage.getItem('network'),
       isTxt: ref(false),
       isShow: ref(true),
-      dataAccount: ref({}),
-      dataBlock: ref({}),
-      dataBlockHeight: ref({}),
-      dataTransaction: ref({}),
+      dataAccount: ref({ address: 'No Data' }),
+      dataBlock: ref({ block_hash: 'No Data' }),
+      dataBlockHeight: ref({ height: 'No Data' }),
+      dataTransaction: ref({ hash: 'No Data' }),
       dataVersion: ref({}),
       input: ref(''),
       icon: markRaw({
@@ -107,6 +111,10 @@ export default defineComponent({
         getAddressInfo({ address: hash })
           .then((res: any) => {
             console.log('Aaccount', res)
+            if (res == '' || res.status == 500 || res.status == 400 || res.status == 404) {
+              data.show.account = true
+              return
+            }
             if (res !== '') {
               data.dataAccount = res
               data.show.account = true
@@ -119,7 +127,11 @@ export default defineComponent({
       block: (hash: any) => {
         getBlockHash({ id: hash })
           .then((res: any) => {
-            console.log('Block', res)
+            console.log('Block', res.status)
+            if (res == '' || res.status == 500 || res.status == 400 || res.status == 404) {
+              data.show.blockHash = true
+              return
+            }
             if (res !== '') {
               data.dataBlock = res
               data.show.blockHash = true
@@ -133,6 +145,10 @@ export default defineComponent({
         getBlockHeight({ height: height })
           .then((res: any) => {
             console.log('Block height', res)
+            if (res == '' || res.status == 500 || res.status == 400 || res.status == 404) {
+              data.show.blockHeight = true
+              return
+            }
             if (res !== '') {
               data.dataBlockHeight = res
               data.show.blockHeight = true
@@ -146,6 +162,10 @@ export default defineComponent({
         getTransactionAggregated({ hash: hash })
           .then((res: any) => {
             console.log('Transaction', res)
+            if (res == '' || res.status == 500 || res.status == 400 || res.status == 404) {
+              data.show.transaction = true
+              return
+            }
             if (res !== '') {
               res.hash = isNum ? hash : data.input // isNum: true是height version返hash, false是input框返hash
               data.dataTransaction = res

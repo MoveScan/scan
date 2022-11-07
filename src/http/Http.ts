@@ -86,7 +86,8 @@ axios.interceptors.response.use(
       // 2.根据响应码具体处理
       switch (error.response.status) {
         case 400:
-          ElMessage.error('错误请求')
+          // ElMessage.error('错误请求')
+          console.log('请求错误')
           break
         case 401:
           ElMessage.error('未授权，请重新登录')
@@ -95,7 +96,8 @@ axios.interceptors.response.use(
           ElMessage.error('拒绝访问')
           break
         case 404:
-          ElMessage.error('请求错误,未找到该资源')
+          // ElMessage.error('请求错误,未找到该资源')
+          console.log('请求错误,未找到该资源')
           // window.location.href = '/NotFound'
           break
         case 405:
@@ -105,7 +107,8 @@ axios.interceptors.response.use(
           ElMessage.error('请求超时')
           break
         case 500:
-          ElMessage.error('服务器端出错')
+          // ElMessage.error('服务器端出错')
+          console.log('服务器端出错')
           break
         case 501:
           ElMessage.error('网络未实现')
@@ -127,10 +130,11 @@ axios.interceptors.response.use(
       }
     } else {
       // 超时处理
-      if (JSON.stringify(error).includes('timeout')) {
-        ElMessage.error('服务器响应超时，请刷新当前页')
-      }
-      ElMessage.error('连接服务器失败')
+      // if (JSON.stringify(error).includes('timeout')) {
+      //   ElMessage.error('服务器响应超时，请刷新当前页')
+      // }
+      // ElMessage.error('连接服务器失败')
+      console.log('连接服务器失败')
     }
     // ElMessage.error(error.message)
     //处理结束

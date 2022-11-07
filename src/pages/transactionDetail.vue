@@ -97,9 +97,7 @@
             </el-table-column>
             <el-table-column :label="$t('lang.TxnHash')" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/transactionDetail?hash=' + scope.row.change_id.txn_hash">
                   {{ scope.row.change_id.txn_hash }}
-                </router-link>
               </template>
             </el-table-column>
 
@@ -129,9 +127,7 @@
             <el-table-column prop="event_sequence_number" :label="$t('lang.EventSequenceNumber')" />
             <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash">
                   {{ scope.row.txn_hash }}
-                </router-link>
               </template>
             </el-table-column>
             <el-table-column prop="type_tag" :label="$t('lang.CoinID')" :show-overflow-tooltip="true">

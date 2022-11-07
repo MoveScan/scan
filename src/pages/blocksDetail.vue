@@ -73,20 +73,20 @@
         <span>{{ detail.height }}</span>
       </div>
       <div>
-        <span>{{ $t('lang.LastVersion') }}</span>
+        <span>{{ $t('lang.LastVersion') }}: </span>
         <span>{{ detail.last_version }}</span>
       </div>
       <div>
-        <span>nonce</span>
+        <span>nonce: </span>
         <span>{{ detail.nonce }}</span>
       </div>
       <div>
-        <span>{{ $t('lang.ParentHash') }}</span>
+        <span>{{ $t('lang.ParentHash') }}: </span>
         <span>{{ detail.parent_hash }}</span>
       </div>
 
       <div>
-        <span>{{ $t('lang.Txns') }}</span>
+        <span>{{ $t('lang.Txns') }}: </span>
         <span>{{ detail.transactions }}</span>
       </div>
     </div>
@@ -111,7 +111,7 @@
         <el-table-column prop="txn_type" :label="$t('lang.TxnType')" />
         <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true" width="300">
           <template #default="scope">
-            <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash">
+            <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=' + scope.row.txn_type">
               {{ scope.row.txn_hash }}
             </router-link>
           </template>
@@ -219,11 +219,8 @@ export default defineComponent({
     const refData = toRefs(data)
 
     onMounted(() => {
-      if (route.query.height != undefined) data.blockHeight(route.query.height)
-      if (route.query.hash != undefined) {
-        data.blockHash(route.query.hash)
-        data.blockTransaction(route.query.hash)
-      }
+      data.blockHash(route.query.hash)
+      data.blockTransaction(route.query.hash)
     })
 
     return {

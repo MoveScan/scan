@@ -268,7 +268,7 @@ export default defineComponent({
     const refData = toRefs(data)
 
     onMounted(() => {
-      data.getBlock()
+      // data.getBlock()
       data.getBlockListStart()
     })
 

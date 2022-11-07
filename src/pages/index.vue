@@ -163,7 +163,7 @@
       <div class="block text-center">
         <el-carousel height="150px">
           <el-carousel-item class="block-box">
-            <div class="box" v-for="(item, index) in blockData.slice(0, 4)" :key="index" @click="gotoBlock(item.height)">
+            <div class="box" v-for="(item, index) in blockData.slice(0, 4)" :key="index" @click="gotoBlock(item.height, item.block_hash)">
               <ul>
                 <li class="block-number">{{ $t('lang.Height') }}：{{ item.height }}</li>
                 <li>
@@ -178,7 +178,7 @@
             </div>
           </el-carousel-item>
           <el-carousel-item class="block-box">
-            <div class="box" v-for="(item, index) in blockData.slice(4, 8)" :key="index" @click="gotoBlock(item.height)">
+            <div class="box" v-for="(item, index) in blockData.slice(4, 8)" :key="index" @click="gotoBlock(item.height, item.block_hash)">
               <ul>
                 <li class="block-number">{{ $t('lang.Height') }}：{{ item.height }}</li>
                 <li>
@@ -193,7 +193,7 @@
             </div>
           </el-carousel-item>
           <!-- <el-carousel-item class="block-box">
-            <div class="box" v-for="(item, index) in blockData.slice(8, 12)" :key="index" @click="gotoBlock(item.height)">
+            <div class="box" v-for="(item, index) in blockData.slice(8, 12)" :key="index" @click="gotoBlock(item.height,item.block_hash)">
               <ul>
                 <li class="block-number">{{ $t('lang.Height') }}：{{ item.height }}</li>
                 <li>
@@ -294,7 +294,7 @@ export default defineComponent({
             console.log('Block', res)
             data.blockData = res.contents
           })
-          .catch((e) => {
+          .catch((e: any) => {
             console.log(e)
           })
       },
@@ -304,7 +304,7 @@ export default defineComponent({
             console.log('transaction', res)
             data.transactionData = res.contents
           })
-          .catch((e) => {
+          .catch((e: any) => {
             console.log(e)
           })
       },
@@ -314,7 +314,7 @@ export default defineComponent({
             console.log('Summary', res)
             data.summary = res
           })
-          .catch((e) => {
+          .catch((e: any) => {
             console.log(e)
           })
       },
@@ -358,10 +358,10 @@ export default defineComponent({
           chart.resize()
         }
       },
-      gotoBlock: (height) => {
-        router.push('/blocksDetail?height=' + height)
+      gotoBlock: (height: string, hash: string) => {
+        router.push('/blocksDetail?height=' + height + '&hash=' + hash)
       },
-      gotoTransaction: (hash, type) => {
+      gotoTransaction: (hash: string, type: string) => {
         router.push('/transactionDetail?hash=' + hash + '&txn_type=' + type)
       },
       isPageLoad: () => {

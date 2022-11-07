@@ -157,7 +157,7 @@
             </el-table-column>
             <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash">
+                <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=' + scope.row.txn_type">
                   {{ setSubstring(scope.row.txn_hash) }}
                 </router-link>
               </template>
