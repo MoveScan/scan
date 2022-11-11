@@ -49,7 +49,7 @@
         <span>{{ detail.chain_id }}</span>
       </div>
       <div>
-        <span>{{ $t('lang.CreateAt') }}创建时间：</span>
+        <span>{{ $t('lang.CreateAt') }}：</span>
         <span v-if="detail.create_at != null">{{ timestampToTime(detail.create_at) }}</span>
       </div>
       <div>
@@ -73,20 +73,20 @@
         <span>{{ detail.height }}</span>
       </div>
       <div>
-        <span>{{ $t('lang.LastVersion') }}: </span>
+        <span>{{ $t('lang.LastVersion') }}:</span>
         <span>{{ detail.last_version }}</span>
       </div>
       <div>
-        <span>nonce: </span>
+        <span>nonce:</span>
         <span>{{ detail.nonce }}</span>
       </div>
       <div>
-        <span>{{ $t('lang.ParentHash') }}: </span>
+        <span>{{ $t('lang.ParentHash') }}:</span>
         <span>{{ detail.parent_hash }}</span>
       </div>
 
       <div>
-        <span>{{ $t('lang.Txns') }}: </span>
+        <span>{{ $t('lang.Txns') }}:</span>
         <span>{{ detail.transactions }}</span>
       </div>
     </div>
@@ -327,7 +327,7 @@ export default defineComponent({
 }
 
 .list div {
-  color: #464646;
+  color: #959595;
   line-height: 45px;
   font-size: 14px;
   border-bottom: 1px dotted rgba(58, 58, 58, 0.3);

@@ -4,7 +4,7 @@
   <div class="container">
     <el-row>
       <el-col :span="17">
-        <el-card class="box-card" style="margin-right: 15px; height: 282px">
+        <el-card class="box-card">
           <div class="ant-row card-body row home-stats pt-0 pb-0 mainnet-data m-0">
             <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
               <a href="#">
@@ -393,6 +393,11 @@ export default defineComponent({
 })
 </script>
 <style scoped>
+.box-card {
+  margin-right: 15px;
+  height: 282px;
+  background: rgba(180, 180, 180, 0.05);
+}
 .el-row {
   margin-bottom: 20px;
 }
@@ -429,7 +434,7 @@ export default defineComponent({
 
 .block-title a {
   text-decoration: none;
-  color: #91979d;
+  color: #409eff;
 }
 
 .block-title-left {
@@ -646,6 +651,7 @@ svg {
 }
 
 .mainnet-data .data-item > a .data-item-left .data-item-center h2 {
+  color: #616568;
   white-space: nowrap;
 }
 

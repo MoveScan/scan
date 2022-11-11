@@ -338,7 +338,7 @@ export default defineComponent({
 .list div {
   display: flex;
   align-items: center;
-  color: #464646;
+  color: #959595;
   line-height: 45px;
   font-size: 14px;
   border-bottom: 1px dotted rgba(58, 58, 58, 0.3);

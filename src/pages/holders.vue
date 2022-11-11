@@ -254,7 +254,7 @@ export default defineComponent({
 }
 
 .list div {
-  color: #464646;
+  color: #959595;
   line-height: 45px;
   font-size: 14px;
   border-bottom: 1px dotted rgba(58, 58, 58, 0.3);

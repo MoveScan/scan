@@ -350,6 +350,7 @@ export default defineComponent({
   line-height: 22px;
   padding: 1.25rem;
   height: 100px;
+  background: rgba(180, 180, 180, 0.1);
 }
 
 .blocks-data-wrap h2 {
@@ -440,7 +441,7 @@ export default defineComponent({
 }
 
 .list div {
-  color: #464646;
+  color: #959595;
   line-height: 45px;
   font-size: 14px;
   border-bottom: 1px dotted rgba(58, 58, 58, 0.3);

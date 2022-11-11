@@ -220,7 +220,7 @@ export default defineComponent({
 .card {
   word-wrap: break-word;
   background-clip: initial;
-  border: 1px solid hsla(37, 25%, 83%, 0.75);
+  border: 1px solid hsla(37, 25%, 83%, 0.35);
   border-radius: 0.25rem;
   display: flex;
   flex-direction: column;
@@ -233,6 +233,7 @@ export default defineComponent({
   line-height: 22px;
   padding: 1.25rem;
   height: 100px;
+  background: rgba(180, 180, 180, 0.1);
 }
 
 .blocks-data-wrap h2 {

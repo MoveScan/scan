@@ -316,6 +316,7 @@ export default defineComponent({
   line-height: 22px;
   padding: 1.25rem;
   height: 100px;
+  background: rgba(180, 180, 180, 0.1);
 }
 
 .blocks-data-wrap h2 {
