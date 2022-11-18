@@ -75,7 +75,7 @@
         <span>{{ detail.vm_status }}</span>
       </div>
     </div>
-    <div v-if="$route.query.txn_type == 'user_transaction'">
+    <div v-if="['user_transaction','ScriptFunction','Script'].includes($route.query.txn_type)">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane :label="$t('lang.ResourceChanges')" name="first">
           <el-table :data="detail.changes">
