@@ -3,7 +3,7 @@
   <Search></Search>
   <div class="container">
     <div class="flex">
-      <div class="block-title">
+      <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">
         {{ $t('lang.Account') }}
         <div class="overview-desc">
           {{ detail.address }}
@@ -12,7 +12,7 @@
           </el-icon>
         </div>
       </div>
-      <div style="font-size: 14px">
+      <div style="font-size: 14px" :style="store.switchDark ? '' : 'color:#715cff'">
         {{ $t('lang.CreateAt') }}：
         <span v-if="detail.create_at != null">{{ timestampToTime(detail.create_at) }}</span>
       </div>
@@ -71,10 +71,10 @@
       </el-col>
     </el-row>
 
-    <div class="table">
+    <div class="table" :style="store.switchDark ? 'background: #222' : 'background: #f7f7f7'">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane :label="$t('lang.TransactionList')" name="transaction">
-          <el-table :data="tableData" v-loading="loading">
+          <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData" v-loading="loading">
             <el-table-column prop="chainTime" :label="$t('lang.ChainTime')">
               <template #default="scope">
                 {{ timestampToTime(scope.row.chainTime) }}
@@ -82,14 +82,14 @@
             </el-table-column>
             <el-table-column prop="sender" :label="$t('lang.Sender')" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/accountDetail?address=' + scope.row.sender">
+                <router-link :to="'/accountDetail?address=' + scope.row.sender" :style="store.switchDark ? '' : 'color:#715cff'">
                   {{ scope.row.sender }}
                 </router-link>
               </template>
             </el-table-column>
             <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true" width="300">
               <template #default="scope">
-                <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=user_transaction'">
+                <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=user_transaction'" :style="store.switchDark ? '' : 'color:#715cff'">
                   {{ setSubstring(scope.row.txn_hash) }}
                 </router-link>
               </template>
@@ -108,7 +108,7 @@
           </div>
         </el-tab-pane>
         <el-tab-pane :label="$t('lang.TransferList')" name="transfer">
-          <el-table :data="tableData2" v-loading="loading">
+          <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData2" v-loading="loading">
             <el-table-column prop="amount" :label="$t('lang.Amount')" />
             <!-- <el-table-column prop="amount_value" label="数额" /> -->
             <el-table-column prop="create_at" :label="$t('lang.CreateAt')">
@@ -119,28 +119,28 @@
             <!-- <el-table-column prop="identifier" label="标识符" /> -->
             <el-table-column prop="sender" :label="$t('lang.Sender')" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/accountDetail?address=' + scope.row.sender">
+                <router-link :to="'/accountDetail?address=' + scope.row.sender" :style="store.switchDark ? '' : 'color:#715cff'">
                   {{ scope.row.sender }}
                 </router-link>
               </template>
             </el-table-column>
             <el-table-column prop="receiver" :label="$t('lang.Receiver')" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/accountDetail?address=' + scope.row.receiver">
+                <router-link :to="'/accountDetail?address=' + scope.row.receiver" :style="store.switchDark ? '' : 'color:#715cff'">
                   {{ scope.row.receiver }}
                 </router-link>
               </template>
             </el-table-column>
             <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash">
+                <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash" :style="store.switchDark ? '' : 'color:#715cff'">
                   {{ scope.row.txn_hash }}
                 </router-link>
               </template>
             </el-table-column>
             <el-table-column prop="type_tag" :label="$t('lang.CoinID')" width="400" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/coinDetail?tag=' + scope.row.type_tag">
+                <router-link :to="'/coinDetail?tag=' + scope.row.type_tag" :style="store.switchDark ? '' : 'color:#715cff'">
                   {{ scope.row.type_tag }}
                 </router-link>
               </template>
@@ -148,7 +148,7 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane :label="$t('lang.ResourceList')" name="resources">
-          <el-table :data="tableData3" v-loading="loading">
+          <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData3" v-loading="loading">
             <el-table-column prop="key" :label="$t('lang.Key')" />
             <el-table-column prop="value" :label="$t('lang.Value')">
               <template #default="props">
@@ -174,6 +174,7 @@ import Footer from '../components/footer.vue'
 import { getAddressInfo, getTransactionListAddress, getTransferListAddress, getAddressResources } from '@/http/api/index.ts'
 import { timestampToTimeLong, substring } from '@/utils/public.ts'
 import useClipboard from 'vue-clipboard3'
+import { useStore } from '../store/store'
 
 export default defineComponent({
   name: 'address Detail',
@@ -187,6 +188,7 @@ export default defineComponent({
       route = useRoute()
     const { toClipboard } = useClipboard()
     const data = reactive({
+      store: useStore(),
       loading: ref(true),
       currentPage: ref(1),
       pageSize: ref(20),

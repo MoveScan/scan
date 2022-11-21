@@ -7,7 +7,7 @@
       <el-col :span="8">2</el-col>
       <el-col :span="8">3</el-col>
     </el-row> -->
-    <div class="block-title">{{ $t('lang.Block') }}</div>
+    <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.Block') }}</div>
     <!-- 
     <div class="blocks-data-wrap">
       <div class="blocks_overview blocks_list_overview">
@@ -164,12 +164,12 @@
     <!-- 
       
      -->
-    <div class="table">
+    <div class="table" :style="store.switchDark ? 'background: #222' : 'background: #f7f7f7'">
       <div>{{ $t('lang.LatestList') }}</div>
-      <el-table :data="tableData" v-loading="loading">
+      <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData" v-loading="loading">
         <el-table-column prop="height" :label="$t('lang.Height')">
           <template #default="scope">
-            <router-link :to="'/blocksDetail?height=' + scope.row.height + '&hash=' + scope.row.block_hash">
+            <router-link :to="'/blocksDetail?height=' + scope.row.height + '&hash=' + scope.row.block_hash" :style="store.switchDark ? '' : 'color:#715cff'">
               {{ scope.row.height }}
             </router-link>
           </template>
@@ -181,7 +181,7 @@
         </el-table-column>
         <el-table-column prop="author" :label="$t('lang.Creator')">
           <template #default="scope">
-            <router-link v-if="scope.row.author !== null" :to="'/accountDetail?address=' + scope.row.author">
+            <router-link v-if="scope.row.author !== null" :to="'/accountDetail?address=' + scope.row.author" :style="store.switchDark ? '' : 'color:#715cff'">
               {{ setSubstring(scope.row.author) }}
             </router-link>
           </template>
@@ -190,7 +190,7 @@
         <el-table-column prop="transactions" :label="$t('lang.Txns')" />
         <el-table-column prop="block_hash" :label="$t('lang.Hash')" :show-overflow-tooltip="true">
           <template #default="scope">
-            <router-link :to="'/blocksDetail?hash=' + scope.row.block_hash">
+            <router-link :to="'/blocksDetail?hash=' + scope.row.block_hash" :style="store.switchDark ? '' : 'color:#715cff'">
               {{ setSubstring(scope.row.block_hash) }}
             </router-link>
           </template>
@@ -210,6 +210,7 @@ import Search from '../components/search.vue'
 import Footer from '../components/footer.vue'
 import { getBlockHeight, getBlockListStartHeight } from '@/http/api/index.ts'
 import { timestampToTimeLong, substring } from '@/utils/public.ts'
+import { useStore } from '../store/store'
 
 export default defineComponent({
   name: 'Block',
@@ -220,6 +221,7 @@ export default defineComponent({
   },
   setup() {
     const data = reactive({
+      store: useStore(),
       loading: ref(true),
       currentPage: ref(1),
       pageSize: ref(20),

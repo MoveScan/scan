@@ -2,7 +2,27 @@
   <Header></Header>
   <Search></Search>
   <div class="container">
-    <el-row>
+    <div class="total">
+      <div>
+        <h3 :style="store.switchDark ? '' : 'color:#715cff'">{{ summary.total_blocks }}</h3>
+        <br />
+        <span>{{ $t('lang.TotalBlocks') }}</span>
+      </div>
+      <div>
+        <h3 :style="store.switchDark ? '' : 'color:#715cff'">{{ summary.total_accounts }}</h3>
+        <span>{{ $t('lang.TotalAccounts') }}</span>
+      </div>
+      <div>
+        <h3 :style="store.switchDark ? '' : 'color:#715cff'">{{ summary.total_txns }}</h3>
+        <span>{{ $t('lang.TotalTxns') }}</span>
+      </div>
+      <div>
+        <h3 :style="store.switchDark ? '' : 'color:#715cff'">{{ summary.total_transfers }}</h3>
+        <span>{{ $t('lang.TotalTransfers') }}</span>
+      </div>
+    </div>
+
+    <!-- <el-row>
       <el-col :span="17">
         <el-card class="box-card">
           <div class="ant-row card-body row home-stats pt-0 pb-0 mainnet-data m-0">
@@ -21,10 +41,10 @@
                     </h2>
                   </div>
                 </div>
-                <!-- <div class="data-item-right">
+                <div class="data-item-right">
                   <p class="m-0 right-24h"><span>24h</span></p>
                   <p class="m-0 number"><span class="green">+1</span></p>
-                </div> -->
+                </div>
               </a>
             </div>
             <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
@@ -42,10 +62,10 @@
                     </h2>
                   </div>
                 </div>
-                <!-- <div class="data-item-right">
+                <div class="data-item-right">
                   <p class="m-0 right-24h"><span>24h</span></p>
                   <p class="m-0 number"><span class="red">+0.01%</span></p>
-                </div> -->
+                </div>
               </a>
             </div>
             <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
@@ -63,10 +83,10 @@
                     </h2>
                   </div>
                 </div>
-                <!-- <div class="data-item-right">
+                <div class="data-item-right">
                   <p class="m-0 right-24h"><span>24h</span></p>
                   <p class="m-0 number"><span class="green">+1</span></p>
-                </div> -->
+                </div>
               </a>
             </div>
             <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
@@ -84,16 +104,16 @@
                     </h2>
                   </div>
                 </div>
-                <!-- <div class="data-item-right">
+                <div class="data-item-right">
                   <p class="m-0 right-24h"><span>24h</span></p>
                   <p class="m-0 number"><span class="green">+$1</span></p>
-                </div> -->
+                </div>
               </a>
             </div>
           </div>
         </el-card>
       </el-col>
-      <!-- <el-col :span="7">
+      <el-col :span="7">
         <el-card class="box-card" style="height: 280px">
           <div class="trxgroup-wrapper-container">
             <div class="trxgroup-left-content">
@@ -101,8 +121,8 @@
                 <div class="market-item">
                   <div class="market-item-left">
                     <el-icon>
-                    <User />
-                  </el-icon>
+                      <User />
+                    </el-icon>
                     <div class="market-item-center">
                       <p class="trxgroup-left-title"><span>Market Cap</span></p>
                       <p class="trxgroup-left-number"><span>$5,538,110,223</span></p>
@@ -115,8 +135,8 @@
                 <div class="market-item">
                   <div class="market-item-left">
                     <el-icon>
-                    <User />
-                  </el-icon>
+                      <User />
+                    </el-icon>
                     <div class="market-item-center">
                       <p class="trxgroup-left-title"><span>Market Trading Volume (24h)</span></p>
                       <p class="trxgroup-left-number"><span>$352,817,086</span></p>
@@ -129,8 +149,8 @@
                 <div class="market-item">
                   <div class="market-item-left">
                     <el-icon>
-                    <User />
-                  </el-icon>
+                      <User />
+                    </el-icon>
                     <div class="market-item-center">
                       <p class="trxgroup-left-title"><span>Total TRX Staked</span></p>
                       <p class="trxgroup-left-number"><span>43,984,956,811</span></p>
@@ -145,26 +165,26 @@
             </div>
           </div>
         </el-card>
-      </el-col> -->
-    </el-row>
+      </el-col>
+    </el-row> -->
 
     <div class="home-block-wrap">
-      <div class="block-title">
-        <div class="block-title-left">
-          <a href="/blocks">
+      <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">
+        <div class="block-title-left" :style="store.switchDark ? '' : 'background: url(/src/assets/img_1.png) center no-repeat'">
+          <a href="/blocks" :style="store.switchDark ? '' : 'color:#715cff'">
             <span>{{ $t('lang.Blocks') }}</span>
           </a>
         </div>
-        <a class="block-more" href="#/blocks">
+        <!-- <a class="block-more" href="#/blocks">
           <span>{{ $t('lang.More') }}</span>
-        </a>
+        </a> -->
       </div>
 
       <div class="block text-center">
-        <el-carousel height="150px">
+        <el-carousel height="350px">
           <el-carousel-item class="block-box">
-            <div class="box" v-for="(item, index) in blockData.slice(0, 4)" :key="index" @click="gotoBlock(item.height, item.block_hash)">
-              <ul>
+            <div :class="store.switchDark ? 'box' : 'box2'" v-for="(item, index) in blockData.slice(0, 5)" :key="index" @click="gotoBlock(item.height, item.block_hash)">
+              <!-- <ul>
                 <li class="block-number">{{ $t('lang.Height') }}：{{ item.height }}</li>
                 <li>
                   <span class="black">{{ timestampToTime(item.create_at) }}</span>
@@ -174,12 +194,17 @@
               <ul class="block-detail">
                 <li class="">{{ $t('lang.Txns') }}：{{ item.transactions }}</li>
                 <li>{{ $t('lang.GasUsed') }}：{{ item.gas_used }}</li>
-              </ul>
+              </ul> -->
+              <p class="txt1" :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.Height') }}：{{ item.height }}</p>
+              <p class="txt2">{{ $t('lang.BlockHash') }}</p>
+              <p class="txt3">{{ $t('lang.Txns') }}：{{ item.transactions }}</p>
+              <p class="txt3">{{ $t('lang.GasUsed') }}：{{ item.gas_used }}</p>
+              <p class="txt4">{{ timestampToTime(item.create_at) }}</p>
             </div>
           </el-carousel-item>
           <el-carousel-item class="block-box">
-            <div class="box" v-for="(item, index) in blockData.slice(4, 8)" :key="index" @click="gotoBlock(item.height, item.block_hash)">
-              <ul>
+            <div :class="store.switchDark ? 'box' : 'box2'" v-for="(item, index) in blockData.slice(5, 10)" :key="index" @click="gotoBlock(item.height, item.block_hash)">
+              <!-- <ul>
                 <li class="block-number">{{ $t('lang.Height') }}：{{ item.height }}</li>
                 <li>
                   <span class="black">{{ timestampToTime(item.create_at) }}</span>
@@ -189,7 +214,12 @@
               <ul class="block-detail">
                 <li class="">{{ $t('lang.Txns') }}：{{ item.transactions }}</li>
                 <li>{{ $t('lang.GasUsed') }}：{{ item.gas_used }}</li>
-              </ul>
+              </ul> -->
+              <p class="txt1" :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.Height') }}：{{ item.height }}</p>
+              <p class="txt2">{{ $t('lang.BlockHash') }}</p>
+              <p class="txt3">{{ $t('lang.Txns') }}：{{ item.transactions }}</p>
+              <p class="txt3">{{ $t('lang.GasUsed') }}：{{ item.gas_used }}</p>
+              <p class="txt4">{{ timestampToTime(item.create_at) }}</p>
             </div>
           </el-carousel-item>
           <!-- <el-carousel-item class="block-box">
@@ -211,22 +241,45 @@
       </div>
     </div>
 
-    <div class="home-block-wrap">
-      <div class="block-title">
-        <div class="block-title-left">
-          <a href="/transaction">
+    <div class="home-block-wrap" :style="store.switchDark ? 'margin: 20px 0; background: #222; border-radius: 20px' : ''">
+      <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">
+        <div class="block-title-left" :style="store.switchDark ? '' : 'background: url(/src/assets/img_1.png) center no-repeat'">
+          <a href="/blocks" :style="store.switchDark ? '' : 'color:#715cff'">
             <span>{{ $t('lang.TransactionDisplay') }}</span>
           </a>
         </div>
-        <a class="block-more" href="#/transaction">
+        <!-- <a class="block-more" href="#/transaction">
           <span>{{ $t('lang.More') }}</span>
-        </a>
+        </a> -->
       </div>
 
       <el-row>
-        <el-col :span="15">
-          <el-scrollbar height="400px" style="margin-right: 20px; border-radius: 10px">
-            <div class="transaction">
+        <el-col :span="24">
+          <el-scrollbar height="500px" style="border-radius: 10px">
+            <el-table :class="store.switchDark ? 'black' : 'white'" :data="transactionData" v-loading="loading">
+              <el-table-column prop="block_number" :label="$t('lang.Block') + $t('lang.Height')">
+                <template #default="scope">
+                  <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=' + scope.row.txn_type" :style="store.switchDark ? '' : 'color:#715cff'">
+                    {{ scope.row.block_number }}
+                  </router-link>
+                </template>
+              </el-table-column>
+              <el-table-column prop="gas_used" :label="$t('lang.GasUsed')"></el-table-column>
+              <el-table-column prop="success" :label="$t('lang.IsSuccess')">
+                <template #default="scope">
+                  {{ scope.row.success ? $t('lang.Yes') : $t('lang.No') }}
+                </template>
+              </el-table-column>
+              <el-table-column prop="create_at" :label="$t('lang.CreateAt')">
+                <template #default="scope">
+                  <span v-if="scope.row.create_at != null">{{ timestampToTime(scope.row.create_at) }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column prop="global_index" :label="$t('lang.GlobalIndex')"></el-table-column>
+              <el-table-column prop="transaction_type" :label="$t('lang.TxnType')"></el-table-column>
+            </el-table>
+
+            <!-- <div class="transaction">
               <ul>
                 <li v-for="(item, index) in transactionData" :key="index" @click="gotoTransaction(item.txn_hash, item.txn_type)">
                   <div class="record">
@@ -241,12 +294,12 @@
                   </div>
                 </li>
               </ul>
-            </div>
+            </div> -->
           </el-scrollbar>
         </el-col>
-        <el-col :span="9" style="background: rgba(180, 180, 180, 0.05); border-radius: 10px">
-          <!-- <div id="chart"></div> -->
-        </el-col>
+        <!-- <el-col :span="9" style="background: rgba(180, 180, 180, 0.05); border-radius: 10px">
+          <div id="chart"></div>
+        </el-col> -->
       </el-row>
     </div>
   </div>
@@ -263,6 +316,7 @@ import Footer from '../components/footer.vue'
 import { getBlockListStartHeight, getTransactionList, getChainSummary } from '@/http/api/index.ts'
 import { timestampToTimeLong, substring } from '@/utils/public.ts'
 import { ElLoading } from 'element-plus'
+import { useStore } from '../store/store'
 
 export default defineComponent({
   name: 'Token',
@@ -280,6 +334,8 @@ export default defineComponent({
 
     const router = useRouter()
     const data = reactive({
+      store: useStore(),
+      loading: ref(true),
       currentPage: ref(1),
       pageSize: ref(10),
       total: ref(0),
@@ -303,6 +359,7 @@ export default defineComponent({
           .then((res: any) => {
             console.log('transaction', res)
             data.transactionData = res.contents
+            data.loading = false
           })
           .catch((e: any) => {
             console.log(e)
@@ -399,7 +456,7 @@ export default defineComponent({
   background: rgba(180, 180, 180, 0.05);
 }
 .el-row {
-  margin-bottom: 20px;
+  margin: 20px;
 }
 
 .el-row:last-child {
@@ -422,24 +479,23 @@ export default defineComponent({
 }
 
 .block-title {
-  align-items: center;
   color: #101010;
-  display: flex;
-  font-size: 20px;
+  font-size: 26px;
   font-weight: 700;
-  justify-content: space-between;
-  line-height: 2rem;
+  line-height: 4rem;
   margin: 16px 0 13px;
 }
 
 .block-title a {
   text-decoration: none;
-  color: #409eff;
 }
 
 .block-title-left {
   align-items: center;
   display: flex;
+  justify-content: space-around;
+  background: url(../assets/img_2.png) center no-repeat;
+  background-size: 300px;
 }
 
 .block-more {
@@ -479,22 +535,51 @@ export default defineComponent({
 }
 
 .block-box:hover {
-  color: #409eff;
   cursor: pointer;
 }
 
 .block-box div {
-  border-radius: 10px;
+  border-radius: 20px;
   background: rgba(180, 180, 180, 0.1);
-  height: 100px;
-  width: 290px;
+  height: 260px;
+  width: 212px;
   padding: 15px;
 }
-
+.block-box div:nth-child(2n) {
+  margin-top: 40px;
+}
+.box {
+  text-align: center;
+}
 .box:hover {
-  transform: translateY(-5px);
+  color: #fff;
+  background: linear-gradient(#111b19, #2ef1a6);
+  transform: scale(1.01);
+}
+.box2 {
+  text-align: center;
+}
+.box2:hover {
+  color: #fff;
+  background: linear-gradient(#f2f2f2, #715cff);
+  transform: scale(1.01);
 }
 
+.txt1 {
+  color: #2ef1a6;
+  font-size: 23px;
+  margin-top: 20px;
+}
+.txt2 {
+  font-size: 25px;
+  margin-bottom: 40px;
+}
+.txt3 {
+  font-size: 18px;
+}
+.txt4 {
+  font-size: 14px;
+}
 .box ul {
   font-size: 0.75rem;
   line-height: 1.3rem;
@@ -820,5 +905,31 @@ p {
 .el-icon {
   margin: 0 15px;
   font-size: 48px;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+}
+.total div {
+  width: 242px;
+  height: 242px;
+  text-align: center;
+  background: rgba(180, 180, 180, 0.1);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.total div:hover {
+  cursor: pointer;
+  background: rgba(180, 180, 180, 0.2);
+}
+.total h3 {
+  font-size: 33px;
+}
+.total span {
+  color: #808080;
+  font-size: 23px;
 }
 </style>

@@ -2,7 +2,7 @@
   <Header></Header>
   <Search></Search>
   <div class="container">
-    <div class="block-title">{{ $t('lang.Transaction') }}</div>
+    <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.Transaction') }}</div>
 
     <el-row>
       <el-col :span="12">
@@ -12,13 +12,13 @@
               <div class="card">
                 <div class="card-body" id="txcont">
                   <h2 class="d-flex">
-                    <span>{{ $t('lang.Txns') }}</span>
+                    <span :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.Txns') }}</span>
                   </h2>
                   <div class="d-flex align-items-center">
                     <div class="d-flex flex-column">
                       <span class="num">
                         <span>
-                          <a href="#">{{ total }}</a>
+                          <a href="#" :style="store.switchDark ? '' : 'color:#715cff'">{{ total }}</a>
                         </span>
                       </span>
                       <div class="d-flex" style="margin-top: 6px">
@@ -104,9 +104,9 @@
       </el-col>
     </el-row>
 
-    <div class="table">
+    <div class="table" :style="store.switchDark ? 'background: #222' : 'background: #f7f7f7'">
       <div>{{ $t('lang.LatestList') }}</div>
-      <el-table :data="tableData" v-loading="loading">
+      <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData" v-loading="loading">
         <el-table-column prop="global_index" :label="$t('lang.GlobalIndex')" />
         <el-table-column prop="create_at" :label="$t('lang.CreateAt')">
           <template #default="scope">
@@ -118,7 +118,7 @@
         <el-table-column prop="txn_type" :label="$t('lang.TxnType')" />
         <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true" width="300">
           <template #default="scope">
-            <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=' + scope.row.txn_type">
+            <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=' + scope.row.txn_type" :style="store.switchDark ? '' : 'color:#715cff'">
               {{ setSubstring(scope.row.txn_hash) }}
             </router-link>
           </template>
@@ -142,6 +142,7 @@ import Footer from '../components/footer.vue'
 import { getTransactionList } from '@/http/api/index.ts'
 import { timestampToTimeLong, substring } from '@/utils/public.ts'
 import { useI18n } from 'vue-i18n'
+import { useStore } from '../store/store'
 
 export default defineComponent({
   name: 'transaction',
@@ -153,6 +154,7 @@ export default defineComponent({
   setup() {
     const { t } = useI18n()
     const data = reactive({
+      store: useStore(),
       loading: ref(true),
       currentPage: ref(1),
       pageSize: ref(20),

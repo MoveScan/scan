@@ -7,19 +7,19 @@
       <el-col :span="8">2</el-col>
       <el-col :span="8">3</el-col>
     </el-row> -->
-    <div class="block-title">{{ $t('lang.Account') }}</div>
+    <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.Account') }}</div>
     <div class="blocks-data-wrap">
       <div class="blocks_overview blocks_list_overview">
         <div class="">
           <div class="card">
             <div class="card-body" id="txcont">
               <h2 class="d-flex">
-                <span>{{ $t('lang.Accounts') }}</span>
+                <span :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.Accounts') }}</span>
               </h2>
               <div class="d-flex align-items-center">
                 <div class="d-flex flex-column">
                   <span class="num">
-                    <span>{{ total }}</span>
+                    <span :style="store.switchDark ? '' : 'color:#715cff'">{{ total }}</span>
                   </span>
                   <div class="d-flex" style="margin-top: 6px">
                     <span class="txt">{{ $t('lang.TheNewest') + $t('lang.Account') }}</span>
@@ -91,12 +91,12 @@
       </div> -->
     </div>
 
-    <div class="table">
+    <div class="table" :style="store.switchDark ? 'background: #222' : 'background: #f7f7f7'">
       <div>{{ $t('lang.LatestList') }}</div>
-      <el-table :data="tableData">
+      <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData">
         <el-table-column prop="address" :label="$t('lang.Account')" width="600">
           <template #default="scope">
-            <router-link :to="'/accountDetail?address=' + scope.row.address">
+            <router-link :to="'/accountDetail?address=' + scope.row.address" :style="store.switchDark ? '' : 'color:#715cff'">
               {{ scope.row.address }}
             </router-link>
           </template>
@@ -131,6 +131,7 @@ import Search from '../components/search.vue'
 import Footer from '../components/footer.vue'
 import { getAddressList } from '@/http/api/index.ts'
 import { timestampToTimeLong, substring } from '@/utils/public.ts'
+import { useStore } from '../store/store'
 
 export default defineComponent({
   name: 'Account',
@@ -141,6 +142,7 @@ export default defineComponent({
   },
   setup() {
     const data = reactive({
+      store: useStore(),
       loading: ref(true),
       currentPage: ref(1),
       pageSize: ref(20),

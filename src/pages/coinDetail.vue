@@ -11,7 +11,7 @@
         <div class="overview-desc">USDT is the official stablecoin issued by Tether on the TRON network.</div>
       </div>
     </div> -->
-    <div class="block-title">
+    <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">
       {{ detail.coin_id }}
       <el-icon v-if="detail.coin_id != null" @click="copy(detail.coin_id)">
         <DocumentCopy />
@@ -105,11 +105,11 @@
       </el-col>-->
     </el-row>
 
-    <div class="table">
+    <div class="table" :style="store.switchDark ? 'background: #222' : 'background: #f7f7f7'">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <!-- <el-tab-pane :label="$t('lang.PassHolder')" name="second">
           <div class="">total {{ total }}</div>
-          <el-table :data="tableData" v-loading="loading">
+          <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData" v-loading="loading">
             <el-table-column prop="address" :label="$t('lang.Account')" width="660">
               <template #default="scope">
                 <router-link v-if="scope.row.address !== null" :to="'/accountDetail?address=' + scope.row.address">
@@ -127,10 +127,10 @@
         </el-tab-pane> -->
         <el-tab-pane :label="$t('lang.TransferList')" name="first">
           <div class="">total {{ total_ }}</div>
-          <el-table :data="tableData_" v-loading="loading_">
+          <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData_" v-loading="loading_">
             <el-table-column prop="type_tag" :label="$t('lang.CoinID')" width="400" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/coinDetail?tag=' + scope.row.type_tag">
+                <router-link :to="'/coinDetail?tag=' + scope.row.type_tag" :style="store.switchDark ? '' : 'color:#715cff'">
                   {{ scope.row.type_tag }}
                 </router-link>
               </template>
@@ -143,21 +143,21 @@
             </el-table-column>
             <el-table-column prop="sender" :label="$t('lang.Sender')" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/accountDetail?address=' + scope.row.sender">
+                <router-link :to="'/accountDetail?address=' + scope.row.sender" :style="store.switchDark ? '' : 'color:#715cff'">
                   {{ scope.row.sender }}
                 </router-link>
               </template>
             </el-table-column>
             <el-table-column prop="receiver" :label="$t('lang.Receiver')" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/accountDetail?address=' + scope.row.receiver">
+                <router-link :to="'/accountDetail?address=' + scope.row.receiver" :style="store.switchDark ? '' : 'color:#715cff'">
                   {{ scope.row.receiver }}
                 </router-link>
               </template>
             </el-table-column>
             <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=' + scope.row.txn_type">
+                <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=' + scope.row.txn_type" :style="store.switchDark ? '' : 'color:#715cff'">
                   {{ setSubstring(scope.row.txn_hash) }}
                 </router-link>
               </template>
@@ -184,6 +184,7 @@ import { getCoinInfo, getCoinHoldersList, getTransferListTag } from '@/http/api/
 import { timestampToTimeLong, substring } from '@/utils/public.ts'
 import { ElMessage } from 'element-plus'
 import useClipboard from 'vue-clipboard3'
+import { useStore } from '../store/store'
 
 export default defineComponent({
   name: 'Coin Detail',
@@ -197,6 +198,7 @@ export default defineComponent({
       route = useRoute()
     const { toClipboard } = useClipboard()
     const data = reactive({
+      store: useStore(),
       loading: ref(true),
       loading_: ref(true),
       currentPage: ref(1),

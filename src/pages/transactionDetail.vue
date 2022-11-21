@@ -2,7 +2,7 @@
   <Header></Header>
   <Search></Search>
   <div class="container">
-    <div class="block-title">{{ $t('lang.TransactionDetail') }}</div>
+    <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.TransactionDetail') }}</div>
     <div class="blocks-data-wrap table list">
       <div>
         <span>{{ $t('lang.TxnHash') }}：</span>
@@ -78,7 +78,7 @@
     <div v-if="['user_transaction','ScriptFunction','Script'].includes($route.query.txn_type)">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane :label="$t('lang.ResourceChanges')" name="first">
-          <el-table :data="detail.changes">
+          <el-table :class="store.switchDark ? 'black' : 'white'" :data="detail.changes">
             <el-table-column prop="change_type" :label="$t('lang.ChangeType')" />
             <el-table-column prop="create_at" :label="$t('lang.CreateAt')">
               <template #default="scope">
@@ -87,7 +87,7 @@
             </el-table-column>
             <el-table-column prop="address" :label="$t('lang.Account')" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/accountDetail?address=' + scope.row.address">
+                <router-link :to="'/accountDetail?address=' + scope.row.address" :style="store.switchDark ? '' : 'color:#715cff'">
                   {{ scope.row.address }}
                 </router-link>
               </template>
@@ -97,7 +97,7 @@
             </el-table-column>
             <el-table-column :label="$t('lang.TxnHash')" :show-overflow-tooltip="true">
               <template #default="scope">
-                  {{ scope.row.change_id.txn_hash }}
+                {{ scope.row.change_id.txn_hash }}
               </template>
             </el-table-column>
 
@@ -109,7 +109,7 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane :label="$t('lang.Event')" name="second">
-          <el-table :data="detail.events">
+          <el-table :class="store.switchDark ? 'black' : 'white'" :data="detail.events">
             <el-table-column prop="id" label="ID" />
             <el-table-column prop="create_at" :label="$t('lang.CreateAt')">
               <template #default="scope">
@@ -118,7 +118,7 @@
             </el-table-column>
             <el-table-column prop="address" :label="$t('lang.Account') + $t('lang.Address')" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/accountDetail?address=' + scope.row.account_address">
+                <router-link :to="'/accountDetail?address=' + scope.row.account_address" :style="store.switchDark ? '' : 'color:#715cff'">
                   {{ scope.row.account_address }}
                 </router-link>
               </template>
@@ -127,12 +127,12 @@
             <el-table-column prop="event_sequence_number" :label="$t('lang.EventSequenceNumber')" />
             <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true">
               <template #default="scope">
-                  {{ scope.row.txn_hash }}
+                {{ scope.row.txn_hash }}
               </template>
             </el-table-column>
             <el-table-column prop="type_tag" :label="$t('lang.CoinID')" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/coinDetail?tag=' + scope.row.type_tag">
+                <router-link :to="'/coinDetail?tag=' + scope.row.type_tag" :style="store.switchDark ? '' : 'color:#715cff'">
                   {{ scope.row.type_tag }}
                 </router-link>
               </template>
@@ -160,6 +160,8 @@ import { getTransactionHash, getTransactionAggregated } from '@/http/api/index.t
 import { timestampToTimeLong, substring } from '@/utils/public.ts'
 import { ElMessage } from 'element-plus'
 import useClipboard from 'vue-clipboard3'
+import { useStore } from '../store/store'
+
 export default defineComponent({
   name: 'transactionHash',
   components: {
@@ -177,6 +179,7 @@ export default defineComponent({
       route = useRoute()
     const { toClipboard } = useClipboard()
     const data = reactive({
+      store: useStore(),
       activeName: ref('first'),
       tableData: ref([]),
       detail: ref({ payload: '' }),

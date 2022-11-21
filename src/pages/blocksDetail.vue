@@ -2,7 +2,7 @@
   <Header></Header>
   <Search></Search>
   <div class="container">
-    <div class="block-title">{{ $t('lang.BlockDetail') }}</div>
+    <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.BlockDetail') }}</div>
     <div class="blocks-data-wrap table list">
       <div style="width: 100%">
         <span>{{ $t('lang.BlockAccumulatorRoot') }}：</span>
@@ -90,12 +90,12 @@
         <span>{{ detail.transactions }}</span>
       </div>
     </div>
-    <div class="table">
+    <div class="table" :style="store.switchDark ? 'background: #222' : 'background: #f7f7f7'">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane :label="$t('lang.Transaction')" name="first">{{ total }} {{ $t('lang.Txns') }}</el-tab-pane>
+        <el-tab-pane :label="$t('lang.Transaction')" name="first" :style="store.switchDark ? '' : 'color:#715cff'">{{ total }} {{ $t('lang.Txns') }}</el-tab-pane>
         <!-- <el-tab-pane label="转账" name="second">Config</el-tab-pane> -->
       </el-tabs>
-      <el-table :data="tableData" v-loading="loading">
+      <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData" v-loading="loading">
         <el-table-column prop="global_index" :label="$t('lang.Index')" />
         <el-table-column prop="create_at" :label="$t('lang.CreateAt')">
           <template #default="scope">
@@ -111,7 +111,7 @@
         <el-table-column prop="txn_type" :label="$t('lang.TxnType')" />
         <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true" width="300">
           <template #default="scope">
-            <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=' + scope.row.txn_type">
+            <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=' + scope.row.txn_type" :style="store.switchDark ? '' : 'color:#715cff'">
               {{ scope.row.txn_hash }}
             </router-link>
           </template>
@@ -136,6 +136,7 @@ import Footer from '../components/footer.vue'
 import { getBlockHeight, getBlockHash, getBlockTransaction } from '@/http/api/index.ts'
 import { timestampToTimeLong } from '@/utils/public.ts'
 import useClipboard from 'vue-clipboard3'
+import { useStore } from '../store/store'
 
 export default defineComponent({
   name: 'blocksDetail',
@@ -149,6 +150,7 @@ export default defineComponent({
       route = useRoute()
     const { toClipboard } = useClipboard()
     const data = reactive({
+      store: useStore(),
       loading: ref(true),
       activeName: ref('first'),
       currentPage: ref(1),

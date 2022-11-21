@@ -2,19 +2,19 @@
   <Header></Header>
   <Search></Search>
   <div class="container">
-    <div class="block-title">{{ $t('lang.Coin') }}</div>
+    <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.Coin') }}</div>
     <div class="blocks-data-wrap">
       <div class="blocks_overview blocks_list_overview">
         <div class="">
           <div class="card">
             <div class="card-body" id="txcont">
               <h2 class="d-flex">
-                <span>{{ $t('lang.TotalCoins') }}</span>
+                <span :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.TotalCoins') }}</span>
               </h2>
               <div class="d-flex align-items-center">
                 <div class="d-flex flex-column">
                   <span class="num">
-                    <span>{{ total }}</span>
+                    <span :style="store.switchDark ? '' : 'color:#715cff'">{{ total }}</span>
                   </span>
                 </div>
                 <!-- <div class="d-flex flex-column">
@@ -108,7 +108,7 @@
         </div>
       </div> -->
     </div>
-    <div class="table">
+    <div class="table" :style="store.switchDark ? 'background: #222' : 'background: #f7f7f7'">
       <!-- <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane label="全部" name="first">全部</el-tab-pane>
         <el-tab-pane label="TRC20" name="second">TRC20</el-tab-pane>
@@ -118,10 +118,10 @@
       </el-tabs> -->
 
       <div>{{ $t('lang.LatestList') }}</div>
-      <el-table :data="tableData" v-loading="loading">
+      <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData" v-loading="loading">
         <el-table-column prop="coin_id" :label="$t('lang.CoinID')" width="400" :show-overflow-tooltip="true">
           <template #default="scope">
-            <router-link :to="'/coinDetail?tag=' + scope.row.coin_id">
+            <router-link :to="'/coinDetail?tag=' + scope.row.coin_id" :style="store.switchDark ? '' : 'color:#715cff'">
               {{ scope.row.coin_id }}
             </router-link>
           </template>
@@ -133,7 +133,7 @@
         </el-table-column>
         <el-table-column prop="creator" :label="$t('lang.Creator')" width="200">
           <template #default="scope">
-            <router-link v-if="scope.row.creator !== null" :to="'/accountDetail?address=' + scope.row.creator">
+            <router-link v-if="scope.row.creator !== null" :to="'/accountDetail?address=' + scope.row.creator" :style="store.switchDark ? '' : 'color:#715cff'">
               {{ scope.row.creator.length < 10 ? scope.row.creator : setSubstring(scope.row.creator) }}
             </router-link>
           </template>
@@ -158,6 +158,7 @@ import Search from '../components/search.vue'
 import Footer from '../components/footer.vue'
 import { getCoinList } from '@/http/api/index.ts'
 import { timestampToTimeLong, substring } from '@/utils/public.ts'
+import { useStore } from '../store/store'
 
 export default defineComponent({
   name: 'Coin',
@@ -168,6 +169,7 @@ export default defineComponent({
   },
   setup() {
     const data = reactive({
+      store: useStore(),
       loading: ref(true),
       currentPage: ref(1),
       pageSize: ref(20),

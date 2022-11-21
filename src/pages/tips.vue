@@ -3,7 +3,7 @@
   <Search></Search>
   <div class="container box">
     <br />
-    <h2>{{ $t('lang.ComingSoon') }}</h2>
+    <h2 :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.ComingSoon') }}</h2>
     <br />
     <el-skeleton :rows="5" />
   </div>
@@ -14,6 +14,7 @@ import { ref, toRefs, reactive, defineComponent, onMounted } from 'vue'
 import Header from '../components/header.vue'
 import Search from '../components/search.vue'
 import Footer from '../components/footer.vue'
+import { useStore } from '../store/store'
 
 export default defineComponent({
   name: 'new page',
@@ -24,6 +25,7 @@ export default defineComponent({
   },
   setup() {
     const data = reactive({
+      store: useStore(),
       msg: ref(),
       init: () => {
         data.msg = '功能开发中,敬请期待'

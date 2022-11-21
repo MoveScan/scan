@@ -15,7 +15,7 @@
   margin-right: auto;
   padding-left: 15px;
   padding-right: 15px;
-  width: 100%;
+  min-height: 800px;
 }
 
 .search {
@@ -24,7 +24,7 @@
 
 a {
   text-decoration: none;
-  color: #416d9a;
+  color: #2ef1a7;
 }
 
 .page {
@@ -40,4 +40,12 @@ a {
 .el-icon {
   cursor: pointer;
   margin-left: 5px;
+}
+
+.black tbody tr:hover>td {
+  background: linear-gradient(#111b19, #2ef1a6);
+}
+
+.white tbody tr:hover>td {
+  background: linear-gradient(#f2f2f2, #715cff);
 }

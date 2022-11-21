@@ -2,15 +2,15 @@
   <Header></Header>
   <Search></Search>
   <div class="container">
-    <div class="block-title">{{ $t('lang.TopHolders') }}</div>
-    <div class="table">
+    <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.TopHolders') }}</div>
+    <div class="table" :style="store.switchDark ? 'background: #222' : 'background: #f7f7f7'">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane :label="$t('lang.PassHolder')" name="second">
           <div class="">total {{ total }}</div>
-          <el-table :data="tableData" v-loading="loading">
+          <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData" v-loading="loading">
             <el-table-column prop="address" :label="$t('lang.Account')" width="660">
               <template #default="scope">
-                <router-link v-if="scope.row.address !== null" :to="'/accountDetail?address=' + scope.row.address">
+                <router-link v-if="scope.row.address !== null" :to="'/accountDetail?address=' + scope.row.address" :style="store.switchDark ? '' : 'color:#715cff'">
                   {{ scope.row.address }}
                 </router-link>
               </template>
@@ -42,6 +42,7 @@ import { getCoinHoldersList } from '@/http/api/index.ts'
 import { timestampToTimeLong, substring } from '@/utils/public.ts'
 import { ElMessage } from 'element-plus'
 import useClipboard from 'vue-clipboard3'
+import { useStore } from '../store/store'
 
 export default defineComponent({
   name: 'Coin Detail',
@@ -55,6 +56,7 @@ export default defineComponent({
       route = useRoute()
     const { toClipboard } = useClipboard()
     const data = reactive({
+      store: useStore(),
       loading: ref(true),
       currentPage: ref(1),
       pageSize: ref(20),

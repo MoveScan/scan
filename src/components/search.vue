@@ -1,9 +1,9 @@
 <template>
-  <div class="container search" id="search">
+  <div class="search" id="search">
     <div class="mt-4">
       <el-input v-model="input" size="large" :placeholder="$t('lang.SearchPlaceholder')" @keyup.enter.native="searchHash()" class="input-with-select" clearable @clear="clearSearch()" @focus="tipsTxt(true)" @blur="tipsTxt(false)">
         <template #append>
-          <el-button type="primary" :icon="icon.sc" @click="searchHash()">{{ $t('lang.Search') }}</el-button>
+          <el-button type="primary" :style="store.switchDark ? 'background: #2ef1a7' : 'background: #715cff'" :icon="icon.sc" @click="searchHash()">{{ $t('lang.Search') }}</el-button>
         </template>
       </el-input>
       <div class="tips-txt"><span v-show="isTxt">Account Address / Txn Hash or Version / Block Height</span></div>
@@ -12,26 +12,26 @@
         <div v-if="show.account">
           Account:
           <span v-if="dataAccount.address == 'No Data'">{{ dataAccount.address }}</span>
-          <router-link v-else :to="'/accountDetail?address=' + dataAccount.address">
+          <router-link v-else :to="'/accountDetail?address=' + dataAccount.address" :style="store.switchDark ? '' : 'color:#715cff'">
             {{ setSubstring(dataAccount.address) }}
           </router-link>
         </div>
         <div v-if="show.blockHash">
           Block:
           <span v-if="dataBlock.block_hash == 'No Data'">{{ dataBlock.block_hash }}</span>
-          <router-link v-else :to="'/blocksDetail?hash=' + dataBlock.block_hash">
+          <router-link v-else :to="'/blocksDetail?hash=' + dataBlock.block_hash" :style="store.switchDark ? '' : 'color:#715cff'">
             {{ setSubstring(dataBlock.block_hash) }}
           </router-link>
         </div>
         <div v-if="show.blockHeight">
           Block:
           <span v-if="dataBlockHeight.height == 'No Data'">{{ dataBlockHeight.height }}</span>
-          <router-link v-else :to="'/blocksDetail?height=' + dataBlockHeight.height">{{ dataBlockHeight.height }}</router-link>
+          <router-link v-else :to="'/blocksDetail?height=' + dataBlockHeight.height" :style="store.switchDark ? '' : 'color:#715cff'">{{ dataBlockHeight.height }}</router-link>
         </div>
         <div v-if="show.transaction">
           Transaction:
           <span v-if="dataTransaction.hash == 'No Data'">{{ dataTransaction.hash }}</span>
-          <router-link v-else :to="'/transactionDetail?hash=' + dataTransaction.hash + '&txn_type=' + dataTransaction.txn_type">
+          <router-link v-else :to="'/transactionDetail?hash=' + dataTransaction.hash + '&txn_type=' + dataTransaction.txn_type" :style="store.switchDark ? '' : 'color:#715cff'">
             {{ setSubstring(dataTransaction.hash) }}
           </router-link>
         </div>
@@ -48,12 +48,15 @@ import { ElMessage } from 'element-plus'
 import { getAddressInfo, getBlockHash, getBlockHeight, getTransactionAggregated, getTransactionVersion } from '@/http/api/index.ts'
 import { substring } from '@/utils/public.ts'
 import { useI18n } from 'vue-i18n'
+import { useStore } from '../store/store'
 
 export default defineComponent({
   name: 'Search',
   setup() {
     const { t, locale } = useI18n()
     const data = reactive({
+      store: useStore(),
+      switchDark: '',
       show: ref({
         account: false,
         blockHash: false,
@@ -214,7 +217,19 @@ export default defineComponent({
 })
 </script>
 <style>
+@media (min-width: 1200px) {
+  .search {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .search {
+    max-width: 1370px;
+  }
+}
 .search {
+  margin: 0 auto;
   margin-bottom: 20px;
   line-height: 3rem;
   position: relative;
@@ -238,5 +253,11 @@ export default defineComponent({
 
 .sc-content div {
   margin: 0 15px;
+}
+.el-input-group__append {
+  color: #fff;
+}
+.el-input-group__append button {
+  height: -webkit-fill-available;
 }
 </style>

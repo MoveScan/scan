@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <div class="container">
+    <div class="">
       <el-row>
         <el-col :span="3">
           <div class="developCenter">
@@ -78,7 +78,9 @@ import { Position, ChatLineSquare, Message } from '@element-plus/icons-vue'
   border-top: 1px solid hsla(0, 0%, 6%, 0.05);
   margin-top: 2rem;
   padding: 3rem !important;
-  background: rgba(190, 190, 190, 0.05);
+  color: #000;
+  background: #006aff;
+  /* background: rgba(190, 190, 190, 0.05); */
 }
 
 .home-footer .quick-links .quick-links-li {
@@ -113,7 +115,7 @@ import { Position, ChatLineSquare, Message } from '@element-plus/icons-vue'
 
 .cp {
   font-size: 12px;
-  color: #91979d;
+  color: #000;
 }
 
 .flex {
