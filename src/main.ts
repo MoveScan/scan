@@ -11,11 +11,15 @@ import i18n from './i18n/index'
 import * as echarts from 'echarts'
 import JsonViewer from 'vue-json-viewer'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
 
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 app.config.globalProperties.$echarts = echarts
-app.use(createPinia()).use(router).use(ElementPlus, { size: '', zIndex: 3000 }).use(i18n).use(JsonViewer)
+app.use(createPinia()).use(router).use(ElementPlus, { size: '', zIndex: 3000 }).use(i18n).use(JsonViewer).use(pinia)
 app.mount('#app')

@@ -6,7 +6,7 @@
       </router-link>
     </el-col>
     <el-col :span="20">
-      <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+      <el-menu :default-active="activeIndex" :active-text-color="isDark ? '#2ef1a7':'#715cff'" class="el-menu-demo" mode="horizontal" @select="handleSelect">
         <el-menu-item index="1">{{ $t('lang.Home') }}</el-menu-item>
         <el-sub-menu index="2">
           <template #title>{{ $t('lang.Blockchain') }}</template>
@@ -207,5 +207,9 @@ const handleClickPatch = () => {
 .logo {
   width: 160px;
   margin: 15px;
+}
+
+.el-sub-menu__title:hover,.el-menu-item:hover {
+  color: #999 !important;
 }
 </style>

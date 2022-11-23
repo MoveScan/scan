@@ -6,7 +6,7 @@ export const useStore = defineStore('storeId', {
       counter: 0,
       name: 'Bruce Cao',
       isAdmin: true,
-      switchDark: localStorage.getItem('vueuse-color-scheme') == 'auto' ? false : true
+      switchDark: true
     }
   },
   getters: {
@@ -18,5 +18,6 @@ export const useStore = defineStore('storeId', {
       // await doAjaxRequest(data);
       this.name = data
     }
-  }
+  },
+  persist: true
 })

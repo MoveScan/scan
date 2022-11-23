@@ -16,6 +16,7 @@
     "js-cookie": "^3.0.1",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.11",
+    "pinia-plugin-persistedstate": "^2.4.0",
     "serve": "^13.0.2",
     "unplugin-element-plus": "^0.3.1",
     "vite-plugin-compression": "^0.5.1",
