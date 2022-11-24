@@ -11,7 +11,7 @@
         <div class="overview-desc">USDT is the official stablecoin issued by Tether on the TRON network.</div>
       </div>
     </div> -->
-    <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">
+    <div class="block-title" :style="isDark(store.switchDark)">
       {{ detail.coin_id }}
       <el-icon v-if="detail.coin_id != null" @click="copy(detail.coin_id)">
         <DocumentCopy />
@@ -105,7 +105,7 @@
       </el-col>-->
     </el-row>
 
-    <div class="table" :style="store.switchDark ? 'background: #222' : 'background: #f7f7f7'">
+    <div class="table" :style="isDark(store.switchDark)">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <!-- <el-tab-pane :label="$t('lang.PassHolder')" name="second">
           <div class="">total {{ total }}</div>
@@ -130,7 +130,7 @@
           <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData_" v-loading="loading_">
             <el-table-column prop="type_tag" :label="$t('lang.CoinID')" width="400" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/coinDetail?tag=' + scope.row.type_tag" :style="store.switchDark ? '' : 'color:#715cff'">
+                <router-link :to="'/coinDetail?tag=' + scope.row.type_tag" :style="isDark(store.switchDark)">
                   {{ scope.row.type_tag }}
                 </router-link>
               </template>
@@ -143,21 +143,21 @@
             </el-table-column>
             <el-table-column prop="sender" :label="$t('lang.Sender')" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/accountDetail?address=' + scope.row.sender" :style="store.switchDark ? '' : 'color:#715cff'">
+                <router-link :to="'/accountDetail?address=' + scope.row.sender" :style="isDark(store.switchDark)">
                   {{ scope.row.sender }}
                 </router-link>
               </template>
             </el-table-column>
             <el-table-column prop="receiver" :label="$t('lang.Receiver')" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/accountDetail?address=' + scope.row.receiver" :style="store.switchDark ? '' : 'color:#715cff'">
+                <router-link :to="'/accountDetail?address=' + scope.row.receiver" :style="isDark(store.switchDark)">
                   {{ scope.row.receiver }}
                 </router-link>
               </template>
             </el-table-column>
             <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=' + scope.row.txn_type" :style="store.switchDark ? '' : 'color:#715cff'">
+                <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=' + scope.row.txn_type" :style="isDark(store.switchDark)">
                   {{ setSubstring(scope.row.txn_hash) }}
                 </router-link>
               </template>
@@ -278,6 +278,9 @@ export default defineComponent({
           console.log(e)
           e.text == undefined ? ElMessage.error('copy failed') : ElMessage.error(e)
         }
+      },
+      isDark: (dark) => {
+        return dark ? 'color:#2ef1a7' : 'color:#715cff'
       }
     })
 

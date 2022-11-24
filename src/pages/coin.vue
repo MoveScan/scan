@@ -2,19 +2,19 @@
   <Header></Header>
   <Search></Search>
   <div class="container">
-    <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.Coin') }}</div>
+    <div class="block-title" :style="isDark(store.switchDark)">{{ $t('lang.Coin') }}</div>
     <div class="blocks-data-wrap">
       <div class="blocks_overview blocks_list_overview">
         <div class="">
           <div class="card">
             <div class="card-body" id="txcont">
               <h2 class="d-flex">
-                <span :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.TotalCoins') }}</span>
+                <span :style="isDark(store.switchDark)">{{ $t('lang.TotalCoins') }}</span>
               </h2>
               <div class="d-flex align-items-center">
                 <div class="d-flex flex-column">
                   <span class="num">
-                    <span :style="store.switchDark ? '' : 'color:#715cff'">{{ total }}</span>
+                    <span :style="isDark(store.switchDark)">{{ total }}</span>
                   </span>
                 </div>
                 <!-- <div class="d-flex flex-column">
@@ -108,7 +108,7 @@
         </div>
       </div> -->
     </div>
-    <div class="table" :style="store.switchDark ? 'background: #222' : 'background: #f7f7f7'">
+    <div class="table" :style="isDark(store.switchDark)">
       <!-- <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane label="全部" name="first">全部</el-tab-pane>
         <el-tab-pane label="TRC20" name="second">TRC20</el-tab-pane>
@@ -121,7 +121,7 @@
       <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData" v-loading="loading">
         <el-table-column prop="coin_id" :label="$t('lang.CoinID')" width="400" :show-overflow-tooltip="true">
           <template #default="scope">
-            <router-link :to="'/coinDetail?tag=' + scope.row.coin_id" :style="store.switchDark ? '' : 'color:#715cff'">
+            <router-link :to="'/coinDetail?tag=' + scope.row.coin_id" :style="isDark(store.switchDark)">
               {{ scope.row.coin_id }}
             </router-link>
           </template>
@@ -133,7 +133,7 @@
         </el-table-column>
         <el-table-column prop="creator" :label="$t('lang.Creator')" width="200">
           <template #default="scope">
-            <router-link v-if="scope.row.creator !== null" :to="'/accountDetail?address=' + scope.row.creator" :style="store.switchDark ? '' : 'color:#715cff'">
+            <router-link v-if="scope.row.creator !== null" :to="'/accountDetail?address=' + scope.row.creator" :style="isDark(store.switchDark)">
               {{ scope.row.creator.length < 10 ? scope.row.creator : setSubstring(scope.row.creator) }}
             </router-link>
           </template>
@@ -209,6 +209,9 @@ export default defineComponent({
         data.loading = true
         data.currentPage = val
         data.getCoin()
+      },
+      isDark: (dark) => {
+        return dark ? 'color:#2ef1a7' : 'color:#715cff'
       }
     })
 

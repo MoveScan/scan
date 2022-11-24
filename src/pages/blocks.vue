@@ -7,7 +7,7 @@
       <el-col :span="8">2</el-col>
       <el-col :span="8">3</el-col>
     </el-row> -->
-    <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.Block') }}</div>
+    <div class="block-title" :style="isDark(store.switchDark)">{{ $t('lang.Block') }}</div>
     <!-- 
     <div class="blocks-data-wrap">
       <div class="blocks_overview blocks_list_overview">
@@ -164,12 +164,12 @@
     <!-- 
       
      -->
-    <div class="table" :style="store.switchDark ? 'background: #222' : 'background: #f7f7f7'">
+    <div class="table" :style="isDark(store.switchDark)">
       <div>{{ $t('lang.LatestList') }}</div>
       <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData" v-loading="loading">
         <el-table-column prop="height" :label="$t('lang.Height')">
           <template #default="scope">
-            <router-link :to="'/blocksDetail?height=' + scope.row.height + '&hash=' + scope.row.block_hash" :style="store.switchDark ? '' : 'color:#715cff'">
+            <router-link :to="'/blocksDetail?height=' + scope.row.height + '&hash=' + scope.row.block_hash" :style="isDark(store.switchDark)">
               {{ scope.row.height }}
             </router-link>
           </template>
@@ -181,7 +181,7 @@
         </el-table-column>
         <el-table-column prop="author" :label="$t('lang.Creator')">
           <template #default="scope">
-            <router-link v-if="scope.row.author !== null" :to="'/accountDetail?address=' + scope.row.author" :style="store.switchDark ? '' : 'color:#715cff'">
+            <router-link v-if="scope.row.author !== null" :to="'/accountDetail?address=' + scope.row.author" :style="isDark(store.switchDark)">
               {{ setSubstring(scope.row.author) }}
             </router-link>
           </template>
@@ -190,7 +190,7 @@
         <el-table-column prop="transactions" :label="$t('lang.Txns')" />
         <el-table-column prop="block_hash" :label="$t('lang.Hash')" :show-overflow-tooltip="true">
           <template #default="scope">
-            <router-link :to="'/blocksDetail?hash=' + scope.row.block_hash" :style="store.switchDark ? '' : 'color:#715cff'">
+            <router-link :to="'/blocksDetail?hash=' + scope.row.block_hash" :style="isDark(store.switchDark)">
               {{ setSubstring(scope.row.block_hash) }}
             </router-link>
           </template>
@@ -264,6 +264,9 @@ export default defineComponent({
         data.loading = true
         data.currentPage = val
         data.getBlockListStart()
+      },
+      isDark: (dark) => {
+        return dark ? 'color:#2ef1a7' : 'color:#715cff'
       }
     })
 

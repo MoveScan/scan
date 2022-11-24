@@ -3,7 +3,7 @@
   <Search></Search>
   <div class="container box">
     <br />
-    <h2 :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.ComingSoon') }}</h2>
+    <h2 :style="isDark(store.switchDark)">{{ $t('lang.ComingSoon') }}</h2>
     <br />
     <el-skeleton :rows="5" />
   </div>
@@ -29,6 +29,9 @@ export default defineComponent({
       msg: ref(),
       init: () => {
         data.msg = '功能开发中,敬请期待'
+      },
+      isDark: (dark) => {
+        return dark ? 'color:#2ef1a7' : 'color:#715cff'
       }
     })
 

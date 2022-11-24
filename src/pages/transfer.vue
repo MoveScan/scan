@@ -2,7 +2,7 @@
   <Header></Header>
   <Search></Search>
   <div class="container">
-    <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.Transfer') }}</div>
+    <div class="block-title" :style="isDark(store.switchDark)">{{ $t('lang.Transfer') }}</div>
 
     <!-- <el-row>
       <el-col :span="12">
@@ -98,7 +98,7 @@
       </el-col>
     </el-row> -->
 
-    <div class="table" :style="store.switchDark ? 'background: #222' : 'background: #f7f7f7'">
+    <div class="table" :style="isDark(store.switchDark)">
       <!-- <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane label="TRC720转账" name="first">TRC720转账</el-tab-pane>
         <el-tab-pane label="TRX & TRC转账" name="second">TRX & TRC转账</el-tab-pane>
@@ -109,7 +109,7 @@
       <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData" v-loading="loading">
         <el-table-column prop="type_tag" :label="$t('lang.CoinID')" width="400" :show-overflow-tooltip="true">
           <template #default="scope">
-            <router-link :to="'/coinDetail?tag=' + scope.row.type_tag" :style="store.switchDark ? '' : 'color:#715cff'">
+            <router-link :to="'/coinDetail?tag=' + scope.row.type_tag" :style="isDark(store.switchDark)">
               {{ scope.row.type_tag }}
             </router-link>
           </template>
@@ -122,21 +122,21 @@
         </el-table-column>
         <el-table-column prop="sender" :label="$t('lang.Sender')" :show-overflow-tooltip="true">
           <template #default="scope">
-            <router-link :to="'/accountDetail?address=' + scope.row.sender" :style="store.switchDark ? '' : 'color:#715cff'">
+            <router-link :to="'/accountDetail?address=' + scope.row.sender" :style="isDark(store.switchDark)">
               {{ scope.row.sender }}
             </router-link>
           </template>
         </el-table-column>
         <el-table-column prop="receiver" :label="$t('lang.Receiver')" :show-overflow-tooltip="true">
           <template #default="scope">
-            <router-link :to="'/accountDetail?address=' + scope.row.receiver" :style="store.switchDark ? '' : 'color:#715cff'">
+            <router-link :to="'/accountDetail?address=' + scope.row.receiver" :style="isDark(store.switchDark)">
               {{ scope.row.receiver }}
             </router-link>
           </template>
         </el-table-column>
         <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true">
           <template #default="scope">
-            <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=user_transaction'" :style="store.switchDark ? '' : 'color:#715cff'">
+            <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=user_transaction'" :style="isDark(store.switchDark)">
               {{ setSubstring(scope.row.txn_hash) }}
             </router-link>
           </template>
@@ -256,6 +256,9 @@ export default defineComponent({
         window.onresize = function () {
           chart.resize()
         }
+      },
+      isDark: (dark) => {
+        return dark ? 'color:#2ef1a7' : 'color:#715cff'
       }
     })
 

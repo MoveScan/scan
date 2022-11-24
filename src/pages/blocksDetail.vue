@@ -2,7 +2,7 @@
   <Header></Header>
   <Search></Search>
   <div class="container">
-    <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.BlockDetail') }}</div>
+    <div class="block-title" :style="isDark(store.switchDark)">{{ $t('lang.BlockDetail') }}</div>
     <div class="blocks-data-wrap table list">
       <div style="width: 100%">
         <span>{{ $t('lang.BlockAccumulatorRoot') }}：</span>
@@ -90,9 +90,9 @@
         <span>{{ detail.transactions }}</span>
       </div>
     </div>
-    <div class="table" :style="store.switchDark ? 'background: #222' : 'background: #f7f7f7'">
+    <div class="table" :style="isDark(store.switchDark)">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane :label="$t('lang.Transaction')" name="first" :style="store.switchDark ? '' : 'color:#715cff'">{{ total }} {{ $t('lang.Txns') }}</el-tab-pane>
+        <el-tab-pane :label="$t('lang.Transaction')" name="first" :style="isDark(store.switchDark)">{{ total }} {{ $t('lang.Txns') }}</el-tab-pane>
         <!-- <el-tab-pane label="转账" name="second">Config</el-tab-pane> -->
       </el-tabs>
       <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData" v-loading="loading">
@@ -111,7 +111,7 @@
         <el-table-column prop="txn_type" :label="$t('lang.TxnType')" />
         <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true" width="300">
           <template #default="scope">
-            <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=' + scope.row.txn_type" :style="store.switchDark ? '' : 'color:#715cff'">
+            <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=' + scope.row.txn_type" :style="isDark(store.switchDark)">
               {{ scope.row.txn_hash }}
             </router-link>
           </template>
@@ -215,6 +215,9 @@ export default defineComponent({
           console.log(e)
           e.text == undefined ? ElMessage.error('copy failed') : ElMessage.error(e)
         }
+      },
+      isDark: (dark) => {
+        return dark ? 'color:#2ef1a7' : 'color:#715cff'
       }
     })
 

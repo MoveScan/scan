@@ -2,7 +2,7 @@
   <Header></Header>
   <Search></Search>
   <div class="container">
-    <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.Transaction') }}</div>
+    <div class="block-title" :style="isDark(store.switchDark)">{{ $t('lang.Transaction') }}</div>
 
     <el-row>
       <el-col :span="12">
@@ -12,13 +12,13 @@
               <div class="card">
                 <div class="card-body" id="txcont">
                   <h2 class="d-flex">
-                    <span :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.Txns') }}</span>
+                    <span :style="isDark(store.switchDark)">{{ $t('lang.Txns') }}</span>
                   </h2>
                   <div class="d-flex align-items-center">
                     <div class="d-flex flex-column">
                       <span class="num">
                         <span>
-                          <a href="#" :style="store.switchDark ? '' : 'color:#715cff'">{{ total }}</a>
+                          <a href="#" :style="isDark(store.switchDark)">{{ total }}</a>
                         </span>
                       </span>
                       <div class="d-flex" style="margin-top: 6px">
@@ -104,7 +104,7 @@
       </el-col>
     </el-row>
 
-    <div class="table" :style="store.switchDark ? 'background: #222' : 'background: #f7f7f7'">
+    <div class="table" :style="isDark(store.switchDark)">
       <div>{{ $t('lang.LatestList') }}</div>
       <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData" v-loading="loading">
         <el-table-column prop="global_index" :label="$t('lang.GlobalIndex')" />
@@ -118,7 +118,7 @@
         <el-table-column prop="txn_type" :label="$t('lang.TxnType')" />
         <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true" width="300">
           <template #default="scope">
-            <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=' + scope.row.txn_type" :style="store.switchDark ? '' : 'color:#715cff'">
+            <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=' + scope.row.txn_type" :style="isDark(store.switchDark)">
               {{ setSubstring(scope.row.txn_hash) }}
             </router-link>
           </template>
@@ -240,6 +240,9 @@ export default defineComponent({
         window.onresize = function () {
           chart.resize()
         }
+      },
+      isDark: (dark) => {
+        return dark ? 'color:#2ef1a7' : 'color:#715cff'
       }
     })
 

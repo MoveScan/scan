@@ -2,15 +2,15 @@
   <Header></Header>
   <Search></Search>
   <div class="container">
-    <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.TopHolders') }}</div>
-    <div class="table" :style="store.switchDark ? 'background: #222' : 'background: #f7f7f7'">
+    <div class="block-title" :style="isDark(store.switchDark)">{{ $t('lang.TopHolders') }}</div>
+    <div class="table" :style="isDark(store.switchDark)">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane :label="$t('lang.PassHolder')" name="second">
           <div class="">total {{ total }}</div>
           <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData" v-loading="loading">
             <el-table-column prop="address" :label="$t('lang.Account')" width="660">
               <template #default="scope">
-                <router-link v-if="scope.row.address !== null" :to="'/accountDetail?address=' + scope.row.address" :style="store.switchDark ? '' : 'color:#715cff'">
+                <router-link v-if="scope.row.address !== null" :to="'/accountDetail?address=' + scope.row.address" :style="isDark(store.switchDark)">
                   {{ scope.row.address }}
                 </router-link>
               </template>
@@ -119,6 +119,9 @@ export default defineComponent({
           console.log(e)
           e.text == undefined ? ElMessage.error('copy failed') : ElMessage.error(e)
         }
+      },
+      isDark: (dark) => {
+        return dark ? 'color:#2ef1a7' : 'color:#715cff'
       }
     })
 

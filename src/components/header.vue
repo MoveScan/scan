@@ -2,11 +2,11 @@
   <el-row style="margin: 10px 30px">
     <el-col :span="4">
       <router-link to="/">
-        <img :src="isDark ? '/src/assets/logo_w.png' : '/src/assets/logo_b.png'" class="logo" />
+        <div class="logo" :style="isDark ? 'background: url(/src/assets/logo_w.png) center no-repeat;background-size: 100%;' : 'background: url(/src/assets/logo_b.png) center no-repeat;background-size: 100%;'"></div>
       </router-link>
     </el-col>
     <el-col :span="20">
-      <el-menu :default-active="activeIndex" :active-text-color="isDark ? '#2ef1a7':'#715cff'" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+      <el-menu :default-active="activeIndex" :active-text-color="isDark ? '#2ef1a7' : '#715cff'" class="el-menu-demo" mode="horizontal" @select="handleSelect">
         <el-menu-item index="1">{{ $t('lang.Home') }}</el-menu-item>
         <el-sub-menu index="2">
           <template #title>{{ $t('lang.Blockchain') }}</template>
@@ -103,7 +103,7 @@ const store = useStore()
 const { name, switchDark } = store
 
 // 主题
-const isDark = useDark()
+const isDark: any = useDark()
 const toggleDark = useToggle(isDark)
 
 const router = useRouter()
@@ -176,7 +176,7 @@ const switchNetwork = (network: string) => {
 
 const handleClickPatch = () => {
   store.$patch({
-    switchDark: store.switchDark ? false : true,
+    switchDark: isDark,
     name: ''
   })
   console.log('drak', store.switchDark)
@@ -206,10 +206,12 @@ const handleClickPatch = () => {
 }
 .logo {
   width: 160px;
+  height: 35px;
   margin: 15px;
 }
 
-.el-sub-menu__title:hover,.el-menu-item:hover {
+.el-sub-menu__title:hover,
+.el-menu-item:hover {
   color: #999 !important;
 }
 </style>

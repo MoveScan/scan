@@ -21,5 +21,5 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 app.config.globalProperties.$echarts = echarts
-app.use(createPinia()).use(router).use(ElementPlus, { size: '', zIndex: 3000 }).use(i18n).use(JsonViewer).use(pinia)
+app.use(router).use(ElementPlus, { size: '', zIndex: 3000 }).use(i18n).use(JsonViewer).use(pinia)
 app.mount('#app')

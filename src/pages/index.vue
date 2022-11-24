@@ -4,20 +4,20 @@
   <div class="container">
     <div class="total">
       <div>
-        <h3 :style="store.switchDark ? '' : 'color:#715cff'">{{ summary.total_blocks }}</h3>
+        <h3 :style="isDark(store.switchDark)">{{ summary.total_blocks }}</h3>
         <br />
         <span>{{ $t('lang.TotalBlocks') }}</span>
       </div>
       <div>
-        <h3 :style="store.switchDark ? '' : 'color:#715cff'">{{ summary.total_accounts }}</h3>
+        <h3 :style="isDark(store.switchDark)">{{ summary.total_accounts }}</h3>
         <span>{{ $t('lang.TotalAccounts') }}</span>
       </div>
       <div>
-        <h3 :style="store.switchDark ? '' : 'color:#715cff'">{{ summary.total_txns }}</h3>
+        <h3 :style="isDark(store.switchDark)">{{ summary.total_txns }}</h3>
         <span>{{ $t('lang.TotalTxns') }}</span>
       </div>
       <div>
-        <h3 :style="store.switchDark ? '' : 'color:#715cff'">{{ summary.total_transfers }}</h3>
+        <h3 :style="isDark(store.switchDark)">{{ summary.total_transfers }}</h3>
         <span>{{ $t('lang.TotalTransfers') }}</span>
       </div>
     </div>
@@ -169,9 +169,9 @@
     </el-row> -->
 
     <div class="home-block-wrap">
-      <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">
-        <div class="block-title-left" :style="store.switchDark ? '' : 'background: url(/src/assets/img_1.png) center no-repeat'">
-          <a href="/blocks" :style="store.switchDark ? '' : 'color:#715cff'">
+      <div class="block-title" :style="isDark(store.switchDark)">
+        <div class="block-title-left" :style="store.switchDark ? 'background: url(/src/assets/img_2.png) center no-repeat' : 'background: url(/src/assets/img_1.png) center no-repeat'">
+          <a href="/blocks" :style="isDark(store.switchDark)">
             <span>{{ $t('lang.Blocks') }}</span>
           </a>
         </div>
@@ -195,7 +195,7 @@
                 <li class="">{{ $t('lang.Txns') }}：{{ item.transactions }}</li>
                 <li>{{ $t('lang.GasUsed') }}：{{ item.gas_used }}</li>
               </ul> -->
-              <p class="txt1" :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.Height') }}：{{ item.height }}</p>
+              <p class="txt1" :style="isDark(store.switchDark)">{{ $t('lang.Height') }}：{{ item.height }}</p>
               <p class="txt2">{{ $t('lang.BlockHash') }}</p>
               <p class="txt3">{{ $t('lang.Txns') }}：{{ item.transactions }}</p>
               <p class="txt3">{{ $t('lang.GasUsed') }}：{{ item.gas_used }}</p>
@@ -215,7 +215,7 @@
                 <li class="">{{ $t('lang.Txns') }}：{{ item.transactions }}</li>
                 <li>{{ $t('lang.GasUsed') }}：{{ item.gas_used }}</li>
               </ul> -->
-              <p class="txt1" :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.Height') }}：{{ item.height }}</p>
+              <p class="txt1" :style="isDark(store.switchDark)">{{ $t('lang.Height') }}：{{ item.height }}</p>
               <p class="txt2">{{ $t('lang.BlockHash') }}</p>
               <p class="txt3">{{ $t('lang.Txns') }}：{{ item.transactions }}</p>
               <p class="txt3">{{ $t('lang.GasUsed') }}：{{ item.gas_used }}</p>
@@ -242,9 +242,9 @@
     </div>
 
     <div class="home-block-wrap" :style="store.switchDark ? 'margin: 20px 0; background: #222; border-radius: 20px' : ''">
-      <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">
-        <div class="block-title-left" :style="store.switchDark ? '' : 'background: url(/src/assets/img_1.png) center no-repeat'">
-          <a href="/blocks" :style="store.switchDark ? '' : 'color:#715cff'">
+      <div class="block-title" :style="isDark(store.switchDark)">
+        <div class="block-title-left" :style="store.switchDark ? 'background: url(/src/assets/img_2.png) center no-repeat' : 'background: url(/src/assets/img_1.png) center no-repeat'">
+          <a href="/blocks" :style="isDark(store.switchDark)">
             <span>{{ $t('lang.TransactionDisplay') }}</span>
           </a>
         </div>
@@ -259,7 +259,7 @@
             <el-table :class="store.switchDark ? 'black' : 'white'" :data="transactionData" v-loading="loading">
               <el-table-column prop="block_number" :label="$t('lang.Block') + $t('lang.Height')">
                 <template #default="scope">
-                  <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=' + scope.row.txn_type" :style="store.switchDark ? '' : 'color:#715cff'">
+                  <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=' + scope.row.txn_type" :style="isDark(store.switchDark)">
                     {{ scope.row.block_number }}
                   </router-link>
                 </template>
@@ -276,7 +276,7 @@
                 </template>
               </el-table-column>
               <el-table-column prop="global_index" :label="$t('lang.GlobalIndex')"></el-table-column>
-              <el-table-column prop="transaction_type" :label="$t('lang.TxnType')"></el-table-column>
+              <el-table-column prop="txn_type" :label="$t('lang.TxnType')"></el-table-column>
             </el-table>
 
             <!-- <div class="transaction">
@@ -430,6 +430,9 @@ export default defineComponent({
             alert('1')
           }
         }
+      },
+      isDark: (dark) => {
+        return dark ? 'color:#2ef1a7' : 'color:#715cff'
       }
     })
 

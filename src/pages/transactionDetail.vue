@@ -2,7 +2,7 @@
   <Header></Header>
   <Search></Search>
   <div class="container">
-    <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.TransactionDetail') }}</div>
+    <div class="block-title" :style="isDark(store.switchDark)">{{ $t('lang.TransactionDetail') }}</div>
     <div class="blocks-data-wrap table list">
       <div>
         <span>{{ $t('lang.TxnHash') }}：</span>
@@ -75,7 +75,7 @@
         <span>{{ detail.vm_status }}</span>
       </div>
     </div>
-    <div v-if="['user_transaction','ScriptFunction','Script'].includes($route.query.txn_type)">
+    <div v-if="['user_transaction', 'ScriptFunction', 'Script'].includes($route.query.txn_type)">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane :label="$t('lang.ResourceChanges')" name="first">
           <el-table :class="store.switchDark ? 'black' : 'white'" :data="detail.changes">
@@ -87,7 +87,7 @@
             </el-table-column>
             <el-table-column prop="address" :label="$t('lang.Account')" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/accountDetail?address=' + scope.row.address" :style="store.switchDark ? '' : 'color:#715cff'">
+                <router-link :to="'/accountDetail?address=' + scope.row.address" :style="isDark(store.switchDark)">
                   {{ scope.row.address }}
                 </router-link>
               </template>
@@ -118,7 +118,7 @@
             </el-table-column>
             <el-table-column prop="address" :label="$t('lang.Account') + $t('lang.Address')" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/accountDetail?address=' + scope.row.account_address" :style="store.switchDark ? '' : 'color:#715cff'">
+                <router-link :to="'/accountDetail?address=' + scope.row.account_address" :style="isDark(store.switchDark)">
                   {{ scope.row.account_address }}
                 </router-link>
               </template>
@@ -132,7 +132,7 @@
             </el-table-column>
             <el-table-column prop="type_tag" :label="$t('lang.CoinID')" :show-overflow-tooltip="true">
               <template #default="scope">
-                <router-link :to="'/coinDetail?tag=' + scope.row.type_tag" :style="store.switchDark ? '' : 'color:#715cff'">
+                <router-link :to="'/coinDetail?tag=' + scope.row.type_tag" :style="isDark(store.switchDark)">
                   {{ scope.row.type_tag }}
                 </router-link>
               </template>
@@ -225,6 +225,9 @@ export default defineComponent({
           console.log(e)
           e.text == undefined ? ElMessage.error('copy failed') : ElMessage.error(e)
         }
+      },
+      isDark: (dark) => {
+        return dark ? 'color:#2ef1a7' : 'color:#715cff'
       }
     })
 

@@ -7,19 +7,19 @@
       <el-col :span="8">2</el-col>
       <el-col :span="8">3</el-col>
     </el-row> -->
-    <div class="block-title" :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.Nodes') }}</div>
+    <div class="block-title" :style="isDark(store.switchDark)">{{ $t('lang.Nodes') }}</div>
     <div class="blocks-data-wrap">
       <div class="blocks_overview blocks_list_overview">
         <div class="">
           <div class="card">
             <div class="card-body" id="txcont">
               <h2 class="d-flex">
-                <span :style="store.switchDark ? '' : 'color:#715cff'">{{ $t('lang.Amount') }}</span>
+                <span :style="isDark(store.switchDark)">{{ $t('lang.Amount') }}</span>
               </h2>
               <div class="d-flex align-items-center">
                 <div class="d-flex flex-column">
                   <span class="num">
-                    <span :style="store.switchDark ? '' : 'color:#715cff'">{{ total }}</span>
+                    <span :style="isDark(store.switchDark)">{{ total }}</span>
                   </span>
                   <div class="d-flex" style="margin-top: 6px">
                     <span class="txt">
@@ -164,14 +164,14 @@
     <!-- 
       
      -->
-    <div class="table" :style="store.switchDark ? 'background: #222' : 'background: #f7f7f7'">
+    <div class="table" :style="isDark(store.switchDark)">
       <div>{{ $t('lang.LatestList') }}</div>
       <!-- {{ msg }} -->
       <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData" v-loading="loading">
         <el-table-column prop="name" :label="$t('lang.NodeName')" />
         <el-table-column prop="address" :label="$t('lang.Address')" :show-overflow-tooltip="true">
           <template #default="scope">
-            <router-link :to="'/accountDetail?address=' + scope.row.address" :style="store.switchDark ? '' : 'color:#715cff'">
+            <router-link :to="'/accountDetail?address=' + scope.row.address" :style="isDark(store.switchDark)">
               {{ setSubstring(scope.row.address) }}
             </router-link>
           </template>
@@ -259,6 +259,9 @@ export default defineComponent({
         data.loading = true
         data.currentPage = val
         data.getNode()
+      },
+      isDark: (dark) => {
+        return dark ? 'color:#2ef1a7' : 'color:#715cff'
       }
     })
 

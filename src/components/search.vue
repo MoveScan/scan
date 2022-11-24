@@ -12,26 +12,26 @@
         <div v-if="show.account">
           Account:
           <span v-if="dataAccount.address == 'No Data'">{{ dataAccount.address }}</span>
-          <router-link v-else :to="'/accountDetail?address=' + dataAccount.address" :style="store.switchDark ? '' : 'color:#715cff'">
+          <router-link v-else :to="'/accountDetail?address=' + dataAccount.address" :style="isDark(store.switchDark)">
             {{ setSubstring(dataAccount.address) }}
           </router-link>
         </div>
         <div v-if="show.blockHash">
           Block:
           <span v-if="dataBlock.block_hash == 'No Data'">{{ dataBlock.block_hash }}</span>
-          <router-link v-else :to="'/blocksDetail?hash=' + dataBlock.block_hash" :style="store.switchDark ? '' : 'color:#715cff'">
+          <router-link v-else :to="'/blocksDetail?hash=' + dataBlock.block_hash" :style="isDark(store.switchDark)">
             {{ setSubstring(dataBlock.block_hash) }}
           </router-link>
         </div>
         <div v-if="show.blockHeight">
           Block:
           <span v-if="dataBlockHeight.height == 'No Data'">{{ dataBlockHeight.height }}</span>
-          <router-link v-else :to="'/blocksDetail?height=' + dataBlockHeight.height" :style="store.switchDark ? '' : 'color:#715cff'">{{ dataBlockHeight.height }}</router-link>
+          <router-link v-else :to="'/blocksDetail?height=' + dataBlockHeight.height" :style="isDark(store.switchDark)">{{ dataBlockHeight.height }}</router-link>
         </div>
         <div v-if="show.transaction">
           Transaction:
           <span v-if="dataTransaction.hash == 'No Data'">{{ dataTransaction.hash }}</span>
-          <router-link v-else :to="'/transactionDetail?hash=' + dataTransaction.hash + '&txn_type=' + dataTransaction.txn_type" :style="store.switchDark ? '' : 'color:#715cff'">
+          <router-link v-else :to="'/transactionDetail?hash=' + dataTransaction.hash + '&txn_type=' + dataTransaction.txn_type" :style="isDark(store.switchDark)">
             {{ setSubstring(dataTransaction.hash) }}
           </router-link>
         </div>
