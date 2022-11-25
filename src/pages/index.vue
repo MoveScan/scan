@@ -6,7 +6,6 @@
       <div>
         <a :class="isBar(store.switchDark)"></a>
         <h3 :style="isDark(store.switchDark)">{{ summary.total_blocks }}</h3>
-        <br />
         <span>{{ $t('lang.TotalBlocks') }}</span>
       </div>
       <div>
@@ -492,7 +491,7 @@ export default defineComponent({
 
 .block-title {
   color: #101010;
-  font-size: 26px;
+  font-size: 30px;
   font-weight: 700;
   line-height: 4rem;
   margin: 16px 0 13px;
@@ -578,18 +577,18 @@ export default defineComponent({
 
 .txt1 {
   color: #2ef1a6;
-  font-size: 23px;
+  font-size: 22px;
   margin-top: 20px;
 }
 .txt2 {
-  font-size: 25px;
+  font-size: 23px;
   margin-bottom: 40px;
 }
 .txt3 {
-  font-size: 18px;
+  font-size: 15px;
 }
 .txt4 {
-  font-size: 14px;
+  font-size: 11px;
 }
 .box ul {
   font-size: 0.75rem;
@@ -954,10 +953,10 @@ p {
   background: rgba(180, 180, 180, 0.2);
 }
 .total h3 {
-  font-size: 33px;
+  font-size: 35px;
 }
 .total span {
   color: #808080;
-  font-size: 23px;
+  font-size: 22px;
 }
 </style>
