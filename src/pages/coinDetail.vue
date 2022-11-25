@@ -105,7 +105,7 @@
       </el-col>-->
     </el-row>
 
-    <div class="table" :style="isDark(store.switchDark)">
+    <div class="table" :style="store.switchDark ? 'background:#202020' : 'background:#f2f2f2'">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <!-- <el-tab-pane :label="$t('lang.PassHolder')" name="second">
           <div class="">total {{ total }}</div>

@@ -2,7 +2,7 @@
   <el-row style="margin: 10px 30px">
     <el-col :span="4">
       <router-link to="/">
-        <div class="logo" :style="isDark ? 'background: url(/src/assets/logo_w.png) center no-repeat;background-size: 100%;' : 'background: url(/src/assets/logo_b.png) center no-repeat;background-size: 100%;'"></div>
+        <div class="logo" :style="isDark ? 'background: url('+setImgUrl('logo_w.png')+') center no-repeat;background-size: 100%;' : 'background: url('+setImgUrl('logo_b.png')+') center no-repeat;background-size: 100%;'"></div>
       </router-link>
     </el-col>
     <el-col :span="20">
@@ -98,6 +98,7 @@ import { useI18n } from 'vue-i18n'
 import { ArrowDown } from '@element-plus/icons-vue'
 import { Moon, Sunny, Search } from '@element-plus/icons-vue'
 import { useStore } from '../store/store'
+import { getAssetsFile } from '@/utils/public.ts'
 
 const store = useStore()
 const { name, switchDark } = store
@@ -180,6 +181,10 @@ const handleClickPatch = () => {
     name: ''
   })
   console.log('drak', store.switchDark)
+}
+
+const setImgUrl = (url)=>{
+  return getAssetsFile(url)
 }
 // console.log(t('lang.userName'))
 </script>

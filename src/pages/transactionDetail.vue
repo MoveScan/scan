@@ -3,7 +3,7 @@
   <Search></Search>
   <div class="container">
     <div class="block-title" :style="isDark(store.switchDark)">{{ $t('lang.TransactionDetail') }}</div>
-    <div class="blocks-data-wrap table list">
+    <div class="blocks-data-wrap table list" :style="store.switchDark ? 'background:#202020' : 'background:#f2f2f2'">
       <div>
         <span>{{ $t('lang.TxnHash') }}：</span>
         <span>{{ detail.txn_hash }}</span>
@@ -75,7 +75,7 @@
         <span>{{ detail.vm_status }}</span>
       </div>
     </div>
-    <div v-if="['user_transaction', 'ScriptFunction', 'Script'].includes($route.query.txn_type)">
+    <div class="tab" v-if="['user_transaction', 'ScriptFunction', 'Script'].includes($route.query.txn_type)" :style="store.switchDark ? 'background:#202020' : 'background:#f2f2f2'">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane :label="$t('lang.ResourceChanges')" name="first">
           <el-table :class="store.switchDark ? 'black' : 'white'" :data="detail.changes">
@@ -333,7 +333,7 @@ export default defineComponent({
   line-height: 2rem;
   text-align: left;
 }
-
+.tab{ border-radius: 10px; padding: 20px;}
 .demo-tabs > .el-tabs__content {
   padding: 32px;
   color: #6b778c;

@@ -164,7 +164,7 @@
     <!-- 
       
      -->
-    <div class="table" :style="isDark(store.switchDark)">
+    <div class="table" :style="store.switchDark ? 'background:#202020' : 'background:#f2f2f2'">
       <div>{{ $t('lang.LatestList') }}</div>
       <!-- {{ msg }} -->
       <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData" v-loading="loading">

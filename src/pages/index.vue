@@ -4,19 +4,23 @@
   <div class="container">
     <div class="total">
       <div>
+        <a :class="isBar(store.switchDark)"></a>
         <h3 :style="isDark(store.switchDark)">{{ summary.total_blocks }}</h3>
         <br />
         <span>{{ $t('lang.TotalBlocks') }}</span>
       </div>
       <div>
+        <a :class="isBar(store.switchDark)"></a>
         <h3 :style="isDark(store.switchDark)">{{ summary.total_accounts }}</h3>
         <span>{{ $t('lang.TotalAccounts') }}</span>
       </div>
       <div>
+        <a :class="isBar(store.switchDark)"></a>
         <h3 :style="isDark(store.switchDark)">{{ summary.total_txns }}</h3>
         <span>{{ $t('lang.TotalTxns') }}</span>
       </div>
       <div>
+        <a :class="isBar(store.switchDark)"></a>
         <h3 :style="isDark(store.switchDark)">{{ summary.total_transfers }}</h3>
         <span>{{ $t('lang.TotalTransfers') }}</span>
       </div>
@@ -170,7 +174,7 @@
 
     <div class="home-block-wrap">
       <div class="block-title" :style="isDark(store.switchDark)">
-        <div class="block-title-left" :style="store.switchDark ? 'background: url(/src/assets/img_2.png) center no-repeat' : 'background: url(/src/assets/img_1.png) center no-repeat'">
+        <div class="block-title-left" :style="store.switchDark ? 'background: url('+setImgUrl('img_2.png')+') center no-repeat' : 'background: url('+setImgUrl('img_1.png')+') center no-repeat'">
           <a href="/blocks" :style="isDark(store.switchDark)">
             <span>{{ $t('lang.Blocks') }}</span>
           </a>
@@ -243,7 +247,7 @@
 
     <div class="home-block-wrap" :style="store.switchDark ? 'margin: 20px 0; background: #222; border-radius: 20px' : ''">
       <div class="block-title" :style="isDark(store.switchDark)">
-        <div class="block-title-left" :style="store.switchDark ? 'background: url(/src/assets/img_2.png) center no-repeat' : 'background: url(/src/assets/img_1.png) center no-repeat'">
+        <div class="block-title-left" :style="store.switchDark ? 'background: url('+setImgUrl('img_2.png')+') center no-repeat' : 'background: url('+setImgUrl('img_1.png')+') center no-repeat'">
           <a href="/blocks" :style="isDark(store.switchDark)">
             <span>{{ $t('lang.TransactionDisplay') }}</span>
           </a>
@@ -314,7 +318,7 @@ import Header from '../components/header.vue'
 import Search from '../components/search.vue'
 import Footer from '../components/footer.vue'
 import { getBlockListStartHeight, getTransactionList, getChainSummary } from '@/http/api/index.ts'
-import { timestampToTimeLong, substring } from '@/utils/public.ts'
+import { timestampToTimeLong, substring, getAssetsFile } from '@/utils/public.ts'
 import { ElLoading } from 'element-plus'
 import { useStore } from '../store/store'
 
@@ -331,7 +335,6 @@ export default defineComponent({
     //   text: 'Loading',
     //   background: 'rgba(0, 0, 0, 0.7)'
     // })
-
     const router = useRouter()
     const data = reactive({
       store: useStore(),
@@ -433,6 +436,12 @@ export default defineComponent({
       },
       isDark: (dark) => {
         return dark ? 'color:#2ef1a7' : 'color:#715cff'
+      },
+      isBar: (dark) => {
+        return dark ? 'bar1' : 'bar2'
+      },
+      setImgUrl: (url)=>{
+        return getAssetsFile(url)
       }
     })
 
@@ -497,7 +506,6 @@ export default defineComponent({
   align-items: center;
   display: flex;
   justify-content: space-around;
-  background: url(../assets/img_2.png) center no-repeat;
   background-size: 300px;
 }
 
@@ -923,6 +931,23 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+}
+.bar1{ 
+  display: block; width: 25%;  height: 4px; background: #2ef1a7;
+  opacity: 0.5;
+  border-radius: 4px;
+  position: absolute;
+  top: 0;
+  left: 37.5%;
+}
+.bar2{ 
+  display: block; width: 25%;  height: 4px; background: #715cff;
+  opacity: 0.5;
+  border-radius: 4px;
+  position: absolute;
+  top: 0;
+  left: 37.5%;
 }
 .total div:hover {
   cursor: pointer;

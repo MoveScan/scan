@@ -101,3 +101,7 @@ export function getNowDate() {
   }
   return year + '-' + month + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds
 }
+// vite图片设置
+export function getAssetsFile(url: string) {
+  return new URL(`../assets/${url}`, import.meta.url).href
+}

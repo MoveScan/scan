@@ -108,7 +108,7 @@
         </div>
       </div> -->
     </div>
-    <div class="table" :style="isDark(store.switchDark)">
+    <div class="table" :style="store.switchDark ? 'background:#202020' : 'background:#f2f2f2'">
       <!-- <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane label="全部" name="first">全部</el-tab-pane>
         <el-tab-pane label="TRC20" name="second">TRC20</el-tab-pane>

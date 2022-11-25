@@ -98,7 +98,7 @@
       </el-col>
     </el-row> -->
 
-    <div class="table" :style="isDark(store.switchDark)">
+    <div class="table" :style="store.switchDark ? 'background:#202020' : 'background:#f2f2f2'">
       <!-- <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane label="TRC720转账" name="first">TRC720转账</el-tab-pane>
         <el-tab-pane label="TRX & TRC转账" name="second">TRX & TRC转账</el-tab-pane>

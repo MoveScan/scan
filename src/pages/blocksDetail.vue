@@ -90,7 +90,7 @@
         <span>{{ detail.transactions }}</span>
       </div>
     </div>
-    <div class="table" :style="isDark(store.switchDark)">
+    <div class="table" :style="store.switchDark ? 'background:#202020' : 'background:#f2f2f2'">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane :label="$t('lang.Transaction')" name="first" :style="isDark(store.switchDark)">{{ total }} {{ $t('lang.Txns') }}</el-tab-pane>
         <!-- <el-tab-pane label="转账" name="second">Config</el-tab-pane> -->
