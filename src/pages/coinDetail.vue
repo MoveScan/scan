@@ -2,15 +2,6 @@
   <Header></Header>
   <Search></Search>
   <div class="container">
-    <!-- <div style="display: flex">
-      <el-icon>
-        <User />
-      </el-icon>
-      <div class="block-title">
-        Tether USD (USDT)
-        <div class="overview-desc">USDT is the official stablecoin issued by Tether on the TRON network.</div>
-      </div>
-    </div> -->
     <div class="block-title" :style="isDark(store.switchDark)">
       {{ detail.coin_id }}
       <el-icon v-if="detail.coin_id != null" @click="copy(detail.coin_id)">
@@ -22,10 +13,6 @@
       <el-col :span="12">
         <el-card class="list">
           <span class="title">{{ $t('lang.Survey') }}</span>
-          <!-- <div>
-            <span style="font-size: 18px; font-weight: 700">$1.000035</span>
-            <span>≈ 16.385058 TRX</span>
-          </div> -->
           <div>
             <span>{{ $t('lang.Supply') }}：</span>
             <span>{{ detail.max_amount }}</span>
@@ -38,10 +25,6 @@
             <span>{{ $t('lang.MarketCap') }}：</span>
             <span></span>
           </div>
-          <!-- <div>
-            <span>流通市值：</span>
-            <span></span>
-          </div> -->
         </el-card>
       </el-col>
       <el-col :span="12">
@@ -64,68 +47,36 @@
             <span>{{ $t('lang.HolderAmount') }}：</span>
             <span>{{ detail.holders }}</span>
           </div>
-          <!-- <div>
-            <span>最大发行量：</span>
-            <span>{{ detail.max_amount }}</span>
-          </div> -->
-          <!-- <div>
-            <span>供应量：</span>
-            <span>{{ detail.supply }}</span>
-          </div> -->
-          <!-- <div>
-            <span>通证标识：</span>
-            <span>{{ detail.type_tag }}</span>
-          </div> -->
         </el-card>
       </el-col>
-      <!--<el-col :span="8">
-         <el-card class="list" style="margin-right: 0">
-          <span class="title">更多</span>
-          <div>
-            <span>持有地址数：</span>
-            <span>15,654,012 地址</span>
-          </div>
-          <div>
-            <span>累计转账数：</span>
-            <span>615,954,807 笔</span>
-          </div>
-          <div>
-            <span>转账数 ( 24h )：</span>
-            <span>1,388,819 笔</span>
-          </div>
-          <div>
-            <span>交易额 ( 24h )：</span>
-            <span>$52.57b</span>
-          </div>
-          <div>
-            <span>流动性：</span>
-            <span>$258.03m</span>
-          </div>
-        </el-card> 
-      </el-col>-->
     </el-row>
 
     <div class="table" :style="store.switchDark ? 'background:#202020' : 'background:#f2f2f2'">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <!-- <el-tab-pane :label="$t('lang.PassHolder')" name="second">
+        <el-tab-pane :label="$t('lang.PassHolder')" name="first">
           <div class="">total {{ total }}</div>
           <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData" v-loading="loading">
             <el-table-column prop="address" :label="$t('lang.Account')" width="660">
               <template #default="scope">
-                <router-link v-if="scope.row.address !== null" :to="'/accountDetail?address=' + scope.row.address">
+                <router-link v-if="scope.row.address !== null" :to="'/accountDetail?address=' + scope.row.address" :style="isDark(store.switchDark)">
                   {{ scope.row.address }}
                 </router-link>
               </template>
             </el-table-column>
             <el-table-column prop="amount" :label="$t('lang.Amount')" />
+            <el-table-column prop="supply" :label="$t('lang.Proportion')">
+              <template #default="scope">
+                {{ ((scope.row.amount / 100000000000000000) * 100).toFixed(6) + '%' }}
+              </template>
+            </el-table-column>
           </el-table>
           <div class="page">
             <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled"
               :background="background" layout="prev, pager, next, jumper" :total="total > 1000 ? 1000 : total"
               @size-change="handleSizeChange" @current-change="handleCurrentChange" />
           </div>
-        </el-tab-pane> -->
-        <el-tab-pane :label="$t('lang.TransferList')" name="first">
+        </el-tab-pane>
+        <el-tab-pane :label="$t('lang.TransferList')" name="second">
           <div class="">total {{ total_ }}</div>
           <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData_" v-loading="loading_">
             <el-table-column prop="type_tag" :label="$t('lang.CoinID')" width="400" :show-overflow-tooltip="true">
@@ -222,7 +173,7 @@ export default defineComponent({
             console.log(e)
           })
       },
-      getCoinHolders: (tag: any) => {
+       getCoinHolders: (tag: any) => {
         getCoinHoldersList({ coin_id: tag, page: data.currentPage, count: data.pageSize })
           .then((res: any) => {
             console.log('Holders', res)
@@ -288,7 +239,7 @@ export default defineComponent({
 
     onMounted(() => {
       data.getcoinDetail(route.query.tag)
-      // data.getCoinHolders(route.query.tag)
+      data.getCoinHolders(route.query.tag)
       data.getTransferList(route.query.tag)
     })
 
