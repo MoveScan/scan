@@ -164,7 +164,7 @@ export default defineComponent({
       activeName: ref('first'),
       tableData: [],
       getTransaction: () => {
-        getTransactionList({ page: data.currentPage, count: data.pageSize, start: 1, txn_type: '' })
+        getTransactionList({ page: data.currentPage, count: data.pageSize, start: 0, txn_type: '' })
           .then((res: any) => {
             console.log('transaction', res)
             data.tableData = res.contents
