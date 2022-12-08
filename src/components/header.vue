@@ -163,8 +163,8 @@ const options = [
         label: 'starcoin barnard'
       },
       {
-        value: 'starcoin_hally',
-        label: 'starcoin hally'
+        value: 'starcoin_halley',
+        label: 'starcoin halley'
       }
     ]
   }

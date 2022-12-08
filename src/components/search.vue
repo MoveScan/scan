@@ -207,7 +207,7 @@ export default defineComponent({
 
     onMounted(() => {
       data.closeSearchList()
-      if (data.network == 'aptos_testnet' || data.network == 'starcoin_barnard' || data.network == 'starcoin_hally') ElMessage({ message: t('lang.Tips'), type: 'warning' })
+      if (data.network == 'aptos_testnet' || data.network == 'starcoin_barnard') ElMessage({ message: t('lang.Tips'), type: 'warning' })
     })
 
     return {

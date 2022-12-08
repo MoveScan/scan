@@ -74,7 +74,7 @@ export default defineComponent({
           { network: 'aptos_devnet', tag: '0x1::aptos_coin::AptosCoin' },
           { network: 'starcoin_main', tag: '0x00000000000000000000000000000001::STC::STC' },
           { network: 'starcoin_barnard', tag: '0x00000000000000000000000000000001::STC::STC' },
-          { network: 'starcoin_hally', tag: '0x00000000000000000000000000000001::STC::STC' }
+          { network: 'starcoin_halley', tag: '0x00000000000000000000000000000001::STC::STC' }
         ]
         let tag = ''
         config.forEach((item) => {
