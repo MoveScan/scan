@@ -143,11 +143,11 @@ const options = [
       },
       {
         value: 'aptos_testnet',
-        label: 'aptos testnet'
+        label: 'aptos testnet(Indexing)'
       },
       {
         value: 'aptos_devnet',
-        label: 'aptos devnet'
+        label: 'aptos devnet(Indexing)'
       }
     ]
   },
