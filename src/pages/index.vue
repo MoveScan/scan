@@ -25,152 +25,6 @@
       </div>
     </div>
 
-    <!-- <el-row>
-      <el-col :span="17">
-        <el-card class="box-card">
-          <div class="ant-row card-body row home-stats pt-0 pb-0 mainnet-data m-0">
-            <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
-              <a href="#">
-                <div class="data-item-left">
-                  <el-icon>
-                    <Coin />
-                  </el-icon>
-                  <div class="data-item-center">
-                    <p class="m-0 panel-title">
-                      <span>{{ $t('lang.TotalBlocks') }}</span>
-                    </p>
-                    <h2 class="m-0">
-                      <span>{{ summary.total_blocks }}</span>
-                    </h2>
-                  </div>
-                </div>
-                <div class="data-item-right">
-                  <p class="m-0 right-24h"><span>24h</span></p>
-                  <p class="m-0 number"><span class="green">+1</span></p>
-                </div>
-              </a>
-            </div>
-            <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
-              <a href="#">
-                <div class="data-item-left">
-                  <el-icon>
-                    <User />
-                  </el-icon>
-                  <div class="data-item-center">
-                    <p class="m-0 panel-title">
-                      <span>{{ $t('lang.TotalAccounts') }}</span>
-                    </p>
-                    <h2 class="m-0">
-                      <span>{{ summary.total_accounts }}</span>
-                    </h2>
-                  </div>
-                </div>
-                <div class="data-item-right">
-                  <p class="m-0 right-24h"><span>24h</span></p>
-                  <p class="m-0 number"><span class="red">+0.01%</span></p>
-                </div>
-              </a>
-            </div>
-            <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
-              <a href="#">
-                <div class="data-item-left">
-                  <el-icon>
-                    <Finished />
-                  </el-icon>
-                  <div class="data-item-center">
-                    <p class="m-0 panel-title">
-                      <span>{{ $t('lang.TotalTxns') }}</span>
-                    </p>
-                    <h2 class="m-0">
-                      <span>{{ summary.total_txns }}</span>
-                    </h2>
-                  </div>
-                </div>
-                <div class="data-item-right">
-                  <p class="m-0 right-24h"><span>24h</span></p>
-                  <p class="m-0 number"><span class="green">+1</span></p>
-                </div>
-              </a>
-            </div>
-            <div class="ant-col data-item ant-col-xs-12 ant-col-md-12 ant-col-lg-12">
-              <a href="#/">
-                <div class="data-item-left">
-                  <el-icon>
-                    <Switch />
-                  </el-icon>
-                  <div class="data-item-center">
-                    <p class="m-0 panel-title">
-                      <span>{{ $t('lang.TotalTransfers') }}</span>
-                    </p>
-                    <h2 class="m-0">
-                      <span>{{ summary.total_transfers }}</span>
-                    </h2>
-                  </div>
-                </div>
-                <div class="data-item-right">
-                  <p class="m-0 right-24h"><span>24h</span></p>
-                  <p class="m-0 number"><span class="green">+$1</span></p>
-                </div>
-              </a>
-            </div>
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="7">
-        <el-card class="box-card" style="height: 280px">
-          <div class="trxgroup-wrapper-container">
-            <div class="trxgroup-left-content">
-              <a href="#">
-                <div class="market-item">
-                  <div class="market-item-left">
-                    <el-icon>
-                      <User />
-                    </el-icon>
-                    <div class="market-item-center">
-                      <p class="trxgroup-left-title"><span>Market Cap</span></p>
-                      <p class="trxgroup-left-number"><span>$5,538,110,223</span></p>
-                    </div>
-                  </div>
-                  <p class="market-item-right green">+0.28 %</p>
-                </div>
-              </a>
-              <a href="#">
-                <div class="market-item">
-                  <div class="market-item-left">
-                    <el-icon>
-                      <User />
-                    </el-icon>
-                    <div class="market-item-center">
-                      <p class="trxgroup-left-title"><span>Market Trading Volume (24h)</span></p>
-                      <p class="trxgroup-left-number"><span>$352,817,086</span></p>
-                    </div>
-                  </div>
-                  <p class="market-item-right red">-13.5 %</p>
-                </div>
-              </a>
-              <a href="#">
-                <div class="market-item">
-                  <div class="market-item-left">
-                    <el-icon>
-                      <User />
-                    </el-icon>
-                    <div class="market-item-center">
-                      <p class="trxgroup-left-title"><span>Total TRX Staked</span></p>
-                      <p class="trxgroup-left-number"><span>43,984,956,811</span></p>
-                    </div>
-                  </div>
-                  <div class="market-item-center right-align">
-                    <p class="trxgroup-left-title"><span>Staking Rate</span></p>
-                    <div class="trxgroup-left-number">43.4 %</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-        </el-card>
-      </el-col>
-    </el-row> -->
-
     <div class="home-block-wrap">
       <div class="block-title" :style="isDark(store.switchDark)">
         <div class="block-title-left" :style="store.switchDark ? 'background: url('+setImgUrl('img_2.png')+') center no-repeat' : 'background: url('+setImgUrl('img_1.png')+') center no-repeat'">
@@ -178,26 +32,12 @@
             <span>{{ $t('lang.Blocks') }}</span>
           </a>
         </div>
-        <!-- <a class="block-more" href="#/blocks">
-          <span>{{ $t('lang.More') }}</span>
-        </a> -->
       </div>
 
       <div class="block text-center">
         <el-carousel height="350px">
           <el-carousel-item class="block-box">
             <div :class="store.switchDark ? 'box' : 'box2'" v-for="(item, index) in blockData.slice(0, 5)" :key="index" @click="gotoBlock(item.height, item.block_hash)">
-              <!-- <ul>
-                <li class="block-number">{{ $t('lang.Height') }}：{{ item.height }}</li>
-                <li>
-                  <span class="black">{{ timestampToTime(item.create_at) }}</span>
-                </li>
-              </ul>
-              <span class="gray-time">{{ $t('lang.BlockHash') }}：{{ setSubstring(item.block_hash) }}</span>
-              <ul class="block-detail">
-                <li class="">{{ $t('lang.Txns') }}：{{ item.transactions }}</li>
-                <li>{{ $t('lang.GasUsed') }}：{{ item.gas_used }}</li>
-              </ul> -->
               <p class="txt1" :style="isDark(store.switchDark)">{{ $t('lang.Height') }}：{{ item.height }}</p>
               <p class="txt2">{{ $t('lang.BlockHash') }}</p>
               <p class="txt3">{{ $t('lang.Txns') }}：{{ item.transactions }}</p>
@@ -207,17 +47,6 @@
           </el-carousel-item>
           <el-carousel-item class="block-box">
             <div :class="store.switchDark ? 'box' : 'box2'" v-for="(item, index) in blockData.slice(5, 10)" :key="index" @click="gotoBlock(item.height, item.block_hash)">
-              <!-- <ul>
-                <li class="block-number">{{ $t('lang.Height') }}：{{ item.height }}</li>
-                <li>
-                  <span class="black">{{ timestampToTime(item.create_at) }}</span>
-                </li>
-              </ul>
-              <span class="gray-time">{{ $t('lang.BlockHash') }}：{{ setSubstring(item.block_hash) }}</span>
-              <ul class="block-detail">
-                <li class="">{{ $t('lang.Txns') }}：{{ item.transactions }}</li>
-                <li>{{ $t('lang.GasUsed') }}：{{ item.gas_used }}</li>
-              </ul> -->
               <p class="txt1" :style="isDark(store.switchDark)">{{ $t('lang.Height') }}：{{ item.height }}</p>
               <p class="txt2">{{ $t('lang.BlockHash') }}</p>
               <p class="txt3">{{ $t('lang.Txns') }}：{{ item.transactions }}</p>
@@ -225,21 +54,6 @@
               <p class="txt4">{{ timestampToTime(item.create_at) }}</p>
             </div>
           </el-carousel-item>
-          <!-- <el-carousel-item class="block-box">
-            <div class="box" v-for="(item, index) in blockData.slice(8, 12)" :key="index" @click="gotoBlock(item.height,item.block_hash)">
-              <ul>
-                <li class="block-number">{{ $t('lang.Height') }}：{{ item.height }}</li>
-                <li>
-                  <span class="black">{{ timestampToTime(item.create_at) }}</span>
-                </li>
-              </ul>
-              <span class="gray-time">{{ $t('lang.BlockHash') }}：{{ setSubstring(item.block_hash) }}</span>
-              <ul class="block-detail">
-                <li class="">{{ $t('lang.Txns') }}：{{ item.transactions }}</li>
-                <li>{{ $t('lang.GasUsed') }}：{{ item.gas_used }}</li>
-              </ul>
-            </div>
-          </el-carousel-item> -->
         </el-carousel>
       </div>
     </div>
@@ -251,19 +65,16 @@
             <span>{{ $t('lang.TransactionDisplay') }}</span>
           </a>
         </div>
-        <!-- <a class="block-more" href="#/transaction">
-          <span>{{ $t('lang.More') }}</span>
-        </a> -->
       </div>
 
       <el-row>
         <el-col :span="24">
           <el-scrollbar height="500px" style="border-radius: 10px">
             <el-table :class="store.switchDark ? 'black' : 'white'" :data="transactionData" v-loading="loading">
-              <el-table-column prop="block_number" :label="$t('lang.Block') + $t('lang.Height')">
+              <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true" width="300">
                 <template #default="scope">
                   <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=' + scope.row.txn_type" :style="isDark(store.switchDark)">
-                    {{ scope.row.block_number }}
+                    {{ setSubstring(scope.row.txn_hash) }}
                   </router-link>
                 </template>
               </el-table-column>
@@ -281,28 +92,8 @@
               <el-table-column prop="global_index" :label="$t('lang.GlobalIndex')"></el-table-column>
               <el-table-column prop="txn_type" :label="$t('lang.TxnType')"></el-table-column>
             </el-table>
-
-            <!-- <div class="transaction">
-              <ul>
-                <li v-for="(item, index) in transactionData" :key="index" @click="gotoTransaction(item.txn_hash, item.txn_type)">
-                  <div class="record">
-                    <div>{{ $t('lang.Block') + $t('lang.Height') }}:{{ item.block_number }}</div>
-                    <div>{{ $t('lang.GasUsed') }}:{{ item.gas_used }}</div>
-                    <div>{{ $t('lang.IsSuccess') }}:{{ item.success ? $t('lang.Yes') : $t('lang.No') }}</div>
-                    <div>
-                      <span v-if="item.create_at != null">{{ timestampToTime(item.create_at) }}</span>
-                    </div>
-                    <div>{{ $t('lang.GlobalIndex') }}:{{ item.global_index }}</div>
-                    <div>{{ $t('lang.TxnType') }}:{{ item.transaction_type }}</div>
-                  </div>
-                </li>
-              </ul>
-            </div> -->
           </el-scrollbar>
         </el-col>
-        <!-- <el-col :span="9" style="background: rgba(180, 180, 180, 0.05); border-radius: 10px">
-          <div id="chart"></div>
-        </el-col> -->
       </el-row>
     </div>
   </div>
@@ -329,11 +120,6 @@ export default defineComponent({
     Footer
   },
   setup() {
-    // const loading = ElLoading.service({
-    //   lock: true,
-    //   text: 'Loading',
-    //   background: 'rgba(0, 0, 0, 0.7)'
-    // })
     const router = useRouter()
     const data = reactive({
       store: useStore(),
@@ -447,8 +233,6 @@ export default defineComponent({
     const refData = toRefs(data)
 
     onMounted(() => {
-      // data.isPageLoad()
-      // data.initChart()
       data.chainSummary()
       data.getBlock()
       data.getTransaction()
@@ -530,13 +314,6 @@ export default defineComponent({
   text-align: center;
 }
 
-/* .el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
-} */
 .block-box {
   display: flex;
   justify-content: space-between;
