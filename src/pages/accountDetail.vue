@@ -151,14 +151,13 @@
           <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData3" v-loading="loading">
             <el-table-column prop="key" :label="$t('lang.Key')" />
             <el-table-column prop="value" :label="$t('lang.Value')">
-              <template #default="props">
-                <json-viewer :value="JSON.parse(props.row.value)" :expand-depth="5" copyable boxed sort></json-viewer>
-              </template>
+                <template v-if="network == 'aptos_mainnet' || network == 'aptos_testnet' || network == 'aptos_devnet'" #default="props">
+                  <json-viewer :value="JSON.parse(props.row.value)" :expand-depth="5" copyable boxed sort></json-viewer>
+                </template>
             </el-table-column>
           </el-table>
         </el-tab-pane>
       </el-tabs>
-      <!-- <div>共100个交易，列表仅展示2010000条记录</div> -->
     </div>
   </div>
   <Footer></Footer>
@@ -200,6 +199,7 @@ export default defineComponent({
       tableData: ref([]),
       tableData2: ref([]),
       tableData3: ref([]),
+      network:  localStorage.getItem('network'),
       getAddress: (address: any) => {
         getAddressInfo({ address: address })
           .then((res: any) => {

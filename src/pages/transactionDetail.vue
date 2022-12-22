@@ -23,6 +23,20 @@
         </el-icon>
       </div>
       <div>
+        <span>{{ $t('lang.BlockHash') }}：</span>
+        <span>{{ detail.block_hash }}</span>
+        <el-icon v-if="detail.block_hash != null" @click="copy(detail.block_hash)">
+          <DocumentCopy />
+        </el-icon>
+      </div>
+      <div>
+        <span>{{ $t('lang.Height') }}：</span>
+        <span>{{ detail.block_number }}</span>
+        <el-icon v-if="detail.block_number != null" @click="copy(detail.block_number)">
+          <DocumentCopy />
+        </el-icon>
+      </div>
+      <div>
         <span>{{ $t('lang.TxnType') }}：</span>
         <span>{{ detail.txn_type }}</span>
       </div>
