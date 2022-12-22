@@ -16,6 +16,13 @@
         <span>{{ detail.success ? $t('lang.Yes') : $t('lang.No') }}</span>
       </div>
       <div>
+        <span>{{ $t('lang.Sender') }}：</span>
+        <span>{{ detail.sender }}</span>
+        <el-icon v-if="detail.sender != null" @click="copy(detail.sender)">
+          <DocumentCopy />
+        </el-icon>
+      </div>
+      <div>
         <span>{{ $t('lang.TxnType') }}：</span>
         <span>{{ detail.txn_type }}</span>
       </div>
