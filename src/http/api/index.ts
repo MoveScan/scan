@@ -1,11 +1,3 @@
-/*
- * @Author: cycsky bruce_cao@qq.com
- * @Date: 2022-10-06 08:48:01
- * @LastEditors: cycsky bruce_cao@qq.com
- * @LastEditTime: 2022-10-19 21:46:36
- * @FilePath: /move/src/http/api/index.ts
- * @Description: API
- */
 import http from '@/http/Http.ts'
 
 const network = localStorage.getItem('network') == null ? 'aptos_mainnet' : localStorage.getItem('network')
@@ -95,4 +87,32 @@ export function getTransferListTag(data: any) {
 }
 export function getTransferList(data: any) {
   return http.get(`/v1/transfer/${network}/page/${data.page}?count=${data.count}&query_type=${data.query_type}`)
+}
+
+// 合约列表
+export function contractAddress(data: any) {
+  return http.get(`/v1/address/${network}/contract/list/${data.page}`)
+}
+export function contractAddressDetail(data: any) {
+  return http.get(`/v1/address/${network}/contract/${data.address}`)
+}
+// NFT
+export function nftTokenList(data: any) {
+  return http.get(`/v1/token/${network}/page/${data.page}`)
+}
+export function nftTokenInfo(data: any) {
+  return http.get(`/v1/token/${network}/${data.type_tag}`)
+}
+// 数据统计
+export function transactionDay(data: any) {
+  return http.get(`/v1/stat/${network}/txn/day/page/${data.page}`)
+}
+export function transactionHour(data: any) {
+  return http.get(`/v1/stat/${network}/txn/hour/page/${data.page}`)
+}
+export function addressDay(data: any) {
+  return http.get(`/v1/stat/${network}/addr/day/page/${data.page}`)
+}
+export function addressHour(data: any) {
+  return http.get(`/v1/stat/${network}/addr/hour/page/${data.page}`)
 }

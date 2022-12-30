@@ -121,6 +121,8 @@ export default {
     M: '分',
     S: '秒',
     Ago: '前',
+    All: '全部',
+    VerificationPassed: '验证通过',
     SearchPlaceholder: '账户地址/交易哈希或版本/区块高度',
     LatestList: '下面列表，最新的10000条，每页20条',
     Tips: '注意：正在重新索引，块数据可能不是最新的...'

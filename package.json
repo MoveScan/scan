@@ -17,6 +17,7 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.0.11",
     "pinia-plugin-persistedstate": "^2.4.0",
+    "prismjs": "^1.29.0",
     "serve": "^13.0.2",
     "unplugin-element-plus": "^0.3.1",
     "vite-plugin-compression": "^0.5.1",
@@ -24,6 +25,7 @@
     "vue-clipboard3": "^2.0.0",
     "vue-i18n": "^9.2.2",
     "vue-json-viewer": "^3.0.4",
+    "vue-prism-editor": "^2.0.0-alpha.2",
     "vue-router": "^4.0.12",
     "webpack-env": "^0.8.0"
   },

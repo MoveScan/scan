@@ -63,6 +63,21 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/pages/coinDetail.vue')
   },
   {
+    path: '/contract',
+    name: 'contract',
+    component: () => import('@/pages/contract.vue')
+  },
+  {
+    path: '/contractDetail',
+    name: 'contractDetail',
+    component: () => import('@/pages/contractDetail.vue')
+  },
+  {
+    path: '/dataChart',
+    name: 'dataChart',
+    component: () => import('@/pages/dataChart.vue')
+  },
+  {
     path: '/holders',
     name: 'holders',
     component: () => import('@/pages/holders.vue')

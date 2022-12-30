@@ -121,6 +121,8 @@ export default {
     M: 'min',
     S: 's',
     Ago: 'ago',
+    VerificationPassed: 'Verification Passed',
+    All: 'All',
     SearchPlaceholder: 'Account Address / Txn Hash or Version / Block Height',
     LatestList: 'The latest 10,000 records are shown',
     Tips: 'Note: Re-indexing in progress, block data might not be up to date ...'
