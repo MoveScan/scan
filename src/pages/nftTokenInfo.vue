@@ -3,38 +3,119 @@
   <Search></Search>
   <div class="container">
     <div class="flex">
-      <div class="block-title">
-        {{ $t('lang.Overview') }}
+      <div class="block-title" :style="isDark(store.switchDark)">
+        NFT
+        <div class="overview-desc">
+          {{ detail.address }}
+          <el-icon v-if="detail.address != null" @click="copy(detail.address)">
+            <DocumentCopy />
+          </el-icon>
+        </div>
+      </div>
+      <div style="font-size: 14px" :style="isDark(store.switchDark)">
+        {{ $t('lang.CreateAt') }}：
+        <span v-if="detail.create_at != null">{{ timestampToTime(detail.create_at) }}</span>
       </div>
     </div>
     <br />
+    <el-row>
+      <el-col :span="12">
+        <el-card class="list">
+          <!-- <span class="title">Token</span> -->
+          <div>
+            <span>{{ $t('lang.CoinID') }}：</span>
+            <span>{{ detail.type_tag }}
+              <el-icon v-if="detail.type_tag != null" @click="copy(detail.type_tag)">
+                <DocumentCopy />
+              </el-icon>
+            </span>
+          </div>
+          <div>
+            <span>{{ $t('lang.Collection') }}：</span>
+            <span>{{ detail.collection }}</span>
+          </div>
+          <div>
+            <span>{{ $t('lang.CreateAt') }}：</span>
+            <span v-if="detail.create_at != null">{{ timestampToTime(detail.create_at) }}</span>
+          </div>
+          <div>
+            <span>{{ $t('lang.Creator') }}：</span>
+            <span>{{ detail.creator }}</span>
+          </div>
+          <div>
+            <span>{{ $t('lang.Holders') }}：</span>
+            <span>{{ detail.holders }}</span>
+          </div>
+          <div>
+            <span>{{ $t('lang.NodeName') }}：</span>
+            <span>{{ detail.name }}</span>
+          </div>
+          <div>
+            <span>供应量：</span>
+            <span>{{ detail.supply }}</span>
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <!-- <el-card style="margin-right: 0">
+          <span class="title">钱包</span>
+          <el-scrollbar height="365px">
+            <div class="list_m">
+              <div v-for="item in 10">
+                <span>
+                  SUN(SUN)
+                  <br />
+                  <span class="txt2">asdfasdfasdfadfad34wdsdss</span>
+                </span>
+                <span>
+                  1.0002
+                  <br />
+                  <span class="txt2">≈ $1.00</span>
+                </span>
+              </div>
+            </div>
+          </el-scrollbar>
+        </el-card> -->
+      </el-col>
+    </el-row>
+
     <div class="table" :style="store.switchDark ? 'background:#202020' : 'background:#f2f2f2'">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane :label="$t('lang.VerificationPassed')" name="transaction">
+        <el-tab-pane :label="$t('lang.TransactionList')" name="transaction">
           <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData" v-loading="loading">
-            <el-table-column prop="account" label="合约地址" :show-overflow-tooltip="true">
+            <el-table-column prop="chainTime" :label="$t('lang.ChainTime')">
               <template #default="scope">
-                <router-link :to="'/contractDetail?address=' + scope.row.address" :style="isDark(store.switchDark)">
-                  {{ scope.row.address }}
+                {{ timestampToTime(scope.row.chainTime) }}
+              </template>
+            </el-table-column>
+            <el-table-column prop="sender" :label="$t('lang.Sender')" :show-overflow-tooltip="true">
+              <template #default="scope">
+                <router-link :to="'/accountDetail?address=' + scope.row.sender" :style="isDark(store.switchDark)">
+                  {{ scope.row.sender }}
                 </router-link>
               </template>
             </el-table-column>
-            <el-table-column prop="audited" label="是否审计">
+            <el-table-column prop="txn_hash" :label="$t('lang.TxnHash')" :show-overflow-tooltip="true" width="300">
               <template #default="scope">
-                {{ scope.row.audited ? $t('lang.Yes') : $t('lang.No') }}
+                <router-link :to="'/transactionDetail?hash=' + scope.row.txn_hash + '&txn_type=user_transaction'" :style="isDark(store.switchDark)">
+                  {{ setSubstring(scope.row.txn_hash) }}
+                </router-link>
               </template>
             </el-table-column>
-            <!-- <el-table-column prop="modules" label="模块"></el-table-column> -->
-            <el-table-column prop="create_at" label="创建时间"></el-table-column>
-            <el-table-column prop="move_version" label="版本"></el-table-column>
+            <el-table-column :label="$t('lang.SignType')">
+              <template #default="props">{{ jsonParse(props.row.signature).type }}</template>
+            </el-table-column>
+            <el-table-column type="expand" :label="$t('lang.Signature')" width="100">
+              <template #default="props">
+                <json-viewer :value="JSON.parse(props.row.signature)" :expand-depth="5" copyable boxed sort></json-viewer>
+              </template>
+            </el-table-column>
           </el-table>
           <div class="page">
-            <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled"
-              :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange"
-              @current-change="handleCurrentChange" />
+            <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :disabled="disabled" :background="background" layout="prev, pager, next, jumper" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
           </div>
         </el-tab-pane>
-        <el-tab-pane :label="$t('lang.All')" name="transfer">
+        <el-tab-pane :label="$t('lang.Holders')" name="transfer">
           <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData2" v-loading="loading">
             <el-table-column prop="amount" :label="$t('lang.Amount')" />
             <!-- <el-table-column prop="amount_value" label="数额" /> -->
@@ -74,7 +155,18 @@
             </el-table-column>
           </el-table>
         </el-tab-pane>
+        <el-tab-pane :label="$t('lang.Inventory')" name="resources">
+          <el-table :class="store.switchDark ? 'black' : 'white'" :data="tableData3" v-loading="loading">
+            <el-table-column prop="key" :label="$t('lang.Key')" />
+            <el-table-column prop="value" :label="$t('lang.Value')">
+              <template #default="props">
+                <json-viewer :value="JSON.parse(props.row.value)" :expand-depth="5" copyable boxed sort></json-viewer>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-tab-pane>
       </el-tabs>
+      <!-- <div>共100个交易，列表仅展示2010000条记录</div> -->
     </div>
   </div>
   <Footer></Footer>
@@ -87,7 +179,7 @@ import { ElMessage } from 'element-plus'
 import Header from '../components/header.vue'
 import Search from '../components/search.vue'
 import Footer from '../components/footer.vue'
-import { contractAddress } from '@/http/api/index.ts'
+import { nftTokenInfo, getTransactionListAddress, getTransferListAddress, getAddressResources } from '@/http/api/index.ts'
 import { timestampToTimeLong, substring } from '@/utils/public.ts'
 import useClipboard from 'vue-clipboard3'
 import { useStore } from '../store/store'
@@ -111,14 +203,32 @@ export default defineComponent({
       total: ref(0),
       background: ref(false),
       disabled: ref(false),
+      detail: ref({}),
       activeName: ref('transaction'),
       tableData: ref([]),
       tableData2: ref([]),
-      getContractAddress: () => {
-        contractAddress({page: data.currentPage, count: data.pageSize}).then((res: any) => {
-            console.log('合约地址', res)
+      tableData3: ref([]),
+      getNftTokenInfo: (type_tag: any) => {
+        nftTokenInfo({ type_tag: type_tag })
+          .then((res: any) => {
+            console.log('ntf token info', res)
+            data.detail = res
+          })
+          .catch((e) => {
+            console.log(e)
+          })
+      },
+      getTransactionList: (address: any) => {
+        getTransactionListAddress({
+          address: address,
+          page: data.currentPage,
+          count: data.pageSize,
+          with_event: ''
+        })
+          .then((res: any) => {
+            console.log('交易记录', res)
             data.tableData = res.contents
-            // data.total = res.total
+            data.total = res.total
             data.loading = false
           })
           .catch((e) => {
@@ -126,7 +236,34 @@ export default defineComponent({
           })
       },
       getTransferList: (address: any) => {
-
+        getTransferListAddress({
+          address: address,
+          page: data.currentPage,
+          count: data.pageSize,
+          query_type: ''
+        })
+          .then((res: any) => {
+            console.log('转账记录', res)
+            data.tableData2 = res.contents
+          })
+          .catch((e) => {
+            console.log(e)
+          })
+      },
+      getResources: (address: any) => {
+        getAddressResources({
+          address: address,
+          page: data.currentPage,
+          count: data.pageSize,
+          query_type: ''
+        })
+          .then((res: any) => {
+            console.log('资源列表', res)
+            data.tableData3 = res
+          })
+          .catch((e) => {
+            console.log(e)
+          })
       },
       setSubstring: (str: any) => {
         return substring(str)
@@ -139,6 +276,7 @@ export default defineComponent({
         console.log(data.activeName)
         // if (data.activeName == 'transaction') data.getTransactionList(route.query.address)
         // if (data.activeName == 'transfer') data.getTransferList(route.query.address)
+        // if (data.activeName == 'resources') data.getResources(route.query.address)
       },
       timestampToTime: (time: number) => {
         return timestampToTimeLong(time)
@@ -171,7 +309,11 @@ export default defineComponent({
     onMounted(() => {
       // let network: any = route.query.network
       // console.log('其它网络', network)
-      data.getContractAddress()
+      // if (network !== undefined) localStorage.setItem('network', network)
+      data.getNftTokenInfo(route.query.tag)
+      // data.getTransactionList(route.query.address)
+      // data.getTransferList(route.query.address)
+      // data.getResources(route.query.address)
     })
 
     return {
@@ -288,7 +430,7 @@ export default defineComponent({
   text-align: left;
 }
 
-.demo-tabs>.el-tabs__content {
+.demo-tabs > .el-tabs__content {
   padding: 32px;
   color: #6b778c;
   font-size: 32px;

@@ -125,6 +125,8 @@ export default {
     All: 'All',
     SearchPlaceholder: 'Account Address / Txn Hash or Version / Block Height',
     LatestList: 'The latest 10,000 records are shown',
-    Tips: 'Note: Re-indexing in progress, block data might not be up to date ...'
+    Tips: 'Note: Re-indexing in progress, block data might not be up to date ...',
+    Collection: 'Collection',
+    Inventory: 'Inventory'
   }
 }

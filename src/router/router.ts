@@ -83,6 +83,16 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/pages/holders.vue')
   },
   {
+    path: '/nftToken',
+    name: 'nftToken',
+    component: () => import('@/pages/nftToken.vue')
+  },
+  {
+    path: '/nftTokenInfo',
+    name: 'nftTokenInfo',
+    component: () => import('@/pages/nftTokenInfo.vue')
+  },
+  {
     path: '/Login',
     name: 'Login',
     component: () => import('@/pages/Login/Login.vue')

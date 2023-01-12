@@ -28,6 +28,7 @@
           <template #title>{{ $t('lang.Coin') }}</template>
           <el-menu-item index="4-1">{{ $t('lang.Overview') }}</el-menu-item>
           <el-menu-item index="4-2">{{ $t('lang.TopHolders') }}</el-menu-item>
+          <el-menu-item index="4-3">NFT</el-menu-item>
         </el-sub-menu>
         <el-menu-item index="5">{{ $t('lang.Data') }}</el-menu-item>
         <el-sub-menu index="6">
@@ -121,6 +122,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
   if (key == '3-1') router.push('/contract')
   if (key == '4-1') router.push('/coin')
   if (key == '4-2') router.push('/holders')
+  if (key == '4-3') router.push('/nftToken')
   if (key == '5') router.push('/dataChart')
 
   if (key == '3-2' || key == '3-3' || key == '6-1' || key == '6-2' || key == '6-3-1') router.push('/tips')
@@ -145,11 +147,11 @@ const options = [
       },
       {
         value: 'aptos_testnet',
-        label: 'aptos testnet(Indexing)'
+        label: 'aptos testnet'
       },
       {
         value: 'aptos_devnet',
-        label: 'aptos devnet(Indexing)'
+        label: 'aptos devnet'
       }
     ]
   },
@@ -165,8 +167,8 @@ const options = [
         label: 'starcoin barnard'
       },
       {
-        value: 'starcoin_halley',
-        label: 'starcoin halley'
+        value: 'starcoin_hally',
+        label: 'starcoin hally'
       }
     ]
   }
